@@ -1,0 +1,29 @@
+- Introduction
+  Background
+  Research Objectives
+  
+  
+- Methodology
+  Deciding on the Model/Model Selection - quantitative, qualitative, and financial economic reasons in choosing variables of interest before data-finding
+  Datasets & Variable Description
+  EDA
+  Model Specification (latex)
+  Model Diagnostics (assuring validity / referring to appendix for plots)
+  
+  
+- Results
+  two models (logistic, LMM) for SPY - coefficient interpretations, p-values, etc.
+  two models (logistic, LMM) for VIX - coefficient interpretations, p-values, etc.
+
+
+- Discussion
+  what went cool, not-so-cool in the modeling and the model results
+  how can this be immediately useful - cash secured puts, 
+  
+  
+- Appendix
+  figures, plots, etc.
+  
+  
+- Sources
+  links to outside resources
