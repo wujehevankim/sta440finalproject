@@ -18,7 +18,7 @@
 
 - Discussion
   what went cool, not-so-cool in the modeling and the model results
-  how can this be immediately useful - cash secured puts, 
+  how can this be immediately useful - simply buy fri sell mon (outright, spxl, options, passive-buy fri-or-not strategy), cash secured puts, binary options - look into annualized returns w/ sd
   
   
 - Appendix
