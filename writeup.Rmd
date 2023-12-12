@@ -24,13 +24,27 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = TRUE)
 \text{ }\text{ }\text{ }\text{ } Amidst this influx of market participants, there is a burgeoning obsession with "beating the market" - that is, achieving an annualized return that surpasses the performance of the S&P 500, often regarded as the most representative of all stock market indices. The quest to outperform the market persists despite evidence that even seasoned finance professionals struggle to do so, with studies showing that 95% cannot "beat the market."$^3$ This was famously highlighted by legendary investor Warren Buffett's 2007 bet, which posited that the S&P 500 index would outperform the curated selections of hedge fund managers, a claim that ultimately held true.$^4$\newline
 \text{ }\text{ }\text{ }\text{ } One theory that has captivated the attention of both professional and retail investors alike is the "Monday Effect." This theory suggests that the stock market's performance on Monday will typically follow the preceding Friday's trend. If the market closed up on Friday, the expectation is that the momentum would carry over to Monday, and conversely, if it closed down.$^5$ However, the simplicity of this theory belies its effectiveness. Blindly buying at Friday's close and selling at Monday's close has not demonstrated a reliable way to beat the market in backtested results.$^6$ Moreover, investors, especially inexperienced retail investors, often find it challenging to adhere to such a systematic approach with the necessary discipline, as the psychological barrier of enduring a loss and then persisting with the same strategy the following week, relying solely on the belief in the "Monday Effect" without solid reasoning or informed market insights, is substantial.\newline
 
+
+
+to-do: one paragraph on previous research effort ( https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2515097 ) - have NOT added to sources
+
+
+
 **Objective** \newline
 \text{ }\text{ }\text{ }\text{ } The primary aim of this report is to evaluate whether a more sophisticated approach to the "Monday Effect" can be devised, transcending the rudimentary method of purchasing the S&P 500 index at Friday's close and liquidating at Monday's close. By integrating a selection of variables that are defensible from qualitative, quantitative, and financial-economic standpoints into a model underpinned by statistical rigor, we seek to investigate the potential of deriving tangible benefits from this phenomenon. The objective is to construct a strategy that is informed by a refined understanding of the "Monday Effect," thereby providing a nuanced perspective on market behaviors and trends.\newline
 \text{ }\text{ }\text{ }\text{ } The secondary objective of this analysis is to determine whether the refined model and chosen variables can be applied to the Volatility Index (VIX), which serves as a measure of the market's volatility expectations. By examining the feasibility of this application, we intend to assess whether it is possible to achieve steady, low-standard-deviation returns that surpass market averages, not by direct investment in the S&P 500 but through strategic positions in market volatility. This exploration aims to offer an alternative investment strategy that leverages the "Monday Effect," focusing on the volatility of the market rather than the directional movement of the S&P 500 index alone.\newline
 \text{ }\text{ }\text{ }\text{ } The culmination of this report's objectives - both the refined approach to the "Monday Effect" in relation to the S&P 500 and its potential application to the VIX - offers the prospect of invaluable insights for retail investors. These insights are poised to empower investors with sophisticated strategies for navigating and potentially profiting from market patterns. Ultimately, this study aims to provide retail investors with actionable insights, enhancing their ability to navigate the complexities of financial markets with confidence.\newline
 
+
 ## II. Methodology
 \vspace{-1mm}
+
+**Timeframe Selection** \newline
+\text{ }\text{ }\text{ }\text{ } Our study strategically targets the period from 2003 to present, a decision underpinned by key considerations. Spanning two decades, this extensive timeframe ensures our analysis is not overly biased towards any specific market phase, encompassing diverse economic conditions including both pre- and post-2008 financial crisis eras. We consciously exclude the dot-com era, a time largely before the widespread entry of retail investors into the market, to focus on more structurally consistent and representative market dynamics [source needed]. Following the dot-com bubble period, the trading landscape experienced significant technological advancements and regulatory changes, especially after the 2008 crisis, aligning this period closely with current market mechanisms. Additionally, this era captures the evolution of investor behavior and market sentiment, shaped by new financial instruments and global economic shifts. The availability and consistency of data from 2003 onward bolster the robustness and comprehensiveness of our analysis. Including the recent pandemic-induced market fluctuations further adds contemporary relevance to our study. Thus, the selected timeline offers an ideal mix of historical breadth and modern applicability, essential for our investigation.\newline
+
+
+**Dataset Creation** \newline
+
 
 ## III. Results
 

@@ -1,9 +1,22 @@
 - Introduction
   Background
-  Research Objectives
+  Objective
   
   
 - Methodology
+  Timeframe Selection
+  Dataset Creation
+    Predictor Variables (fixed)
+      - SPY, VIX
+      - Friday stuff: how much Friday's close was compared to previous day's close, double witch day (Indicator) &&&& NFP (first friday of each month) - percent "off" quantified
+        &&&& UMich Consumer Sentiment (every other Friday; prelim or final) - amount "off", no need to calculate percent since it is already on 0-100 scale
+      - non-Friday stuff that still is deemed important: weekly FOMC (or not) 
+    RANDOM EFFECT
+      - (monday open price - preceding friday's close price) data, and assign each data point a "month" based o the preceding friday's month --> ANOVA
+    Response Variables To Consider
+      - monday OPEN price
+      - monday CLOSE price
+    
   Deciding on the Model/Model Selection - quantitative, qualitative, and financial economic reasons in choosing variables of interest before data-finding
   Datasets & Variable Description
   EDA
@@ -12,7 +25,7 @@
   
   
 - Results
-  two models (logistic, LMM) for SPY - coefficient interpretations, p-values, etc.
+  two models (logistic, LMM) for SPY - coefficient interpretations, p-values, etc. OR just LMM for monday OPEN and monday CLOSE
   two models (logistic, LMM) for VIX - coefficient interpretations, p-values, etc.
 
 
