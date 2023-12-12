@@ -1,11 +1,11 @@
 ---
 header-includes:
   - \usepackage{titling}
-  - \pretitle{\vspace{-1.77cm}\begin{center}\Large}
+  - \pretitle{\vspace{-1.83cm}\begin{center}\Large}
   - \posttitle{\end{center}}
 title: "Beyond Friday: Measuring the Ripple Effects into the Monday Mystique"
 author: "Evan Kim"
-geometry: "left=1.9cm,right=1.9cm,top=1.9cm,bottom=1.9cm"
+geometry: "left=1.75cm,right=1.75cm,top=1.75cm,bottom=1.75cm"
 fontsize: 11pt
 date: "2023-12-18"
 output: pdf_document
@@ -18,12 +18,19 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = TRUE)
 ## I. Introduction
 \vspace{-1mm} 
 
-
 **Background** \newline
-\text{ }\text{ }\text{ }\text{ } In recent years, the landscape of the US equities market has experienced a seismic shift, largely attributed to the influx of retail investors.
+\text{ }\text{ }\text{ }\text{ } The participation of retail investors in the US equities market has seen a remarkable upsurge in recent times. This growth can be attributed to a confluence of factors that have reshaped the investing landscape. Key among these is the advent of mobile app trading platforms such as Robinhood, which have streamlined the process of account opening and investing, even for modest sums; 76% of "Nascent Investors", as defined by BNY Mellon in its 2022 Retail Investor Survey, execute transactions where the average trade size is less than 500.$^1$ Simultaneously, the rise of social media has played a pivotal role in fueling the engagement of younger demographics in stock market investing. Influencer-driven content has not only heightened awareness but has also created a sense of urgency, often rooted in the "fear of missing out", propelling these new investors into the fray.\newline
+\text{ }\text{ }\text{ }\text{ } This wave of market entry is not confined to new participants alone. The economic climate shaped by pandemic-era stimulus measures and historically low US benchmark interest rates (near-zero from April 2020 to February 2022) has seen a broad cross-section of the population invest in the stock market. Per the Federal Reserve, US households and nonprofits parked 41% of their total financial assets in "direct and indirect holdings of stocks" as of year-end 2021, nearly an all-time high since 1952.$^2$\newline
+\text{ }\text{ }\text{ }\text{ } Amidst this influx of market participants, there is a burgeoning obsession with "beating the market" - that is, achieving an annualized return that surpasses the performance of the S&P 500, often regarded as the most representative of all stock market indices. The quest to outperform the market persists despite evidence that even seasoned finance professionals struggle to do so, with studies showing that 95% cannot "beat the market."$^3$ This was famously highlighted by legendary investor Warren Buffett's 2007 bet, which posited that the S&P 500 index would outperform the curated selections of hedge fund managers, a claim that ultimately held true.$^4$\newline
+\text{ }\text{ }\text{ }\text{ } One theory that has captivated the attention of both professional and retail investors alike is the "Monday Effect." This theory suggests that the stock market's performance on Monday will typically follow the preceding Friday's trend. If the market closed up on Friday, the expectation is that the momentum would carry over to Monday, and conversely, if it closed down.$^5$ However, the simplicity of this theory belies its effectiveness. Blindly buying at Friday's close and selling at Monday's close has not demonstrated a reliable way to beat the market in backtested results.$^6$ Moreover, investors, especially inexperienced retail investors, often find it challenging to adhere to such a systematic approach with the necessary discipline, as the psychological barrier of enduring a loss and then persisting with the same strategy the following week, relying solely on the belief in the "Monday Effect" without solid reasoning or informed market insights, is substantial.\newline
 
+**Objective** \newline
+\text{ }\text{ }\text{ }\text{ } The primary aim of this report is to evaluate whether a more sophisticated approach to the "Monday Effect" can be devised, transcending the rudimentary method of purchasing the S&P 500 index at Friday's close and liquidating at Monday's close. By integrating a selection of variables that are defensible from qualitative, quantitative, and financial-economic standpoints into a model underpinned by statistical rigor, we seek to investigate the potential of deriving tangible benefits from this phenomenon. The objective is to construct a strategy that is informed by a refined understanding of the "Monday Effect," thereby providing a nuanced perspective on market behaviors and trends.\newline
+\text{ }\text{ }\text{ }\text{ } The secondary objective of this analysis is to determine whether the refined model and chosen variables can be applied to the Volatility Index (VIX), which serves as a measure of the market's volatility expectations. By examining the feasibility of this application, we intend to assess whether it is possible to achieve steady, low-standard-deviation returns that surpass market averages, not by direct investment in the S&P 500 but through strategic positions in market volatility. This exploration aims to offer an alternative investment strategy that leverages the "Monday Effect," focusing on the volatility of the market rather than the directional movement of the S&P 500 index alone.\newline
+\text{ }\text{ }\text{ }\text{ } The culmination of this report's objectives - both the refined approach to the "Monday Effect" in relation to the S&P 500 and its potential application to the VIX - offers the prospect of invaluable insights for retail investors. These insights are poised to empower investors with sophisticated strategies for navigating and potentially profiting from market patterns. Ultimately, this study aims to provide retail investors with actionable insights, enhancing their ability to navigate the complexities of financial markets with confidence.\newline
 
 ## II. Methodology
+\vspace{-1mm}
 
 ## III. Results
 
@@ -33,4 +40,9 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = TRUE)
 
 \newpage
 ## VI. Sources
-1. "Poll: Gymnastics Is America’s Most Highly Anticipated Olympic Sport". SGB Media. 2021. [https://sgbonline.com/poll-gymnastics-is-americans-most-highly-anticipated-olympic-sport/](https://sgbonline.com/poll-gymnastics-is-americans-most-highly-anticipated-olympic-sport/)
+1. "The State of the U.S. Retail Investors: Insights & Implications". BNY Mellon. 2022. [https://www.bnymellon.com/content/dam/bnymellon/documents/pdf/insights/the-state-of-the-us-retail-investor.pdf](https://www.bnymellon.com/content/dam/bnymellon/documents/pdf/insights/the-state-of-the-us-retail-investor.pdf)
+2. "Balance Sheet of Households and Nonprofit Organizations". Federal Reserve Economic Data. 2023. [https://fred.stlouisfed.org/release/tables?rid=52&eid=809858#snid=809867](https://fred.stlouisfed.org/release/tables?rid=52&eid=809858#snid=809867)
+3. "More Evidence That It’s Really Hard to ‘beat the Market’ over Time, 95% of Finance Professionals Can’t Do It". American Enterprise Institute. 2018. [https://www.aei.org/carpe-diem/more-evidence-that-its-really-hard-to-beat-the-market-over-time-95-of-finance-professionals-cant-do-it/](https://www.aei.org/carpe-diem/more-evidence-that-its-really-hard-to-beat-the-market-over-time-95-of-finance-professionals-cant-do-it/)
+4. "Warren Buffett's Famous Bet". Model Investing. 2018. [https://modelinvesting.com/articles/warren-buffetts-famous-bet/](https://modelinvesting.com/articles/warren-buffetts-famous-bet/)
+5. "What Is the Monday Effect on Stock Market Prices?". Investopedia. 2022. [https://www.investopedia.com/terms/m/mondayeffect.asp](https://www.investopedia.com/terms/m/mondayeffect.asp)
+6. "What Is The Weekend Effect In Stocks?". Quantified Strategies. 2023. [https://www.quantifiedstrategies.com/what-is-the-weekend-effect-in-stocks/#:~:text=Backtests%20reveal%20that%20there%20is,stocks%2C%20neither%20negative%20nor%20positive.](https://www.quantifiedstrategies.com/what-is-the-weekend-effect-in-stocks/#:~:text=Backtests%20reveal%20that%20there%20is,stocks%2C%20neither%20negative%20nor%20positive.)
