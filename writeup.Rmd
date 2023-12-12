@@ -20,5 +20,17 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = TRUE)
 
 
 **Background** \newline
-\text{ }\text{ }\text{ }\text{ } f\newline
-\text{ }\text{ }\text{ }\text{ } The main problem with these approaches for our purposes is that gymnasts do not typically have long careers, even those that make the Olympics. There also does not appear to be a lot of previous literature on predicting gymnasts scores which could help inform this project. Therefore, we opted for the simulation approach which would sample from a distribution of the current athlete’s past scores. Figures 15-24 in the appendix show the top athletes by their best, worst, and average scores for each apparatus to give an idea of the results we expect to see from the simulation. 
+\text{ }\text{ }\text{ }\text{ } In recent years, the landscape of the US equities market has experienced a seismic shift, largely attributed to the influx of retail investors.
+
+
+## II. Methodology
+
+## III. Results
+
+## IV. Discussion
+
+## V. Appendix
+
+\newpage
+## VI. Sources
+1. "Poll: Gymnastics Is America’s Most Highly Anticipated Olympic Sport". SGB Media. 2021. [https://sgbonline.com/poll-gymnastics-is-americans-most-highly-anticipated-olympic-sport/](https://sgbonline.com/poll-gymnastics-is-americans-most-highly-anticipated-olympic-sport/)
