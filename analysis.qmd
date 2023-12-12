@@ -1,0 +1,27 @@
+---
+title: "analysis"
+subtitle: Due 12/18/2023
+author: "Evan Kim"
+format: 
+  html:
+    self-contained: true
+---
+
+```{r setup, echo=FALSE, message=FALSE}
+#| include: false
+library(tidyverse)
+library(sf)
+library(dplyr)
+library(knitr)
+
+# If running on the department server, uncomment the lines below
+#
+# - We would also recommend rendering this assignment on https://hypatia.stat.duke.edu 
+#   or https://katherinej.stat.duke.edu for better performance.
+
+#flexiblas::flexiblas_load_backend("OPENBLAS-THREADS") |>
+# flexiblas::flexiblas_switch()
+# flexiblas::flexiblas_set_num_threads(8)
+```
+
+-----
