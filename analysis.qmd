@@ -25,3 +25,32 @@ library(knitr)
 ```
 
 -----
+
+
+
+```{r}
+# Read the CSV file into a dataframe
+df <- read.csv('data/SPY_data_wrangling/SPY_ready_for_analysis.csv', header = TRUE)
+
+# Binomial model
+model <- glm(MondayOpenComparedToFridayCloseChangeInPercent ~ FridayCloseComparedToThursdayCloseChangeInPercent + FridayIntradayChangeInPercent, 
+                      data = df, family = gaussian)
+
+# Print the summary of the model
+summary(model)
+
+
+```
+
+```{r}
+df2 <- read.csv('data/SPY_data_wrangling/SPY_ready_for_analysis.csv', header = TRUE)
+
+# Binomial model
+model2 <- glm(WasMondayOpenHigherThanFridayClose	 ~ didFridayCloseHigherThanThursdayClose, 
+                      data = df, family = binomial)
+
+# Print the summary of the model
+summary(model2)
+```
+
+
