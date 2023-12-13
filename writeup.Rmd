@@ -43,7 +43,7 @@ to-do: one paragraph on previous research effort ( https://papers.ssrn.com/sol3/
 \text{ }\text{ }\text{ }\text{ } Our study strategically targets the period from 2003 to present, a decision underpinned by key considerations. Spanning two decades, this extensive timeframe ensures our analysis is not overly biased towards any specific market phase, encompassing diverse economic conditions including both pre- and post-2008 financial crisis eras. We consciously exclude the dot-com era, a time largely before the widespread entry of retail investors into the market, to focus on more structurally consistent and representative market dynamics [source needed]. Following the dot-com bubble period, the trading landscape experienced significant technological advancements and regulatory changes, especially after the 2008 crisis, aligning this period closely with current market mechanisms. Additionally, this era captures the evolution of investor behavior and market sentiment, shaped by new financial instruments and global economic shifts. The availability and consistency of data from 2003 onward bolster the robustness and comprehensiveness of our analysis. Including the recent pandemic-induced market fluctuations further adds contemporary relevance to our study. Thus, the selected timeline offers an ideal mix of historical breadth and modern applicability, essential for our investigation.\newline
 
 
-**Dataset Creation** \newline
+**Dataset & Variables** \newline
 
 
 ## III. Results
