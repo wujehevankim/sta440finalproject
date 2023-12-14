@@ -1,0 +1,153 @@
+---
+title: "analysis"
+subtitle: Due 12/18/2023
+author: "Evan Kim"
+format: 
+  html:
+    self-contained: true
+---
+
+```{r setup, echo=FALSE, message=FALSE}
+#| include: false
+library(tidyverse)
+library(sf)
+library(dplyr)
+library(knitr)
+
+# If running on the department server, uncomment the lines below
+#
+# - We would also recommend rendering this assignment on https://hypatia.stat.duke.edu 
+#   or https://katherinej.stat.duke.edu for better performance.
+
+#flexiblas::flexiblas_load_backend("OPENBLAS-THREADS") |>
+# flexiblas::flexiblas_switch()
+# flexiblas::flexiblas_set_num_threads(8)
+```
+
+-----
+
+
+
+```{r}
+# Read the CSV file into a dataframe
+df <- read.csv('data/SPY_data_wrangling/SPY_ready_for_analysis.csv', header = TRUE)
+
+# Binomial model
+model <- glm(MondayOpenComparedToFridayCloseChangeInPercent ~ FridayCloseComparedToThursdayCloseChangeInPercent + FridayIntradayChangeInPercent, 
+                      data = df, family = gaussian)
+
+# Print the summary of the model
+summary(model)
+
+
+```
+
+```{r}
+df2 <- read.csv('data/SPY_data_wrangling/SPY_ready_for_analysis.csv', header = TRUE)
+
+# Binomial model
+model2 <- glm(WasMondayOpenHigherThanFridayClose	 ~ didFridayCloseHigherThanThursdayClose, 
+                      data = df2, family = binomial)
+
+
+# Gaussian model
+model2_binomial <- glm(WasMondayOpenHigherThanFridayClose	 ~ wasFridayIntradayPositive, 
+                      data = df2, family = binomial)
+# Print the summary of the model
+summary(model2)
+summary(model2_binomial)
+```
+
+
+```{r}
+df3 <- read.csv('data/adding_triple_witch_to_SPY/SPY_ready_for_analysis_triple_witch.csv', header = TRUE)
+
+# Binomial model
+model3 <- glm(WasMondayOpenHigherThanFridayClose ~ didFridayCloseHigherThanThursdayClose + wasFridayIntradayPositive * fridayWasATripleWitchDay, 
+                      data = df3, family = binomial)
+
+# Print the summary of the model
+summary(model3)
+
+
+
+
+```
+
+
+```{r}
+library(dplyr)
+library(ggplot2)
+
+# Assuming df3 is your dataframe
+
+# Create a new column for the specified condition
+df3 <- df3 %>%
+  mutate(SpecialCondition = ifelse(fridayWasATripleWitchDay == 1 & didFridayCloseHigherThanThursdayClose == 0, "Condition Met", "Other"))
+
+# Calculate ratios
+ratios <- df3 %>%
+  group_by(SpecialCondition) %>%
+  summarise(
+    Ones = sum(WasMondayOpenHigherThanFridayClose == 1),
+    Zeros = sum(WasMondayOpenHigherThanFridayClose == 0),
+    Ratio = Ones / Zeros,
+    .groups = 'drop'
+  )
+
+# Print the ratios
+print(ratios)
+
+
+```
+
+```{r}
+df4 <- read.csv('data/addingNonfarmPayrolls/SPY_ready_for_analysis_triple_witch_NFP.csv', header = TRUE)
+
+ggplot(df4, aes(x = MondayOpenToFridayCloseRatio)) + 
+    geom_density(fill = "blue", alpha = 0.5) +
+    labs(title = "Density of Monday Open to Friday Close Ratio",
+         x = "Monday Open to Friday Close Ratio",
+         y = "Density")
+
+
+
+```
+
+```{r}
+columns_to_plot <- names(df4)[names(df4) != "MondayOpenToFridayCloseRatio"]
+
+# Function to create a plot for each column
+create_plot <- function(col_name) {
+    p <- ggplot(df4, aes_string(x = col_name, y = "MondayOpenToFridayCloseRatio")) +
+        geom_point() +
+        labs(title = paste("MondayOpenToFridayCloseRatio vs", col_name),
+             x = col_name,
+             y = "MondayOpenToFridayCloseRatio")
+    print(p)
+}
+
+# Apply the function to each column in the list
+lapply(columns_to_plot, create_plot)
+```
+
+
+```{r}
+df4 <- read.csv('data/addingNonfarmPayrolls/SPY_ready_for_analysis_triple_witch_NFP.csv', header = TRUE)
+
+
+
+# Binomial model
+model4 <- glm(WasMondayCloseHigherThanFridayClose ~ didFridayCloseHigherThanThursdayClose + NFPOutcome + fridayWasATripleWitchDay, 
+                      data = df4, family = binomial)
+
+
+# Print the summary of the model
+summary(model4)
+
+
+
+```
+
+
+
