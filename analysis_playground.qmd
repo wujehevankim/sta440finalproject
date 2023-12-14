@@ -136,9 +136,9 @@ lapply(columns_to_plot, create_plot)
 df4 <- read.csv('data/addingNonfarmPayrolls/SPY_ready_for_analysis_triple_witch_NFP.csv', header = TRUE)
 
 
-
+df4$NFPOutcomeIsShock <- ifelse(df4$NFPOutcome == "Shock", 1, 0)
 # Binomial model
-model4 <- glm(WasMondayCloseHigherThanFridayClose ~ didFridayCloseHigherThanThursdayClose + NFPOutcome + fridayWasATripleWitchDay, 
+model4 <- glm(WasMondayCloseHigherThanFridayClose ~ didFridayCloseHigherThanThursdayClose + NFPOutcomeIsShock + fridayWasATripleWitchDay, 
                       data = df4, family = binomial)
 
 
