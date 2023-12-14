@@ -198,4 +198,23 @@ summary(model6)
 ```
 
 
+```{r}
+df7 <- read.csv('data/addingFOMC/SPY_ready_for_analysis_triple_witch_NFP_CSI_FOMC.csv', header = TRUE)
+df7$NFPOutcomeIsShock <- ifelse(df7$NFPOutcome == "Shock", 1, 0)
+df7$CSIOutcomeIsShock <- ifelse(df7$CSIOutcome == "Shock", 1, 0)
+
+
+
+model7BUYFRICLOSESELLMONOPEN <- glm(WasMondayOpenHigherThanFridayClose ~ wasFridayIntradayPositive + NFPOutcomeIsShock + fridayWasATripleWitchDay + CSIOutcomeIsShock + FOMCActionSpecial, 
+                      data = df7, family = binomial)
+
+
+model7BUYFRICLOSESELLMONclose <- glm(WasMondayCloseHigherThanFridayClose ~ NFPOutcomeIsShock + fridayWasATripleWitchDay, 
+                      data = df7, family = binomial)
+  
+summary(model7BUYFRICLOSESELLMONOPEN)
+#summary(model7BUYFRICLOSESELLMONclose)
+
+```
+
 
