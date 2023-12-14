@@ -44,7 +44,7 @@ to-do: one paragraph on previous research effort ( https://papers.ssrn.com/sol3/
 
 
 **Dataset & Variables** \newline
-
+\text{ }\text{ }\text{ }\text{ } 
 
 ## III. Results
 

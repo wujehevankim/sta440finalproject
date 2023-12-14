@@ -8,7 +8,7 @@
   Dataset Creation
     Predictor Variables (fixed)
       - SPY, VIX
-      - Friday stuff: how much Friday's close was compared to previous day's close, double witch day (Indicator) &&&& NFP (first friday of each month) - percent "off" quantified
+      - Friday stuff: how much Friday's close was compared to previous day's close✓, triple witching day (Indicator - https://seekingalpha.com/article/4504033-triple-witching) &&&& NFP (first friday of each month) - percent "off" quantified
         &&&& UMich Consumer Sentiment (every other Friday; prelim or final) - amount "off", no need to calculate percent since it is already on 0-100 scale
       - non-Friday stuff that still is deemed important: weekly FOMC (or not) 
     RANDOM EFFECT
