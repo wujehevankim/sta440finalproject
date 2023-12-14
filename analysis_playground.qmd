@@ -138,7 +138,7 @@ df4 <- read.csv('data/addingNonfarmPayrolls/SPY_ready_for_analysis_triple_witch_
 
 df4$NFPOutcomeIsShock <- ifelse(df4$NFPOutcome == "Shock", 1, 0)
 # Binomial model
-model4 <- glm(WasMondayCloseHigherThanFridayClose ~ didFridayCloseHigherThanThursdayClose + NFPOutcomeIsShock + fridayWasATripleWitchDay, 
+model4 <- glm(WasMondayCloseHigherThanFridayClose ~ NFPOutcomeIsShock + fridayWasATripleWitchDay, 
                       data = df4, family = binomial)
 
 
