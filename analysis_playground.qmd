@@ -150,4 +150,52 @@ summary(model4)
 ```
 
 
+```{r}
+df6 <- read.csv('data/addingUmichSentiment/SPY_ready_for_analysis_triple_witch_NFP_CSI.csv', header = TRUE)
+summary(df6$CSIActualMinusExpected)
+table(df6$WasMondayOpenHigherThanFridayClose)
+
+boxplot(CSIActualMinusExpected ~ WasMondayOpenHigherThanFridayClose, data = df6, main = "CSIActualMinusExpected vs WasMondayOpenHigherThanFridayClose")
+
+
+library(ggplot2)
+ggplot(df6, aes(x = CSIActualMinusExpected, fill = factor(WasMondayOpenHigherThanFridayClose))) + 
+  geom_density(alpha = 0.5) +
+  labs(fill = "WasMondayOpenHigher")
+
+# T-test or Mann-Whitney U Test (depending on data distribution)
+t.test(CSIActualMinusExpected ~ WasMondayOpenHigherThanFridayClose, data = df6)
+
+```
+
+
+```{r}
+df6$CSIOutcomeIsShock <- ifelse(df6$CSIOutcome == "Shock", 1, 0)
+table(df6$CSIOutcomeIsShock, df6$WasMondayOpenHigherThanFridayClose)
+
+chisq.test(table(df6$CSIOutcomeIsShock, df6$WasMondayOpenHigherThanFridayClose))
+```
+
+
+
+
+```{r}
+df6 <- read.csv('data/addingUmichSentiment/SPY_ready_for_analysis_triple_witch_NFP_CSI.csv', header = TRUE)
+df6$NFPOutcomeIsShock <- ifelse(df6$NFPOutcome == "Shock", 1, 0)
+df6$CSIOutcomeIsShock <- ifelse(df6$CSIOutcome == "Shock", 1, 0)
+
+# Binomial model
+
+model6 <- glm(WasMondayCloseHigherThanFridayClose ~ wasFridayIntradayPositive + NFPOutcomeIsShock + fridayWasATripleWitchDay + CSIOutcomeIsShock, 
+                      data = df6, family = binomial)
+
+
+# Print the summary of the model
+summary(model6)
+
+
+
+```
+
+
 
