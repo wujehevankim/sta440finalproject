@@ -234,7 +234,7 @@ summary(model7BUYFRICLOSESELLMONOPEN)
 
 ```{r}
 df8 <- read.csv('data/addingFOMC/SPY_ready_for_analysis_triple_witch_NFP_CSI_FOMC.csv', header = TRUE)
-df8 <- rbind(df8[1:220, ], df8[264:nrow(df8), ])
+#df8 <- rbind(df8[1:220, ], df8[264:nrow(df8), ])
 df8$NFPOutcomeIsShock <- ifelse(df8$NFPOutcome == "Shock", 1, 0)
 df8$CSIOutcomeIsShock <- ifelse(df8$CSIOutcome == "Shock", 1, 0)
 df8$PrecedingWeekFridayVolumePrecedingWeekThursdayVolumeRATIO <- (df8$PrecedingWeekFridayVolume) / (df8$PrecedingWeekThursdayVolume)
@@ -259,6 +259,13 @@ forward_model <- step(null_model,
 ```{r}
 summary(forward_model)
 ```
+
+```{r}
+#summary(glm(formula = WasMondayOpenHigherThanFridayClose ~ CSIOutcomeIsShock + 
+#    wasFridayIntradayPositive + FridayIntradayChangeInPercent, family = binomial, 
+#    data = df8))
+```
+
 
 
 
