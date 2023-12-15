@@ -628,119 +628,220 @@ df8$NFPOutcomeIsShock <- ifelse(df8$NFPOutcome == "Shock", 1, 0)
 df8$CSIOutcomeIsShock <- ifelse(df8$CSIOutcome == "Shock", 1, 0)
 df8$PrecedingWeekFridayVolumePrecedingWeekThursdayVolumeRATIO <- (df8$PrecedingWeekFridayVolume) / (df8$PrecedingWeekThursdayVolume)
 df8$CSIActualMinusExpected[is.na(df8$CSIActualMinusExpected)] <- 0
+df8$Month <- with(df8, factor(
+  ifelse(PrecedingWeekFridayMonth %in% c("Mar", "Jan", "May", "Sept"), "Odd", "Even")))
+df8$Monthclose <- with(df8, factor(
+  ifelse(PrecedingWeekFridayMonth %in% c("Mar", "Jan", "Jun", "Jul", "Sept"), "Odd", "Even")))
 
-null_model <- glm(WasMondayOpenHigherThanFridayClose ~ 1, 
+
+
+null_modelOPEN <- glm(WasMondayOpenHigherThanFridayClose ~ 1, 
                   data = df8, family = binomial)
 #summary(null_model)
-full_model <- glm(WasMondayOpenHigherThanFridayClose ~ didFridayCloseHigherThanThursdayClose + FridayCloseComparedToThursdayCloseChangeInPercent + wasFridayIntradayPositive + FridayIntradayChangeInPercent + fridayWasATripleWitchDay + NFPDayOrNot + NFPOutcome + CSIOutcome + CSIDayOrNot + wasItFOMCWeek + FOMCAction + FOMCActualVSExpected + FOMCActionSpecial + NFPOutcomeIsShock + CSIOutcomeIsShock + PrecedingWeekFridayVolumePrecedingWeekThursdayVolumeRATIO + CSIActualMinusExpected, 
+full_modelOPEN <- glm(WasMondayOpenHigherThanFridayClose ~ didFridayCloseHigherThanThursdayClose + FridayCloseComparedToThursdayCloseChangeInPercent + wasFridayIntradayPositive + FridayIntradayChangeInPercent + fridayWasATripleWitchDay + NFPDayOrNot + NFPOutcome + CSIOutcome + CSIDayOrNot + wasItFOMCWeek + FOMCAction + FOMCActualVSExpected + FOMCActionSpecial + NFPOutcomeIsShock + CSIOutcomeIsShock + PrecedingWeekFridayVolumePrecedingWeekThursdayVolumeRATIO, 
                   data = df8, family = binomial)
 #summary(full_model)
 
 
 
-forward_model <- step(null_model, 
-                      scope = list(lower = null_model, upper = full_model), 
+forward_modelOPEN <- step(null_modelOPEN, 
+                      scope = list(lower = null_modelOPEN, upper = full_modelOPEN), 
                       direction = "forward",
                       trace = 0)
 
-summary(forward_model)
+summary(forward_modelOPEN)
 ```
 
 
 ```{r}
-backward_model <- step(full_model, direction = "backward")
-summary(backward_model)
+#backward_modelOPEN <- step(full_modelOPEN, direction = "backward", trace=0)
+#summary(backward_modelOPEN)
 ```
 
-
+## the two models for Y = WasMondayOpenHigherThanFridayClose
 ```{r}
-non_random_model <- glm(formula = WasMondayOpenHigherThanFridayClose ~ CSIOutcomeIsShock + 
+non_random_modelOPEN <- glm(formula = WasMondayOpenHigherThanFridayClose ~ CSIOutcomeIsShock + 
     wasFridayIntradayPositive + FridayIntradayChangeInPercent + 
     didFridayCloseHigherThanThursdayClose, family = binomial, 
     data = df8)
-summary(non_random_model)
+
+
+summary(non_random_modelOPEN)
+
+
+library(lme4)
+mixed_modelOPEN <- glmer(formula = WasMondayOpenHigherThanFridayClose ~ CSIOutcomeIsShock + 
+    wasFridayIntradayPositive + FridayIntradayChangeInPercent + 
+    didFridayCloseHigherThanThursdayClose + (1 | Month), family = binomial, 
+    data = df8)
+
+
+summary(mixed_modelOPEN)
 ```
 
 
 
+## finding the model for Y = WasMondayCloseHigherThanFridayClose
 ```{r}
+#df8 <- read.csv('data/addingFOMC/SPY_ready_for_analysis_triple_witch_NFP_CSI_FOMC_with_month.csv', header = TRUE)
+#df8$NFPOutcomeIsShock <- ifelse(df8$NFPOutcome == "Shock", 1, 0)
+#df8$CSIOutcomeIsShock <- ifelse(df8$CSIOutcome == "Shock", 1, 0)
+#df8$PrecedingWeekFridayVolumePrecedingWeekThursdayVolumeRATIO <- (df8$PrecedingWeekFridayVolume) / (df8$PrecedingWeekThursdayVolume)
+#df8$CSIActualMinusExpected[is.na(df8$CSIActualMinusExpected)] <- 0
+
+null_modelCLOSE <- glm(WasMondayCloseHigherThanFridayClose ~ 1, 
+                  data = df8, family = binomial)
+#summary(null_model)
+full_modelCLOSE <- glm(WasMondayCloseHigherThanFridayClose ~ didFridayCloseHigherThanThursdayClose + FridayCloseComparedToThursdayCloseChangeInPercent + wasFridayIntradayPositive + FridayIntradayChangeInPercent + fridayWasATripleWitchDay + NFPDayOrNot + NFPOutcome + wasItFOMCWeek + FOMCAction + FOMCActualVSExpected + FOMCActionSpecial + NFPOutcomeIsShock + PrecedingWeekFridayVolumePrecedingWeekThursdayVolumeRATIO + CSIActualMinusExpected + CSIOutcome + CSIOutcomeIsShock + CSIDayOrNot, 
+                  data = df8, family = binomial)
+#summary(full_model)
+
+
+
+forward_modelCLOSE <- step(null_modelCLOSE, 
+                      scope = list(lower = null_modelCLOSE, upper = full_modelCLOSE), 
+                      direction = "forward",
+                      trace = 0)
+
+summary(forward_modelCLOSE)
+```
+
+
+```{r}
+#backward_modelCLOSE <- step(full_modelCLOSE, direction = "backward", trace=0)
+#summary(backward_modelCLOSE)
+```
+
+
+## the two models for Y = WasMondayCloseHigherThanFridayClose
+```{r}
+non_random_modelCLOSE <- glm(formula = WasMondayCloseHigherThanFridayClose ~ NFPOutcomeIsShock + 
+    fridayWasATripleWitchDay + CSIActualMinusExpected + CSIOutcome + 
+    wasFridayIntradayPositive, family = binomial, 
+    data = df8)
+
+
+summary(non_random_modelCLOSE)
+
+
+
 library(lme4)
-
-
-mixed_model <- glmer(WasMondayOpenHigherThanFridayClose ~ CSIOutcomeIsShock + 
-                     wasFridayIntradayPositive + FridayIntradayChangeInPercent + 
-                     didFridayCloseHigherThanThursdayClose + 
-                     (1 | Month), 
+mixed_modelCLOSE <- glmer(WasMondayCloseHigherThanFridayClose ~ NFPOutcomeIsShock + 
+    fridayWasATripleWitchDay + CSIActualMinusExpected + CSIOutcome + 
+    wasFridayIntradayPositive + 
+                     (1 | Monthclose), 
                      family = binomial, data = df8)
-summary(mixed_model)
+summary(mixed_modelCLOSE)
 ```
 
 
 
-```{r}
-library(lme4)
-
-anova(non_random_model, mixed_model)
-
-```
 
 
 
 ```{r}
-#summary(glm(formula = WasMondayOpenHigherThanFridayClose ~ CSIOutcomeIsShock + 
-#    wasFridayIntradayPositive + FridayIntradayChangeInPercent, family = binomial, 
-#    data = df8))
-```
-
-
-```{r}
-#create df8$non_random_model_predict and df8$mixed_model_predict by going through each row of df8
-# Predict with the non-random model
-df8$non_random_model_predict <- as.integer(predict(non_random_model, type = "response") > 0.5)
-
-# Predict with the mixed model
-# Note: For mixed models, if you want to include random effects in predictions, use re.form = NULL
-df8$mixed_model_predict <- as.integer(predict(mixed_model, re.form = NULL, type = "response") > 0.5)
+#library(lme4)
+anova(non_random_modelOPEN, mixed_modelOPEN)
+anova(non_random_modelCLOSE, mixed_modelCLOSE)
 
 ```
 
 
 
+
+
+## adding in the four model's predict actions in df8
 ```{r}
-non_random_model_right_wrong <- c(0, 0)
-mixed_model_right_wrong <- c(0, 0)
+
+df8$non_random_modelOPEN_predict <- as.integer(predict(non_random_modelOPEN, type = "response") > 0.5)
+df8$mixed_modelOPEN_predict <- as.integer(predict(mixed_modelOPEN, re.form = NULL, type = "response") > 0.5)
+
+df8$non_random_modelCLOSE_predict <- as.integer(predict(non_random_modelCLOSE, type = "response") > 0.5)
+df8$mixed_modelCLOSE_predict <- as.integer(predict(mixed_modelCLOSE, re.form = NULL, type = "response") > 0.5)
+
+
+#1. compare df8$non_random_modelOPEN_predict and df8$mixed_modelOPEN_predict and count how many times they are different
+difference_count_OPEN <- sum(df8$non_random_modelOPEN_predict != df8$mixed_modelOPEN_predict)
+print(paste("Number of times the predictions differ for OPEN models:", difference_count_OPEN))
+
+#2. compare df8$non_random_modelCLOSE_predict and df8$mixed_modelCLOSE_predict and count how many times they are different
+difference_count_CLOSE <- sum(df8$non_random_modelCLOSE_predict != df8$mixed_modelCLOSE_predict)
+print(paste("Number of times the predictions differ for CLOSE models:", difference_count_CLOSE))
+```
+
+## model accuracy for OPEN
+```{r}
+non_random_model_right_wrongOPEN <- c(0, 0)
+mixed_model_right_wrongOPEN <- c(0, 0)
 
 # Iterate through each row of df8
 for (i in 1:nrow(df8)) {
   # For the non-random model
-  if (df8$WasMondayOpenHigherThanFridayClose[i] == df8$non_random_model_predict[i]) {
-    non_random_model_right_wrong[1] <- non_random_model_right_wrong[1] + 1
+  if (df8$WasMondayOpenHigherThanFridayClose[i] == df8$non_random_modelOPEN_predict[i]) {
+    non_random_model_right_wrongOPEN[1] <- non_random_model_right_wrongOPEN[1] + 1
   } else {
-    non_random_model_right_wrong[2] <- non_random_model_right_wrong[2] + 1
+    non_random_model_right_wrongOPEN[2] <- non_random_model_right_wrongOPEN[2] + 1
   }
 
   # For the mixed model
-  if (df8$WasMondayOpenHigherThanFridayClose[i] == df8$mixed_model_predict[i]) {
-    mixed_model_right_wrong[1] <- mixed_model_right_wrong[1] + 1
+  if (df8$WasMondayOpenHigherThanFridayClose[i] == df8$mixed_modelOPEN_predict[i]) {
+    mixed_model_right_wrongOPEN[1] <- mixed_model_right_wrongOPEN[1] + 1
   } else {
-    mixed_model_right_wrong[2] <- mixed_model_right_wrong[2] + 1
+    mixed_model_right_wrongOPEN[2] <- mixed_model_right_wrongOPEN[2] + 1
   }
 }
 
 # Print the results
-print(non_random_model_right_wrong)
-print(non_random_model_right_wrong[1] / (non_random_model_right_wrong[1] + non_random_model_right_wrong[2]))
+print(non_random_model_right_wrongOPEN)
+print(non_random_model_right_wrongOPEN[1] / (non_random_model_right_wrongOPEN[1] + non_random_model_right_wrongOPEN[2]))
 
-print(mixed_model_right_wrong)
-print(mixed_model_right_wrong[1] / (mixed_model_right_wrong[1] + mixed_model_right_wrong[2]))
+print(mixed_model_right_wrongOPEN)
+print(mixed_model_right_wrongOPEN[1] / (mixed_model_right_wrongOPEN[1] + mixed_model_right_wrongOPEN[2]))
 ```
+
+
+## model accuracy for CLOSE
+```{r}
+non_random_model_right_wrongCLOSE <- c(0, 0)
+mixed_model_right_wrongCLOSE <- c(0, 0)
+
+# Iterate through each row of df8
+for (i in 1:nrow(df8)) {
+  # For the non-random model
+  if (df8$WasMondayCloseHigherThanFridayClose[i] == df8$non_random_modelCLOSE_predict[i]) {
+    non_random_model_right_wrongCLOSE[1] <- non_random_model_right_wrongCLOSE[1] + 1
+  } else {
+    non_random_model_right_wrongCLOSE[2] <- non_random_model_right_wrongCLOSE[2] + 1
+  }
+
+  # For the mixed model
+  if (df8$WasMondayCloseHigherThanFridayClose[i] == df8$mixed_modelCLOSE_predict[i]) {
+    mixed_model_right_wrongCLOSE[1] <- mixed_model_right_wrongCLOSE[1] + 1
+  } else {
+    mixed_model_right_wrongCLOSE[2] <- mixed_model_right_wrongCLOSE[2] + 1
+  }
+}
+
+# Print the results
+print(non_random_model_right_wrongCLOSE)
+print(non_random_model_right_wrongCLOSE[1] / (non_random_model_right_wrongCLOSE[1] + non_random_model_right_wrongCLOSE[2]))
+
+print(mixed_model_right_wrongCLOSE)
+print(mixed_model_right_wrongCLOSE[1] / (mixed_model_right_wrongCLOSE[1] + mixed_model_right_wrongCLOSE[2]))
+```
+
+
+
+
 
 ```{r}
 # save df to .csv
 # Save df8 to a CSV file
-write.csv(df8, file = "results/SPY_non_mixed_and_mixed_model.csv", row.names = FALSE)
+write.csv(df8, file = "results/SPY_non_mixed_and_mixed_modelOPENandCLOSEpredicts.csv", row.names = FALSE)
 
 ```
 
 
+
+## nothing below here 12.15.2023 1 34pm
 
