@@ -27,6 +27,9 @@
 - Results
   two models (logistic, LMM) for SPY - coefficient interpretations, p-values, etc. OR just LMM for monday OPEN and monday CLOSE
   two models (logistic, LMM) for VIX - coefficient interpretations, p-values, etc.
+  
+
+- simulated returns
 
 
 - Discussion

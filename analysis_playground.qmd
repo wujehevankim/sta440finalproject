@@ -233,7 +233,7 @@ summary(model7BUYFRICLOSESELLMONOPEN)
 ```
 
 ```{r}
-df8 <- read.csv('data/addingFOMC/SPY_ready_for_analysis_triple_witch_NFP_CSI_FOMC.csv', header = TRUE)
+df8 <- read.csv('data/addingFOMC/SPY_ready_for_analysis_triple_witch_NFP_CSI_FOMC_with_month.csv', header = TRUE)
 #df8 <- rbind(df8[1:220, ], df8[264:nrow(df8), ])
 df8$NFPOutcomeIsShock <- ifelse(df8$NFPOutcome == "Shock", 1, 0)
 df8$CSIOutcomeIsShock <- ifelse(df8$CSIOutcome == "Shock", 1, 0)
@@ -259,6 +259,81 @@ forward_model <- step(null_model,
 ```{r}
 summary(forward_model)
 ```
+```{r}
+backward_model <- step(full_model, direction = "backward")
+summary(forward_model)
+```
+```{r}
+non_random_model <- glm(formula = WasMondayOpenHigherThanFridayClose ~ CSIOutcomeIsShock + 
+    wasFridayIntradayPositive + FridayIntradayChangeInPercent + 
+    didFridayCloseHigherThanThursdayClose, family = binomial, 
+    data = df8)
+summary(non_random_model)
+```
+## why PrecedingWeekFridayMonth should be random effect
+```{r}
+df8$PrecedingWeekFridayMonth <- factor(df8$PrecedingWeekFridayMonth, levels = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"))
+
+table(df8$PrecedingWeekFridayMonth)
+aggregate(WasMondayOpenHigherThanFridayClose ~ PrecedingWeekFridayMonth, data = df8, mean)
+library(ggplot2)
+ggplot(df8, aes(x = PrecedingWeekFridayMonth, fill = factor(WasMondayOpenHigherThanFridayClose))) +
+  geom_bar(position = "fill") +
+  ylab("Proportion")
+
+```
+
+```{r}
+contingency_table_months <- table(df8$PrecedingWeekFridayMonth, df8$WasMondayOpenHigherThanFridayClose)
+print(contingency_table_months)
+# Perform the Chi-square test
+chi_sq_test_months <- chisq.test(contingency_table_months)
+
+# Output the result
+chi_sq_test_months
+```
+
+## chi-squared
+```{r}
+# Assign new groupings based on seasons
+df8$Month <- with(df8, factor(
+  ifelse(PrecedingWeekFridayMonth %in% c("Mar", "Jan", "May", "Sept"), "Odd", "Even")))
+
+
+# Create a new contingency table with the season groupings
+contingency_table_Month <- table(df8$Month, df8$WasMondayOpenHigherThanFridayClose)
+
+# Perform the Chi-square test with the new grouping
+chi_sq_test_Month <- chisq.test(contingency_table_Month)
+
+# Output the result
+chi_sq_test_Month
+
+```
+
+
+```{r}
+library(lme4)
+
+
+mixed_model <- glmer(WasMondayOpenHigherThanFridayClose ~ CSIOutcomeIsShock + 
+                     wasFridayIntradayPositive + FridayIntradayChangeInPercent + 
+                     didFridayCloseHigherThanThursdayClose + 
+                     (1 | Month), 
+                     family = binomial, data = df8)
+summary(mixed_model)
+```
+
+
+
+```{r}
+library(lme4)
+
+anova(non_random_model, mixed_model)
+
+```
+
+
 
 ```{r}
 #summary(glm(formula = WasMondayOpenHigherThanFridayClose ~ CSIOutcomeIsShock + 
@@ -267,6 +342,54 @@ summary(forward_model)
 ```
 
 
+```{r}
+#create df8$non_random_model_predict and df8$mixed_model_predict by going through each row of df8
+# Predict with the non-random model
+df8$non_random_model_predict <- as.integer(predict(non_random_model, type = "response") > 0.5)
+
+# Predict with the mixed model
+# Note: For mixed models, if you want to include random effects in predictions, use re.form = NULL
+df8$mixed_model_predict <- as.integer(predict(mixed_model, re.form = NULL, type = "response") > 0.5)
+
+```
+
+
+
+```{r}
+non_random_model_right_wrong <- c(0, 0)
+mixed_model_right_wrong <- c(0, 0)
+
+# Iterate through each row of df8
+for (i in 1:nrow(df8)) {
+  # For the non-random model
+  if (df8$WasMondayOpenHigherThanFridayClose[i] == df8$non_random_model_predict[i]) {
+    non_random_model_right_wrong[1] <- non_random_model_right_wrong[1] + 1
+  } else {
+    non_random_model_right_wrong[2] <- non_random_model_right_wrong[2] + 1
+  }
+
+  # For the mixed model
+  if (df8$WasMondayOpenHigherThanFridayClose[i] == df8$mixed_model_predict[i]) {
+    mixed_model_right_wrong[1] <- mixed_model_right_wrong[1] + 1
+  } else {
+    mixed_model_right_wrong[2] <- mixed_model_right_wrong[2] + 1
+  }
+}
+
+# Print the results
+print(non_random_model_right_wrong)
+print(non_random_model_right_wrong[1] / (non_random_model_right_wrong[1] + non_random_model_right_wrong[2]))
+
+print(mixed_model_right_wrong)
+print(mixed_model_right_wrong[1] / (mixed_model_right_wrong[1] + mixed_model_right_wrong[2]))
+```
+
+```{r}
+# save df to .csv
+# Save df8 to a CSV file
+write.csv(df8, file = "results/SPY_non_mixed_and_mixed_model.csv", row.names = FALSE)
+
+```
 
 
 
