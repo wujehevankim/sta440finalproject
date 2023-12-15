@@ -28,7 +28,7 @@ library(knitr)
 
 
 
-```{r}
+```{r, echo=FALSE}
 # Read the CSV file into a dataframe
 df <- read.csv('data/SPY_data_wrangling/SPY_ready_for_analysis.csv', header = TRUE)
 
@@ -42,7 +42,7 @@ summary(model)
 
 ```
 
-```{r}
+```{r, echo=FALSE}
 df2 <- read.csv('data/SPY_data_wrangling/SPY_ready_for_analysis.csv', header = TRUE)
 
 # Binomial model
@@ -59,7 +59,7 @@ summary(model2_binomial)
 ```
 
 
-```{r}
+```{r, echo=FALSE}
 df3 <- read.csv('data/adding_triple_witch_to_SPY/SPY_ready_for_analysis_triple_witch.csv', header = TRUE)
 
 # Binomial model
@@ -75,7 +75,7 @@ summary(model3)
 ```
 
 
-```{r}
+```{r, echo=FALSE}
 library(dplyr)
 library(ggplot2)
 
@@ -100,20 +100,23 @@ print(ratios)
 
 
 ```
+
+
 ## MONDAY OPEN TO FRIDAY CLOSE RATIO DENSITY PLOT & MONDAY CLOSE TO FRIDAY CLOSE RATIO DENSITY PLOT
-```{r}
+```{r, warning=FALSE, message=FALSE}
 df4 <- read.csv('data/addingFOMC/SPY_ready_for_analysis_triple_witch_NFP_CSI_FOMC_with_month.csv', header = TRUE)
 df4$MondayCloseToFridayCloseRatio <- df4$FollowingWeekMondayClose / df4$PrecedingWeekFridayClose
 
 ggplot(df4, aes(x = MondayOpenToFridayCloseRatio)) + 
     geom_density(fill = "blue", alpha = 0.5) +
+  scale_x_continuous(trans = 'log', limits = c(0.95, 1.05)) +
     labs(title = "Density of Monday Open to Friday Close Ratio",
          x = "Monday Open to Friday Close Ratio",
          y = "Density")
 
 ggplot(df4, aes(x = MondayCloseToFridayCloseRatio)) + 
     geom_density(fill = "pink", alpha = 0.5) +
-    scale_x_continuous(trans = 'log') +
+    scale_x_continuous(trans = 'log', limits = c(0.95, 1.05)) +
     labs(title = "Density of Monday Close to Friday Close Ratio",
          x = "Monday Close to Friday Close Ratio",
          y = "Density")
@@ -122,122 +125,383 @@ ggplot(df4, aes(x = MondayCloseToFridayCloseRatio)) +
 
 ```
 
-## COMPARING MondayOpenToFridayCloseRatio AND MondayCloseToFridayCloseRatio SIDE-BY-SIDE: BOXPLOT
+
+## WasMondayOpenHigherThanFridayClose and WasMondayCloseHigherThanFridayClose BREAKDOWN
 ```{r}
-library(ggplot2)
+#1 vs 0 proportion break down table with percentages for df4$WasMondayOpenHigherThanFridayClose and df4$WasMondayCloseHigherThanFridayClose
 
-# Assuming df4 is already loaded
+# Count occurrences for WasMondayOpenHigherThanFridayClose
+table_open <- table(df4$WasMondayOpenHigherThanFridayClose)
 
-# Plot for MondayOpenToFridayCloseRatio
-plot1 <- ggplot(df4, aes(x = MondayOpenToFridayCloseRatio)) + 
-    geom_boxplot(fill = "blue", alpha = 0.5) +
-    labs(title = "Box Plot of Monday Open to Friday Close Ratio",
-         x = "Monday Open to Friday Close Ratio",
-         y = "Frequency")
+# Convert counts to proportions and then to percentages for WasMondayOpenHigherThanFridayClose
+percentage_open <- prop.table(table_open) * 100
 
-# Plot for MondayCloseToFridayCloseRatio
-plot2 <- ggplot(df4, aes(x = MondayCloseToFridayCloseRatio)) + 
-    geom_boxplot(fill = "pink", alpha = 0.5) +
-    labs(title = "Box Plot of Monday Close to Friday Close Ratio",
-         x = "Monday Close to Friday Close Ratio",
-         y = "Frequency")
+# Count occurrences for WasMondayCloseHigherThanFridayClose
+table_close <- table(df4$WasMondayCloseHigherThanFridayClose)
 
-# Display the plots
-plot1
-plot2
+# Convert counts to proportions and then to percentages for WasMondayCloseHigherThanFridayClose
+percentage_close <- prop.table(table_close) * 100
+
+
+
+formatted_yes_open <- sprintf("%.1f%%", percentage_open[2])
+formatted_no_open <- sprintf("%.1f%%", percentage_open[1])
+formatted_yes_close <- sprintf("%.1f%%", percentage_close[2])
+formatted_no_close <- sprintf("%.1f%%", percentage_close[1])
+
+
+
+breakdown_table <- data.frame(
+  Category = c('Monday Open Price > Friday Close Price', 'Monday Close Price > Friday Close Price'),
+  Yes = c(formatted_yes_open, formatted_yes_close),
+  No = c(formatted_no_open, formatted_no_close)
+  
+)
+
+library(knitr)
+# Print the table
+kable(breakdown_table, caption = "Proportions of Monday Open and Close vs. Friday Close", format = "html")
 
 ```
 
-## 
+
+## WasMondayOpenHigherThanFridayClose vs NFPOutcomeIsShock BREAKDOWN
 ```{r}
-1 vs 0 proportion break down table with percentages for df4$WasMondayOpenHigherThanFridayClose and df4$WasMondayCloseHigherThanFridayClose
+df4$NFPOutcomeIsShock <- ifelse(df4$NFPOutcome == "Shock", 1, 0)
+
+
+#1. breakdown table of WasMondayOpenHigherThanFridayClose (1 vs 0) and NFPOutcomeIsShock (1 vs 0)
+breakdown_table_monday_open_vs_nfp_shock <- table(df4$WasMondayOpenHigherThanFridayClose, df4$NFPOutcomeIsShock)
+rownames(breakdown_table_monday_open_vs_nfp_shock) <- c("Monday Open Lower Than Friday Close", "Monday Open Higher Than Friday Close")
+colnames(breakdown_table_monday_open_vs_nfp_shock) <- c("Nonfarm Payrolls Non-shock", "Nonfarm Payrolls Shock")
+breakdown_table_column_percentages <- prop.table(breakdown_table_monday_open_vs_nfp_shock, 2) * 100
+#print(breakdown_table_column_percentages)
+breakdown_table_column_percentages_df <- as.data.frame.matrix(breakdown_table_column_percentages)
+
+# Format each value to one decimal place with a percentage sign
+breakdown_table_column_percentages_df_formatted <- data.frame(lapply(breakdown_table_column_percentages_df, function(x) sprintf("%.1f%%", x)))
+
+# Print the formatted dataframe
+#print(breakdown_table_column_percentages_df_formatted)
+
+
+breakdown_table_WasMondayOpenHigherThanFridayClose_vs_NFPOutcomeIsShock <- data.frame(
+  . = c("Monday Open Lower Than Friday Close", "Monday Open Higher Than Friday Close"),
+  NFP_Nonshock = c(breakdown_table_column_percentages_df_formatted[1][[1]][1], breakdown_table_column_percentages_df_formatted[1][[1]][2]),
+  NFP_Shock = c(breakdown_table_column_percentages_df_formatted[2][[1]][1], breakdown_table_column_percentages_df_formatted[2][[1]][2])
+  
+)
+
+
+library(knitr)
+# Print the table
+kable(breakdown_table_WasMondayOpenHigherThanFridayClose_vs_NFPOutcomeIsShock, caption = "Proportion Breakdown of Monday Open Higher Than Friday Close vs Nonfarm Payroll Shock", format = "html")
+```
+
+## WasMondayCloseHigherThanFridayClose vs NFPOutcomeIsShock BREAKDOWN
+```{r}
+df4$NFPOutcomeIsShock <- ifelse(df4$NFPOutcome == "Shock", 1, 0)
+
+
+#1. breakdown table of WasMondayCloseHigherThanFridayClose (1 vs 0) and NFPOutcomeIsShock (1 vs 0)
+breakdown_table_monday_close_vs_nfp_shock <- table(df4$WasMondayCloseHigherThanFridayClose, df4$NFPOutcomeIsShock)
+rownames(breakdown_table_monday_close_vs_nfp_shock) <- c("Monday Close Lower Than Friday Close", "Monday Close Higher Than Friday Close")
+colnames(breakdown_table_monday_close_vs_nfp_shock) <- c("Nonfarm Payrolls Non-shock", "Nonfarm Payrolls Shock")
+breakdown_table_column_percentages2 <- prop.table(breakdown_table_monday_close_vs_nfp_shock, 2) * 100
+#print(breakdown_table_column_percentages)
+breakdown_table_column_percentages_df2 <- as.data.frame.matrix(breakdown_table_column_percentages2)
+
+# Format each value to one decimal place with a percentage sign
+breakdown_table_column_percentages_df_formatted2 <- data.frame(lapply(breakdown_table_column_percentages_df2, function(x) sprintf("%.1f%%", x)))
+
+# Print the formatted dataframe
+#print(breakdown_table_column_percentages_df_formatted)
+
+
+breakdown_table_WasMondayCloseHigherThanFridayClose_vs_NFPOutcomeIsShock <- data.frame(
+  . = c("Monday Close Lower Than Friday Close", "Monday Close Higher Than Friday Close"),
+  NFP_Nonshock = c(breakdown_table_column_percentages_df_formatted2[1][[1]][1], breakdown_table_column_percentages_df_formatted2[1][[1]][2]),
+  NFP_Shock = c(breakdown_table_column_percentages_df_formatted2[2][[1]][1], breakdown_table_column_percentages_df_formatted2[2][[1]][2])
+  
+)
+
+
+library(knitr)
+# Print the table
+kable(breakdown_table_WasMondayCloseHigherThanFridayClose_vs_NFPOutcomeIsShock, caption = "Proportion Breakdown of Monday Close Higher Than Friday Close vs Nonfarm Payroll Shock", format = "html")
 ```
 
 
-```{r}
-columns_to_plot <- names(df4)[names(df4) != "MondayOpenToFridayCloseRatio"]
+## so, yeah maybe NFPIsShock should be a predictor when WasMondayCloseHigherThanFridayClose is the reponse, but maybe not for when WasMondayOpenHigherThanFridayClose is the response?
+
+
+```{r, echo=FALSE}
+#columns_to_plot <- names(df4)[names(df4) != "MondayOpenToFridayCloseRatio"]
 
 # Function to create a plot for each column
-create_plot <- function(col_name) {
-    p <- ggplot(df4, aes_string(x = col_name, y = "MondayOpenToFridayCloseRatio")) +
-        geom_point() +
-        labs(title = paste("MondayOpenToFridayCloseRatio vs", col_name),
-             x = col_name,
-             y = "MondayOpenToFridayCloseRatio")
-    print(p)
-}
+#create_plot <- function(col_name) {
+#    p <- ggplot(df4, aes_string(x = col_name, y = "MondayOpenToFridayCloseRatio")) +
+#        geom_point() +
+#        labs(title = paste("MondayOpenToFridayCloseRatio vs", col_name),
+#             x = col_name,
+#             y = "MondayOpenToFridayCloseRatio")
+#    print(p)
+#}
 
 # Apply the function to each column in the list
-lapply(columns_to_plot, create_plot)
+#lapply(columns_to_plot, create_plot)
 ```
 
 
-```{r}
-df4 <- read.csv('data/addingNonfarmPayrolls/SPY_ready_for_analysis_triple_witch_NFP.csv', header = TRUE)
+```{r, echo=FALSE}
+#df4 <- read.csv('data/addingNonfarmPayrolls/SPY_ready_for_analysis_triple_witch_NFP.csv', header = TRUE)
 
 
-df4$NFPOutcomeIsShock <- ifelse(df4$NFPOutcome == "Shock", 1, 0)
+
 # Binomial model
-model4 <- glm(WasMondayCloseHigherThanFridayClose ~ NFPOutcomeIsShock + fridayWasATripleWitchDay, 
-                      data = df4, family = binomial)
+#model4 <- glm(WasMondayCloseHigherThanFridayClose ~ NFPOutcomeIsShock + fridayWasATripleWitchDay, 
+#                      data = df4, family = binomial)
 
 
 # Print the summary of the model
-summary(model4)
+#summary(model4)
 
 
 
 ```
 
-
+## WasMondayOpenHigherThanFridayClose vs CSIActualMinusExpected DISTRIBUTION
 ```{r}
-df6 <- read.csv('data/addingUmichSentiment/SPY_ready_for_analysis_triple_witch_NFP_CSI.csv', header = TRUE)
-summary(df6$CSIActualMinusExpected)
-table(df6$WasMondayOpenHigherThanFridayClose)
+#summary(df4$CSIActualMinusExpected)
+#table(df4$WasMondayOpenHigherThanFridayClose)
 
-boxplot(CSIActualMinusExpected ~ WasMondayOpenHigherThanFridayClose, data = df6, main = "CSIActualMinusExpected vs WasMondayOpenHigherThanFridayClose")
+#boxplot(CSIActualMinusExpected ~ WasMondayOpenHigherThanFridayClose, data = df6, main = "CSIActualMinusExpected vs WasMondayOpenHigherThanFridayClose")
 
 
 library(ggplot2)
-ggplot(df6, aes(x = CSIActualMinusExpected, fill = factor(WasMondayOpenHigherThanFridayClose))) + 
+ggplot(df4, aes(x = CSIActualMinusExpected, fill = factor(WasMondayOpenHigherThanFridayClose))) + 
   geom_density(alpha = 0.5) +
   labs(fill = "WasMondayOpenHigher")
 
 # T-test or Mann-Whitney U Test (depending on data distribution)
-t.test(CSIActualMinusExpected ~ WasMondayOpenHigherThanFridayClose, data = df6)
+t.test(CSIActualMinusExpected ~ WasMondayOpenHigherThanFridayClose, data = df4)
 
 ```
 
-
+## WasMondayOpenHigherThanFridayClose vs CSIOutcomeIsShock BREAKDOWN
 ```{r}
-df6$CSIOutcomeIsShock <- ifelse(df6$CSIOutcome == "Shock", 1, 0)
-table(df6$CSIOutcomeIsShock, df6$WasMondayOpenHigherThanFridayClose)
+df4$CSIOutcomeIsShock <- ifelse(df4$CSIOutcome == "Shock", 1, 0)
 
-chisq.test(table(df6$CSIOutcomeIsShock, df6$WasMondayOpenHigherThanFridayClose))
+
+#1. breakdown table of WasMondayOpenHigherThanFridayClose (1 vs 0) and CSIOutcomeIsShock (1 vs 0)
+breakdown_table_monday_open_vs_csi_shock <- table(df4$WasMondayOpenHigherThanFridayClose, df4$CSIOutcomeIsShock)
+rownames(breakdown_table_monday_open_vs_csi_shock) <- c("Monday Open Lower Than Friday Close", "Monday Open Higher Than Friday Close")
+colnames(breakdown_table_monday_open_vs_csi_shock) <- c("Consumer Sentiment Index Non-shock", "Consumer Sentiment Index Shock")
+breakdown_table_column_percentages_csi <- prop.table(breakdown_table_monday_open_vs_csi_shock, 2) * 100
+#print(breakdown_table_column_percentages)
+breakdown_table_column_percentages_df_csi <- as.data.frame.matrix(breakdown_table_column_percentages_csi)
+
+# Format each value to one decimal place with a percentage sign
+breakdown_table_column_percentages_df_formatted_csi <- data.frame(lapply(breakdown_table_column_percentages_df_csi, function(x) sprintf("%.1f%%", x)))
+
+# Print the formatted dataframe
+#print(breakdown_table_column_percentages_df_formatted)
+
+
+breakdown_table_WasMondayOpenHigherThanFridayClose_vs_CSIOutcomeIsShock <- data.frame(
+  . = c("Monday Open Lower Than Friday Close", "Monday Open Higher Than Friday Close"),
+  CSI_Nonshock = c(breakdown_table_column_percentages_df_formatted_csi[1][[1]][1], breakdown_table_column_percentages_df_formatted_csi[1][[1]][2]),
+  CSI_Shock = c(breakdown_table_column_percentages_df_formatted_csi[2][[1]][1], breakdown_table_column_percentages_df_formatted_csi[2][[1]][2])
+  
+)
+
+
+library(knitr)
+# Print the table
+kable(breakdown_table_WasMondayOpenHigherThanFridayClose_vs_CSIOutcomeIsShock, caption = "Proportion Breakdown of Monday Open Higher Than Friday Close vs Consumer Sentiment Index Shock", format = "html")
+
+
+#also a chi-square test on proportion of WasMondayOpenHigherThanFridayClose=1 and WasMondayOpenHigherThanFridayClose=0 being the same between CSIOutcomeIsShock=1 and CSIOutcomeIsShock=0
+chi_square_test_WasMondayOpenHigherThanFridayClose_vs_CSIOutcomeIsShock <- chisq.test(breakdown_table_monday_open_vs_csi_shock)
+
+# Print the results of the Chi-Square Test
+print(chi_square_test_WasMondayOpenHigherThanFridayClose_vs_CSIOutcomeIsShock)
+```
+
+
+
+## WasMondayCloseHigherThanFridayClose vs CSIActualMinusExpected DISTRIBUTION
+```{r}
+#summary(df4$CSIActualMinusExpected)
+#table(df4$WasMondayOpenHigherThanFridayClose)
+
+#boxplot(CSIActualMinusExpected ~ WasMondayOpenHigherThanFridayClose, data = df6, main = "CSIActualMinusExpected vs WasMondayOpenHigherThanFridayClose")
+
+
+library(ggplot2)
+ggplot(df4, aes(x = CSIActualMinusExpected, fill = factor(WasMondayCloseHigherThanFridayClose))) + 
+  geom_density(alpha = 0.5) +
+  labs(fill = "WasMondayCloseHigher")
+
+# T-test or Mann-Whitney U Test (depending on data distribution)
+t.test(CSIActualMinusExpected ~ WasMondayCloseHigherThanFridayClose, data = df4)
+
+```
+
+## WasMondayCloseHigherThanFridayClose vs CSIOutcomeIsShock BREAKDOWN
+```{r}
+#df4$CSIOutcomeIsShock <- ifelse(df4$CSIOutcome == "Shock", 1, 0)
+
+
+#1. breakdown table of WasMondayCloseHigherThanFridayClose (1 vs 0) and CSIOutcomeIsShock (1 vs 0)
+breakdown_table_monday_close_vs_csi_shock <- table(df4$WasMondayCloseHigherThanFridayClose, df4$CSIOutcomeIsShock)
+rownames(breakdown_table_monday_close_vs_csi_shock) <- c("Monday Close Lower Than Friday Close", "Monday Close Higher Than Friday Close")
+colnames(breakdown_table_monday_close_vs_csi_shock) <- c("Consumer Sentiment Index Non-shock", "Consumer Sentiment Index Shock")
+breakdown_table_column_percentages_csiCLOSE <- prop.table(breakdown_table_monday_close_vs_csi_shock, 2) * 100
+#print(breakdown_table_column_percentages)
+breakdown_table_column_percentages_df_csiCLOSE <- as.data.frame.matrix(breakdown_table_column_percentages_csiCLOSE)
+
+# Format each value to one decimal place with a percentage sign
+breakdown_table_column_percentages_df_formatted_csiCLOSE <- data.frame(lapply(breakdown_table_column_percentages_df_csiCLOSE, function(x) sprintf("%.1f%%", x)))
+
+# Print the formatted dataframe
+#print(breakdown_table_column_percentages_df_formatted)
+
+
+breakdown_table_WasMondayCloseHigherThanFridayClose_vs_CSIOutcomeIsShock <- data.frame(
+  . = c("Monday Close Lower Than Friday Close", "Monday Close Higher Than Friday Close"),
+  CSI_Nonshock = c(breakdown_table_column_percentages_df_formatted_csiCLOSE[1][[1]][1], breakdown_table_column_percentages_df_formatted_csiCLOSE[1][[1]][2]),
+  CSI_Shock = c(breakdown_table_column_percentages_df_formatted_csiCLOSE[2][[1]][1], breakdown_table_column_percentages_df_formatted_csiCLOSE[2][[1]][2])
+  
+)
+
+
+library(knitr)
+# Print the table
+kable(breakdown_table_WasMondayCloseHigherThanFridayClose_vs_CSIOutcomeIsShock, caption = "Proportion Breakdown of Monday Close Higher Than Friday Close vs Consumer Sentiment Index Shock", format = "html")
+
+
+#also a chi-square test on proportion of WasMondayOpenHigherThanFridayClose=1 and WasMondayOpenHigherThanFridayClose=0 being the same between CSIOutcomeIsShock=1 and CSIOutcomeIsShock=0
+chi_square_test_WasMondayCloseHigherThanFridayClose_vs_CSIOutcomeIsShock <- chisq.test(breakdown_table_monday_close_vs_csi_shock)
+
+# Print the results of the Chi-Square Test
+print(chi_square_test_WasMondayCloseHigherThanFridayClose_vs_CSIOutcomeIsShock)
+```
+
+# so yeah, maybe CSIActualMinusExpected could be a predictor for WasMondayCloseHigherThanFridayClose, while CSIOutcomeIsShock can be one for WasMondayOpenHigherThanFridayClose?
+```{r, echo=FALSE}
+#df6$CSIOutcomeIsShock <- ifelse(df6$CSIOutcome == "Shock", 1, 0)
+#table(df6$CSIOutcomeIsShock, df6$WasMondayOpenHigherThanFridayClose)
+
+#chisq.test(table(df6$CSIOutcomeIsShock, df6$WasMondayOpenHigherThanFridayClose))
 ```
 
 
 
 
-```{r}
-df6 <- read.csv('data/addingUmichSentiment/SPY_ready_for_analysis_triple_witch_NFP_CSI.csv', header = TRUE)
-df6$NFPOutcomeIsShock <- ifelse(df6$NFPOutcome == "Shock", 1, 0)
-df6$CSIOutcomeIsShock <- ifelse(df6$CSIOutcome == "Shock", 1, 0)
+```{r, echo=FALSE}
+#df6 <- read.csv('data/addingUmichSentiment/SPY_ready_for_analysis_triple_witch_NFP_CSI.csv', header = TRUE)
+#df6$NFPOutcomeIsShock <- ifelse(df6$NFPOutcome == "Shock", 1, 0)
+#df6$CSIOutcomeIsShock <- ifelse(df6$CSIOutcome == "Shock", 1, 0)
 
 # Binomial model
 
-model6 <- glm(WasMondayCloseHigherThanFridayClose ~ wasFridayIntradayPositive + NFPOutcomeIsShock + fridayWasATripleWitchDay + CSIOutcomeIsShock, 
-                      data = df6, family = binomial)
+#model6 <- glm(WasMondayCloseHigherThanFridayClose ~ wasFridayIntradayPositive + NFPOutcomeIsShock + fridayWasATripleWitchDay + CSIOutcomeIsShock, 
+#                      data = df6, family = binomial)
 
 
 # Print the summary of the model
-summary(model6)
+#summary(model6)
 
 
 
 ```
 
 
+
+## WasMondayOpenHigherThanFridayClose vs FOMCAction BREAKDOWN
+```{r}
+
+#1. breakdown table of WasMondayOpenHigherThanFridayClose (1 vs 0) and FOMCAction (Pause, Hike, SuperHike, etc...)
+breakdown_table_monday_open_vs_fomc_action <- table(df4$WasMondayOpenHigherThanFridayClose, df4$FOMCAction)
+rownames(breakdown_table_monday_open_vs_fomc_action) <- c("Monday Open Lower Than Friday Close", "Monday Open Higher Than Friday Close")
+colnames(breakdown_table_monday_open_vs_fomc_action) <- c("", "Cut", "Hike", "Pause", "SuperCut", "SuperHike")
+breakdown_table_column_percentages_FOMC <- prop.table(breakdown_table_monday_open_vs_fomc_action, 2) * 100
+#print(breakdown_table_column_percentages)
+breakdown_table_column_percentages_df_FOMC <- as.data.frame.matrix(breakdown_table_column_percentages_FOMC)
+
+# Format each value to one decimal place with a percentage sign
+breakdown_table_column_percentages_df_formatted_FOMC <- data.frame(lapply(breakdown_table_column_percentages_df_FOMC, function(x) sprintf("%.1f%%", x)))
+
+# Print the formatted dataframe
+#print(breakdown_table_column_percentages_df_formatted)
+
+
+breakdown_table_WasMondayOpenHigherThanFridayClose_vs_FOMCAction <- data.frame(
+  . = c("Monday Open Lower Than Friday Close", "Monday Open Higher Than Friday Close"),
+  SuperCut = c(breakdown_table_column_percentages_df_formatted_FOMC[5][[1]][1], breakdown_table_column_percentages_df_formatted_FOMC[5][[1]][2]),
+  Cut = c(breakdown_table_column_percentages_df_formatted_FOMC[2][[1]][1], breakdown_table_column_percentages_df_formatted_FOMC[2][[1]][2]),
+  Pause = c(breakdown_table_column_percentages_df_formatted_FOMC[4][[1]][1], breakdown_table_column_percentages_df_formatted_FOMC[4][[1]][2]),
+  Hike = c(breakdown_table_column_percentages_df_formatted_FOMC[3][[1]][1], breakdown_table_column_percentages_df_formatted_FOMC[3][[1]][2]),
+  SuperHike = c(breakdown_table_column_percentages_df_formatted_FOMC[6][[1]][1], breakdown_table_column_percentages_df_formatted_FOMC[6][[1]][2])
+  
+)
+
+
+library(knitr)
+# Print the table
+kable(breakdown_table_WasMondayOpenHigherThanFridayClose_vs_FOMCAction, caption = "Proportion Breakdown of Monday Open Higher Than Friday Close vs FOMC Actions", format = "html")
+
+
+#also a chi-square test on proportion of WasMondayOpenHigherThanFridayClose=1 and WasMondayOpenHigherThanFridayClose=0 being the same between CSIOutcomeIsShock=1 and CSIOutcomeIsShock=0
+chi_square_test_WasMondayOpenHigherThanFridayClose_vs_FOMCaction <- chisq.test(breakdown_table_monday_open_vs_fomc_action)
+
+# Print the results of the Chi-Square Test
+print(chi_square_test_WasMondayOpenHigherThanFridayClose_vs_FOMCaction)
+```
+
+## WasMondayCloseHigherThanFridayClose vs FOMCAction BREAKDOWN
+```{r}
+
+#1. breakdown table of WasMondayCloseHigherThanFridayClose (1 vs 0) and FOMCAction (Pause, Hike, SuperHike, etc...)
+breakdown_table_monday_close_vs_fomc_action <- table(df4$WasMondayCloseHigherThanFridayClose, df4$FOMCAction)
+rownames(breakdown_table_monday_close_vs_fomc_action) <- c("Monday Open Lower Than Friday Close", "Monday Open Higher Than Friday Close")
+colnames(breakdown_table_monday_close_vs_fomc_action) <- c("", "Cut", "Hike", "Pause", "SuperCut", "SuperHike")
+breakdown_table_column_percentages_FOMCCLOSE <- prop.table(breakdown_table_monday_close_vs_fomc_action, 2) * 100
+#print(breakdown_table_column_percentages)
+breakdown_table_column_percentages_df_FOMCCLOSE <- as.data.frame.matrix(breakdown_table_column_percentages_FOMCCLOSE)
+
+# Format each value to one decimal place with a percentage sign
+breakdown_table_column_percentages_df_formatted_FOMCCLOSE <- data.frame(lapply(breakdown_table_column_percentages_df_FOMCCLOSE, function(x) sprintf("%.1f%%", x)))
+
+# Print the formatted dataframe
+#print(breakdown_table_column_percentages_df_formatted)
+
+
+breakdown_table_WasMondayCloseHigherThanFridayClose_vs_FOMCAction <- data.frame(
+  . = c("Monday Open Lower Than Friday Close", "Monday Open Higher Than Friday Close"),
+  SuperCut = c(breakdown_table_column_percentages_df_formatted_FOMCCLOSE[5][[1]][1], breakdown_table_column_percentages_df_formatted_FOMCCLOSE[5][[1]][2]),
+  Cut = c(breakdown_table_column_percentages_df_formatted_FOMCCLOSE[2][[1]][1], breakdown_table_column_percentages_df_formatted_FOMCCLOSE[2][[1]][2]),
+  Pause = c(breakdown_table_column_percentages_df_formatted_FOMCCLOSE[4][[1]][1], breakdown_table_column_percentages_df_formatted_FOMCCLOSE[4][[1]][2]),
+  Hike = c(breakdown_table_column_percentages_df_formatted_FOMCCLOSE[3][[1]][1], breakdown_table_column_percentages_df_formatted_FOMCCLOSE[3][[1]][2]),
+  SuperHike = c(breakdown_table_column_percentages_df_formatted_FOMCCLOSE[6][[1]][1], breakdown_table_column_percentages_df_formatted_FOMCCLOSE[6][[1]][2])
+  
+)
+
+
+library(knitr)
+# Print the table
+kable(breakdown_table_WasMondayCloseHigherThanFridayClose_vs_FOMCAction, caption = "Proportion Breakdown of Monday Close Higher Than Friday Close vs FOMC Actions", format = "html")
+
+
+#also a chi-square test on proportion of WasMondayOpenHigherThanFridayClose=1 and WasMondayOpenHigherThanFridayClose=0 being the same between CSIOutcomeIsShock=1 and CSIOutcomeIsShock=0
+chi_square_test_WasMondayCloseHigherThanFridayClose_vs_FOMCaction <- chisq.test(breakdown_table_monday_close_vs_fomc_action)
+
+# Print the results of the Chi-Square Test
+print(chi_square_test_WasMondayCloseHigherThanFridayClose_vs_FOMCaction)
+```
+
+# so, yeah, maybe FOMC action is not that significant, despite how much media loves to owe monday results to "last wednesday"'s action/sentiment...
 ```{r}
 df7 <- read.csv('data/addingFOMC/SPY_ready_for_analysis_triple_witch_NFP_CSI_FOMC.csv', header = TRUE)
 
@@ -264,11 +528,11 @@ summary(model7BUYFRICLOSESELLMONOPEN)
 
 
 # wasFridayIntradayPositive
-#model7BUYFRICLOSESELLMONclose <- glm(WasMondayCloseHigherThanFridayClose ~ NFPOutcomeIsShock + fridayWasATripleWitchDay, 
-#                      data = df7_filtered, family = binomial)
+model7BUYFRICLOSESELLMONclose <- glm(WasMondayCloseHigherThanFridayClose ~ NFPOutcomeIsShock + CSIActualMinusExpected, 
+                      data = df7, family = binomial)
   
 
-#summary(model7BUYFRICLOSESELLMONclose)
+summary(model7BUYFRICLOSESELLMONclose)
 
 ```
 
