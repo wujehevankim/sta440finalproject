@@ -100,9 +100,10 @@ print(ratios)
 
 
 ```
-
+## MONDAY OPEN TO FRIDAY CLOSE RATIO DENSITY PLOT & MONDAY CLOSE TO FRIDAY CLOSE RATIO DENSITY PLOT
 ```{r}
-df4 <- read.csv('data/addingNonfarmPayrolls/SPY_ready_for_analysis_triple_witch_NFP.csv', header = TRUE)
+df4 <- read.csv('data/addingFOMC/SPY_ready_for_analysis_triple_witch_NFP_CSI_FOMC_with_month.csv', header = TRUE)
+df4$MondayCloseToFridayCloseRatio <- df4$FollowingWeekMondayClose / df4$PrecedingWeekFridayClose
 
 ggplot(df4, aes(x = MondayOpenToFridayCloseRatio)) + 
     geom_density(fill = "blue", alpha = 0.5) +
@@ -110,9 +111,48 @@ ggplot(df4, aes(x = MondayOpenToFridayCloseRatio)) +
          x = "Monday Open to Friday Close Ratio",
          y = "Density")
 
+ggplot(df4, aes(x = MondayCloseToFridayCloseRatio)) + 
+    geom_density(fill = "pink", alpha = 0.5) +
+    scale_x_continuous(trans = 'log') +
+    labs(title = "Density of Monday Close to Friday Close Ratio",
+         x = "Monday Close to Friday Close Ratio",
+         y = "Density")
+
 
 
 ```
+
+## COMPARING MondayOpenToFridayCloseRatio AND MondayCloseToFridayCloseRatio SIDE-BY-SIDE: BOXPLOT
+```{r}
+library(ggplot2)
+
+# Assuming df4 is already loaded
+
+# Plot for MondayOpenToFridayCloseRatio
+plot1 <- ggplot(df4, aes(x = MondayOpenToFridayCloseRatio)) + 
+    geom_boxplot(fill = "blue", alpha = 0.5) +
+    labs(title = "Box Plot of Monday Open to Friday Close Ratio",
+         x = "Monday Open to Friday Close Ratio",
+         y = "Frequency")
+
+# Plot for MondayCloseToFridayCloseRatio
+plot2 <- ggplot(df4, aes(x = MondayCloseToFridayCloseRatio)) + 
+    geom_boxplot(fill = "pink", alpha = 0.5) +
+    labs(title = "Box Plot of Monday Close to Friday Close Ratio",
+         x = "Monday Close to Friday Close Ratio",
+         y = "Frequency")
+
+# Display the plots
+plot1
+plot2
+
+```
+
+## 
+```{r}
+1 vs 0 proportion break down table with percentages for df4$WasMondayOpenHigherThanFridayClose and df4$WasMondayCloseHigherThanFridayClose
+```
+
 
 ```{r}
 columns_to_plot <- names(df4)[names(df4) != "MondayOpenToFridayCloseRatio"]
