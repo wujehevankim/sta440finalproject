@@ -30,14 +30,14 @@ library(knitr)
 
 ```{r, echo=FALSE}
 # Read the CSV file into a dataframe
-df <- read.csv('data/SPY_data_wrangling/SPY_ready_for_analysis.csv', header = TRUE)
+#df <- read.csv('data/SPY_data_wrangling/SPY_ready_for_analysis.csv', header = TRUE)
 
 # Binomial model
-model <- glm(MondayOpenComparedToFridayCloseChangeInPercent ~ FridayCloseComparedToThursdayCloseChangeInPercent + FridayIntradayChangeInPercent, 
-                      data = df, family = gaussian)
+#model <- glm(MondayOpenComparedToFridayCloseChangeInPercent ~ FridayCloseComparedToThursdayCloseChangeInPercent + FridayIntradayChangeInPercent, 
+#                      data = df, family = gaussian)
 
 # Print the summary of the model
-summary(model)
+#summary(model)
 
 
 ```
@@ -520,7 +520,7 @@ print(chi_square_test_WasMondayCloseHigherThanFridayClose_vs_FOMCaction)
 
 
 #model7BUYFRICLOSESELLMONOPEN <- glm(WasMondayOpenHigherThanFridayClose ~ wasFridayIntradayPositive, 
-                      data = df7_filtered, family = binomial)
+#                      data = df7_filtered, family = binomial)
 #summary(model7BUYFRICLOSESELLMONOPEN)
 
 
@@ -529,7 +529,7 @@ print(chi_square_test_WasMondayCloseHigherThanFridayClose_vs_FOMCaction)
 
 # wasFridayIntradayPositive
 #model7BUYFRICLOSESELLMONclose <- glm(WasMondayCloseHigherThanFridayClose ~ NFPOutcomeIsShock + CSIActualMinusExpected, 
-                      data = df7, family = binomial)
+#                      data = df7, family = binomial)
   
 
 #summary(model7BUYFRICLOSESELLMONclose)
@@ -627,12 +627,12 @@ df8 <- read.csv('data/addingFOMC/SPY_ready_for_analysis_triple_witch_NFP_CSI_FOM
 df8$NFPOutcomeIsShock <- ifelse(df8$NFPOutcome == "Shock", 1, 0)
 df8$CSIOutcomeIsShock <- ifelse(df8$CSIOutcome == "Shock", 1, 0)
 df8$PrecedingWeekFridayVolumePrecedingWeekThursdayVolumeRATIO <- (df8$PrecedingWeekFridayVolume) / (df8$PrecedingWeekThursdayVolume)
-
+df8$CSIActualMinusExpected[is.na(df8$CSIActualMinusExpected)] <- 0
 
 null_model <- glm(WasMondayOpenHigherThanFridayClose ~ 1, 
                   data = df8, family = binomial)
 #summary(null_model)
-full_model <- glm(WasMondayOpenHigherThanFridayClose ~ didFridayCloseHigherThanThursdayClose + FridayCloseComparedToThursdayCloseChangeInPercent + wasFridayIntradayPositive + FridayIntradayChangeInPercent + fridayWasATripleWitchDay + NFPDayOrNot + NFPOutcome + CSIOutcome + CSIDayOrNot + wasItFOMCWeek + FOMCAction + FOMCActualVSExpected + FOMCActionSpecial + NFPOutcomeIsShock + CSIOutcomeIsShock + PrecedingWeekFridayVolumePrecedingWeekThursdayVolumeRATIO, 
+full_model <- glm(WasMondayOpenHigherThanFridayClose ~ didFridayCloseHigherThanThursdayClose + FridayCloseComparedToThursdayCloseChangeInPercent + wasFridayIntradayPositive + FridayIntradayChangeInPercent + fridayWasATripleWitchDay + NFPDayOrNot + NFPOutcome + CSIOutcome + CSIDayOrNot + wasItFOMCWeek + FOMCAction + FOMCActualVSExpected + FOMCActionSpecial + NFPOutcomeIsShock + CSIOutcomeIsShock + PrecedingWeekFridayVolumePrecedingWeekThursdayVolumeRATIO + CSIActualMinusExpected, 
                   data = df8, family = binomial)
 #summary(full_model)
 
@@ -651,6 +651,8 @@ summary(forward_model)
 backward_model <- step(full_model, direction = "backward")
 summary(backward_model)
 ```
+
+
 ```{r}
 non_random_model <- glm(formula = WasMondayOpenHigherThanFridayClose ~ CSIOutcomeIsShock + 
     wasFridayIntradayPositive + FridayIntradayChangeInPercent + 
