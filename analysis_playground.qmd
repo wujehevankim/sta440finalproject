@@ -503,39 +503,124 @@ print(chi_square_test_WasMondayCloseHigherThanFridayClose_vs_FOMCaction)
 
 # so, yeah, maybe FOMC action is not that significant, despite how much media loves to owe monday results to "last wednesday"'s action/sentiment...
 ```{r}
-df7 <- read.csv('data/addingFOMC/SPY_ready_for_analysis_triple_witch_NFP_CSI_FOMC.csv', header = TRUE)
+#df7 <- read.csv('data/addingFOMC/SPY_ready_for_analysis_triple_witch_NFP_CSI_FOMC.csv', header = TRUE)
 
 
 
-df7$NFPOutcomeIsShock <- ifelse(df7$NFPOutcome == "Shock", 1, 0)
-df7$CSIOutcomeIsShock <- ifelse(df7$CSIOutcome == "Shock", 1, 0)
+#df7$NFPOutcomeIsShock <- ifelse(df7$NFPOutcome == "Shock", 1, 0)
+#df7$CSIOutcomeIsShock <- ifelse(df7$CSIOutcome == "Shock", 1, 0)
 
 
 
-df7_filtered <- rbind(df7[1:220, ], df7[264:nrow(df7), ])
-df7_filtered$NFPOutcomeIsShock <- ifelse(df7_filtered$NFPOutcome == "Shock", 1, 0)
-df7_filtered$CSIOutcomeIsShock <- ifelse(df7_filtered$CSIOutcome == "Shock", 1, 0)
-df7_filtered$PrecedingWeekFridayVolumeMINUSPrecedingWeekThursdayVolume <- (df7_filtered$PrecedingWeekFridayVolume) - (df7_filtered$PrecedingWeekThursdayVolume)
+#df7_filtered <- rbind(df7[1:220, ], df7[264:nrow(df7), ])
+#df7_filtered$NFPOutcomeIsShock <- ifelse(df7_filtered$NFPOutcome == "Shock", 1, 0)
+#df7_filtered$CSIOutcomeIsShock <- ifelse(df7_filtered$CSIOutcome == "Shock", 1, 0)
+#df7_filtered$PrecedingWeekFridayVolumeMINUSPrecedingWeekThursdayVolume <- (df7_filtered$PrecedingWeekFridayVolume) - (df7_filtered$PrecedingWeekThursdayVolume)
 #df7$FridayCloseToFridayOpenRatio <- (df$PrecedingWeekFridayClose) / (df$PrecedingWeekFridayOpen)
 
 
-model7BUYFRICLOSESELLMONOPEN <- glm(WasMondayOpenHigherThanFridayClose ~ wasFridayIntradayPositive, 
+#model7BUYFRICLOSESELLMONOPEN <- glm(WasMondayOpenHigherThanFridayClose ~ wasFridayIntradayPositive, 
                       data = df7_filtered, family = binomial)
-summary(model7BUYFRICLOSESELLMONOPEN)
+#summary(model7BUYFRICLOSESELLMONOPEN)
 
 
 
 
 
 # wasFridayIntradayPositive
-model7BUYFRICLOSESELLMONclose <- glm(WasMondayCloseHigherThanFridayClose ~ NFPOutcomeIsShock + CSIActualMinusExpected, 
+#model7BUYFRICLOSESELLMONclose <- glm(WasMondayCloseHigherThanFridayClose ~ NFPOutcomeIsShock + CSIActualMinusExpected, 
                       data = df7, family = binomial)
   
 
-summary(model7BUYFRICLOSESELLMONclose)
+#summary(model7BUYFRICLOSESELLMONclose)
 
 ```
 
+## WasMondayOpenHigherThanFridayClose: why PrecedingWeekFridayMonth should be random effect for 
+```{r}
+df4$PrecedingWeekFridayMonth <- factor(df4$PrecedingWeekFridayMonth, levels = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"))
+
+table(df4$PrecedingWeekFridayMonth)
+aggregate(WasMondayOpenHigherThanFridayClose ~ PrecedingWeekFridayMonth, data = df4, mean)
+library(ggplot2)
+ggplot(df4, aes(x = PrecedingWeekFridayMonth, fill = factor(WasMondayOpenHigherThanFridayClose))) +
+  geom_bar(position = "fill") +
+  ylab("Proportion")
+
+```
+
+```{r}
+contingency_table_monthsOPEN <- table(df4$PrecedingWeekFridayMonth, df4$WasMondayOpenHigherThanFridayClose)
+print(contingency_table_monthsOPEN)
+# Perform the Chi-square test
+chi_sq_test_monthsOPEN <- chisq.test(contingency_table_monthsOPEN)
+
+# Output the result
+chi_sq_test_monthsOPEN
+```
+
+```{r}
+# Assign new groupings based on seasons
+df4$Month <- with(df4, factor(
+  ifelse(PrecedingWeekFridayMonth %in% c("Mar", "Jan", "May", "Sept"), "Odd", "Even")))
+
+
+# Create a new contingency table with the season groupings
+contingency_table_MonthOPEN <- table(df4$Month, df4$WasMondayOpenHigherThanFridayClose)
+
+# Perform the Chi-square test with the new grouping
+chi_sq_test_MonthOPEN <- chisq.test(contingency_table_MonthOPEN, correct=FALSE)
+
+# Output the result
+chi_sq_test_MonthOPEN
+
+```
+
+
+## WasMondayCloseHigherThanFridayClose: why PrecedingWeekFridayMonth should be random effect for 
+```{r}
+#df4$PrecedingWeekFridayMonth <- factor(df4$PrecedingWeekFridayMonth, levels = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"))
+
+table(df4$PrecedingWeekFridayMonth)
+aggregate(WasMondayCloseHigherThanFridayClose ~ PrecedingWeekFridayMonth, data = df4, mean)
+library(ggplot2)
+ggplot(df4, aes(x = PrecedingWeekFridayMonth, fill = factor(WasMondayCloseHigherThanFridayClose))) +
+  geom_bar(position = "fill") +
+  ylab("Proportion")
+
+```
+
+```{r}
+contingency_table_monthsCLOSE <- table(df4$PrecedingWeekFridayMonth, df4$WasMondayCloseHigherThanFridayClose)
+print(contingency_table_monthsCLOSE)
+# Perform the Chi-square test
+chi_sq_test_monthsCLOSE <- chisq.test(contingency_table_monthsCLOSE)
+
+# Output the result
+chi_sq_test_monthsCLOSE
+```
+
+```{r}
+# Assign new groupings based on seasons
+df4$Monthclose <- with(df4, factor(
+  ifelse(PrecedingWeekFridayMonth %in% c("Mar", "Jan", "Jun", "Jul", "Sept"), "Odd", "Even")))
+
+
+# Create a new contingency table with the season groupings
+contingency_table_MonthCLOSE <- table(df4$Monthclose, df4$WasMondayCloseHigherThanFridayClose)
+
+# Perform the Chi-square test with the new grouping
+chi_sq_test_MonthCLOSE <- chisq.test(contingency_table_MonthCLOSE, correct=FALSE)
+
+# Output the result
+chi_sq_test_MonthCLOSE
+
+```
+
+## so, yeah, month should probably be random effect for both MondayOpen and MondayClose models
+
+
+## finding the model for Y = WasMondayOpenHigherThanFridayClose
 ```{r}
 df8 <- read.csv('data/addingFOMC/SPY_ready_for_analysis_triple_witch_NFP_CSI_FOMC_with_month.csv', header = TRUE)
 #df8 <- rbind(df8[1:220, ], df8[264:nrow(df8), ])
@@ -546,26 +631,25 @@ df8$PrecedingWeekFridayVolumePrecedingWeekThursdayVolumeRATIO <- (df8$PrecedingW
 
 null_model <- glm(WasMondayOpenHigherThanFridayClose ~ 1, 
                   data = df8, family = binomial)
-summary(null_model)
+#summary(null_model)
 full_model <- glm(WasMondayOpenHigherThanFridayClose ~ didFridayCloseHigherThanThursdayClose + FridayCloseComparedToThursdayCloseChangeInPercent + wasFridayIntradayPositive + FridayIntradayChangeInPercent + fridayWasATripleWitchDay + NFPDayOrNot + NFPOutcome + CSIOutcome + CSIDayOrNot + wasItFOMCWeek + FOMCAction + FOMCActualVSExpected + FOMCActionSpecial + NFPOutcomeIsShock + CSIOutcomeIsShock + PrecedingWeekFridayVolumePrecedingWeekThursdayVolumeRATIO, 
                   data = df8, family = binomial)
-summary(full_model)
+#summary(full_model)
 
 
 
 forward_model <- step(null_model, 
                       scope = list(lower = null_model, upper = full_model), 
-                      direction = "forward")
-```
+                      direction = "forward",
+                      trace = 0)
 
-
-
-```{r}
 summary(forward_model)
 ```
+
+
 ```{r}
 backward_model <- step(full_model, direction = "backward")
-summary(forward_model)
+summary(backward_model)
 ```
 ```{r}
 non_random_model <- glm(formula = WasMondayOpenHigherThanFridayClose ~ CSIOutcomeIsShock + 
@@ -574,46 +658,7 @@ non_random_model <- glm(formula = WasMondayOpenHigherThanFridayClose ~ CSIOutcom
     data = df8)
 summary(non_random_model)
 ```
-## why PrecedingWeekFridayMonth should be random effect
-```{r}
-df8$PrecedingWeekFridayMonth <- factor(df8$PrecedingWeekFridayMonth, levels = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"))
 
-table(df8$PrecedingWeekFridayMonth)
-aggregate(WasMondayOpenHigherThanFridayClose ~ PrecedingWeekFridayMonth, data = df8, mean)
-library(ggplot2)
-ggplot(df8, aes(x = PrecedingWeekFridayMonth, fill = factor(WasMondayOpenHigherThanFridayClose))) +
-  geom_bar(position = "fill") +
-  ylab("Proportion")
-
-```
-
-```{r}
-contingency_table_months <- table(df8$PrecedingWeekFridayMonth, df8$WasMondayOpenHigherThanFridayClose)
-print(contingency_table_months)
-# Perform the Chi-square test
-chi_sq_test_months <- chisq.test(contingency_table_months)
-
-# Output the result
-chi_sq_test_months
-```
-
-## chi-squared
-```{r}
-# Assign new groupings based on seasons
-df8$Month <- with(df8, factor(
-  ifelse(PrecedingWeekFridayMonth %in% c("Mar", "Jan", "May", "Sept"), "Odd", "Even")))
-
-
-# Create a new contingency table with the season groupings
-contingency_table_Month <- table(df8$Month, df8$WasMondayOpenHigherThanFridayClose)
-
-# Perform the Chi-square test with the new grouping
-chi_sq_test_Month <- chisq.test(contingency_table_Month)
-
-# Output the result
-chi_sq_test_Month
-
-```
 
 
 ```{r}
