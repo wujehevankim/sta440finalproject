@@ -82,21 +82,21 @@ library(ggplot2)
 # Assuming df3 is your dataframe
 
 # Create a new column for the specified condition
-df3 <- df3 %>%
-  mutate(SpecialCondition = ifelse(fridayWasATripleWitchDay == 1 & didFridayCloseHigherThanThursdayClose == 0, "Condition Met", "Other"))
+#df3 <- df3 %>%
+#  mutate(SpecialCondition = ifelse(fridayWasATripleWitchDay == 1 & didFridayCloseHigherThanThursdayClose == 0, "Condition #Met", "Other"))
 
 # Calculate ratios
-ratios <- df3 %>%
-  group_by(SpecialCondition) %>%
-  summarise(
-    Ones = sum(WasMondayOpenHigherThanFridayClose == 1),
-    Zeros = sum(WasMondayOpenHigherThanFridayClose == 0),
-    Ratio = Ones / Zeros,
-    .groups = 'drop'
-  )
+#ratios <- df3 %>%
+#  group_by(SpecialCondition) %>%
+#  summarise(
+#    Ones = sum(WasMondayOpenHigherThanFridayClose == 1),
+#    Zeros = sum(WasMondayOpenHigherThanFridayClose == 0),
+#    Ratio = Ones / Zeros,
+#    .groups = 'drop'
+#  )
 
 # Print the ratios
-print(ratios)
+#print(ratios)
 
 
 ```
@@ -632,13 +632,16 @@ df8$Month <- with(df8, factor(
   ifelse(PrecedingWeekFridayMonth %in% c("Mar", "Jan", "May", "Sept"), "Odd", "Even")))
 df8$Monthclose <- with(df8, factor(
   ifelse(PrecedingWeekFridayMonth %in% c("Mar", "Jan", "Jun", "Jul", "Sept"), "Odd", "Even")))
+df8$FridayVolumeMinusThursdayVolume <- df8$PrecedingWeekFridayVolume - df8$PrecedingWeekThursdayVolume
+df8$wasFridayOpenHigherThanThursdayClose <- as.integer(df8$PrecedingWeekFridayOpen > df8$PrecedingWeekThursdayClose)
+df8$wasFridayHighHigherThanThursdayHigh <- as.integer(df8$PrecedingWeekFridayHigh > df8$PrecedingWeekThursdayHigh)
 
 
 
 null_modelOPEN <- glm(WasMondayOpenHigherThanFridayClose ~ 1, 
                   data = df8, family = binomial)
 #summary(null_model)
-full_modelOPEN <- glm(WasMondayOpenHigherThanFridayClose ~ didFridayCloseHigherThanThursdayClose + FridayCloseComparedToThursdayCloseChangeInPercent + wasFridayIntradayPositive + FridayIntradayChangeInPercent + fridayWasATripleWitchDay + NFPDayOrNot + NFPOutcome + CSIOutcome + CSIDayOrNot + wasItFOMCWeek + FOMCAction + FOMCActualVSExpected + FOMCActionSpecial + NFPOutcomeIsShock + CSIOutcomeIsShock + PrecedingWeekFridayVolumePrecedingWeekThursdayVolumeRATIO, 
+full_modelOPEN <- glm(WasMondayOpenHigherThanFridayClose ~ didFridayCloseHigherThanThursdayClose + FridayCloseComparedToThursdayCloseChangeInPercent + wasFridayIntradayPositive + FridayIntradayChangeInPercent + fridayWasATripleWitchDay + NFPDayOrNot + NFPOutcome + CSIOutcome + CSIActualMinusExpected + CSIDayOrNot + wasItFOMCWeek + FOMCAction + FOMCActualVSExpected + FOMCActionSpecial + NFPOutcomeIsShock + CSIOutcomeIsShock + PrecedingWeekFridayVolumePrecedingWeekThursdayVolumeRATIO + FOMCActualVSExpected + FOMCActionSpecial + FridayVolumeMinusThursdayVolume + wasFridayOpenHigherThanThursdayClose, 
                   data = df8, family = binomial)
 #summary(full_model)
 
@@ -662,7 +665,7 @@ summary(forward_modelOPEN)
 ```{r}
 non_random_modelOPEN <- glm(formula = WasMondayOpenHigherThanFridayClose ~ CSIOutcomeIsShock + 
     wasFridayIntradayPositive + FridayIntradayChangeInPercent + 
-    didFridayCloseHigherThanThursdayClose, family = binomial, 
+    CSIActualMinusExpected + didFridayCloseHigherThanThursdayClose, family = binomial, 
     data = df8)
 
 
@@ -672,7 +675,7 @@ summary(non_random_modelOPEN)
 library(lme4)
 mixed_modelOPEN <- glmer(formula = WasMondayOpenHigherThanFridayClose ~ CSIOutcomeIsShock + 
     wasFridayIntradayPositive + FridayIntradayChangeInPercent + 
-    didFridayCloseHigherThanThursdayClose + (1 | Month), family = binomial, 
+    CSIActualMinusExpected + didFridayCloseHigherThanThursdayClose + (1 | Month), family = binomial, 
     data = df8)
 
 
@@ -692,7 +695,7 @@ summary(mixed_modelOPEN)
 null_modelCLOSE <- glm(WasMondayCloseHigherThanFridayClose ~ 1, 
                   data = df8, family = binomial)
 #summary(null_model)
-full_modelCLOSE <- glm(WasMondayCloseHigherThanFridayClose ~ didFridayCloseHigherThanThursdayClose + FridayCloseComparedToThursdayCloseChangeInPercent + wasFridayIntradayPositive + FridayIntradayChangeInPercent + fridayWasATripleWitchDay + NFPDayOrNot + NFPOutcome + wasItFOMCWeek + FOMCAction + FOMCActualVSExpected + FOMCActionSpecial + NFPOutcomeIsShock + PrecedingWeekFridayVolumePrecedingWeekThursdayVolumeRATIO + CSIActualMinusExpected + CSIOutcome + CSIOutcomeIsShock + CSIDayOrNot, 
+full_modelCLOSE <- glm(WasMondayOpenHigherThanFridayClose ~ didFridayCloseHigherThanThursdayClose + FridayCloseComparedToThursdayCloseChangeInPercent + wasFridayIntradayPositive + FridayIntradayChangeInPercent + fridayWasATripleWitchDay + NFPDayOrNot + NFPOutcome + CSIOutcome + CSIActualMinusExpected + CSIDayOrNot + wasItFOMCWeek + FOMCAction + FOMCActualVSExpected + FOMCActionSpecial + NFPOutcomeIsShock + CSIOutcomeIsShock + PrecedingWeekFridayVolumePrecedingWeekThursdayVolumeRATIO + FOMCActualVSExpected + FOMCActionSpecial+FridayVolumeMinusThursdayVolume + wasFridayOpenHigherThanThursdayClose, 
                   data = df8, family = binomial)
 #summary(full_model)
 
