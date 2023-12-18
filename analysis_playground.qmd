@@ -622,7 +622,7 @@ chi_sq_test_MonthCLOSE
 
 ## finding the model for Y = WasMondayOpenHigherThanFridayClose
 ```{r}
-df8 <- read.csv('data/addingFOMC/SPY_ready_for_analysis_triple_witch_NFP_CSI_FOMC_with_month.csv', header = TRUE)
+df8 <- read.csv('data/addingUnemployment/SPY_ready_for_analysis_triple_witch_NFP_CSI_FOMC_with_month_withUnemployment_finished_electionMonthsAdded.csv', header = TRUE)
 #df8 <- rbind(df8[1:220, ], df8[264:nrow(df8), ])
 df8$NFPOutcomeIsShock <- ifelse(df8$NFPOutcome == "Shock", 1, 0)
 df8$CSIOutcomeIsShock <- ifelse(df8$CSIOutcome == "Shock", 1, 0)
@@ -635,13 +635,15 @@ df8$Monthclose <- with(df8, factor(
 df8$FridayVolumeMinusThursdayVolume <- df8$PrecedingWeekFridayVolume - df8$PrecedingWeekThursdayVolume
 df8$wasFridayOpenHigherThanThursdayClose <- as.integer(df8$PrecedingWeekFridayOpen > df8$PrecedingWeekThursdayClose)
 df8$wasFridayHighHigherThanThursdayHigh <- as.integer(df8$PrecedingWeekFridayHigh > df8$PrecedingWeekThursdayHigh)
-
+df8$wasFridayLowLowerThanThursdayLow <- as.integer(df8$PrecedingWeekFridayLow > df8$PrecedingWeekThursdayLow)
+df8$wasFridayHighLowerThanThursdayLow <- as.integer(df8$PrecedingWeekFridayHigh < df8$PrecedingWeekThursdayLow)
+df8$wasFridayLowHigherThanThursdayHigh <- as.integer(df8$PrecedingWeekFridayLow > df8$PrecedingWeekThursdayHigh)
 
 
 null_modelOPEN <- glm(WasMondayOpenHigherThanFridayClose ~ 1, 
                   data = df8, family = binomial)
 #summary(null_model)
-full_modelOPEN <- glm(WasMondayOpenHigherThanFridayClose ~ didFridayCloseHigherThanThursdayClose + FridayCloseComparedToThursdayCloseChangeInPercent + wasFridayIntradayPositive + FridayIntradayChangeInPercent + fridayWasATripleWitchDay + NFPDayOrNot + NFPOutcome + CSIOutcome + CSIActualMinusExpected + CSIDayOrNot + wasItFOMCWeek + FOMCAction + FOMCActualVSExpected + FOMCActionSpecial + NFPOutcomeIsShock + CSIOutcomeIsShock + PrecedingWeekFridayVolumePrecedingWeekThursdayVolumeRATIO + FOMCActualVSExpected + FOMCActionSpecial + FridayVolumeMinusThursdayVolume + wasFridayOpenHigherThanThursdayClose, 
+full_modelOPEN <- glm(WasMondayOpenHigherThanFridayClose ~ didFridayCloseHigherThanThursdayClose + wasFridayIntradayPositive + FridayCloseComparedToThursdayCloseChangeInPercent + FridayIntradayChangeInPercent + fridayWasATripleWitchDay + NFPDayOrNot + NFPOutcome + CSIOutcome + CSIActualMinusExpected + CSIDayOrNot + wasItFOMCWeek + FOMCAction + FOMCActualVSExpected + FOMCActionSpecial + NFPOutcomeIsShock + CSIOutcomeIsShock + PrecedingWeekFridayVolumePrecedingWeekThursdayVolumeRATIO + FOMCActualVSExpected + FOMCActionSpecial + FridayVolumeMinusThursdayVolume + wasFridayOpenHigherThanThursdayClose + FOMCPivotAction + UnemploymentRateOutcome + wasFridayLowLowerThanThursdayLow + wasFridayHighLowerThanThursdayLow + wasFridayLowHigherThanThursdayHigh + wasItPresidentialElectionWeek, 
                   data = df8, family = binomial)
 #summary(full_model)
 
@@ -695,7 +697,7 @@ summary(mixed_modelOPEN)
 null_modelCLOSE <- glm(WasMondayCloseHigherThanFridayClose ~ 1, 
                   data = df8, family = binomial)
 #summary(null_model)
-full_modelCLOSE <- glm(WasMondayOpenHigherThanFridayClose ~ didFridayCloseHigherThanThursdayClose + FridayCloseComparedToThursdayCloseChangeInPercent + wasFridayIntradayPositive + FridayIntradayChangeInPercent + fridayWasATripleWitchDay + NFPDayOrNot + NFPOutcome + CSIOutcome + CSIActualMinusExpected + CSIDayOrNot + wasItFOMCWeek + FOMCAction + FOMCActualVSExpected + FOMCActionSpecial + NFPOutcomeIsShock + CSIOutcomeIsShock + PrecedingWeekFridayVolumePrecedingWeekThursdayVolumeRATIO + FOMCActualVSExpected + FOMCActionSpecial+FridayVolumeMinusThursdayVolume + wasFridayOpenHigherThanThursdayClose, 
+full_modelCLOSE <- glm(WasMondayOpenHigherThanFridayClose ~ didFridayCloseHigherThanThursdayClose + wasFridayIntradayPositive + FridayCloseComparedToThursdayCloseChangeInPercent + FridayIntradayChangeInPercent + fridayWasATripleWitchDay + NFPDayOrNot + NFPOutcome + CSIOutcome + CSIActualMinusExpected + CSIDayOrNot + wasItFOMCWeek + FOMCAction + FOMCActualVSExpected + FOMCActionSpecial + NFPOutcomeIsShock + CSIOutcomeIsShock + PrecedingWeekFridayVolumePrecedingWeekThursdayVolumeRATIO + FOMCActualVSExpected + FOMCActionSpecial + FridayVolumeMinusThursdayVolume + wasFridayOpenHigherThanThursdayClose + FOMCPivotAction + UnemploymentRateOutcome + wasFridayLowLowerThanThursdayLow + wasFridayHighLowerThanThursdayLow + wasFridayLowHigherThanThursdayHigh + wasItPresidentialElectionWeek, 
                   data = df8, family = binomial)
 #summary(full_model)
 
@@ -719,8 +721,8 @@ summary(forward_modelCLOSE)
 ## the two models for Y = WasMondayCloseHigherThanFridayClose
 ```{r}
 non_random_modelCLOSE <- glm(formula = WasMondayCloseHigherThanFridayClose ~ NFPOutcomeIsShock + 
-    fridayWasATripleWitchDay + CSIActualMinusExpected + CSIOutcome + 
-    wasFridayIntradayPositive, family = binomial, 
+    wasFridayHighLowerThanThursdayLow + fridayWasATripleWitchDay + 
+    CSIActualMinusExpected + CSIOutcome + wasFridayIntradayPositive, family = binomial, 
     data = df8)
 
 
@@ -730,8 +732,8 @@ summary(non_random_modelCLOSE)
 
 library(lme4)
 mixed_modelCLOSE <- glmer(WasMondayCloseHigherThanFridayClose ~ NFPOutcomeIsShock + 
-    fridayWasATripleWitchDay + CSIActualMinusExpected + CSIOutcome + 
-    wasFridayIntradayPositive + 
+    wasFridayHighLowerThanThursdayLow + fridayWasATripleWitchDay + 
+    CSIActualMinusExpected + CSIOutcome + wasFridayIntradayPositive + 
                      (1 | Monthclose), 
                      family = binomial, data = df8)
 summary(mixed_modelCLOSE)
@@ -795,11 +797,15 @@ for (i in 1:nrow(df8)) {
 }
 
 # Print the results
+print("non_random_model_right_wrongOPEN")
 print(non_random_model_right_wrongOPEN)
 print(non_random_model_right_wrongOPEN[1] / (non_random_model_right_wrongOPEN[1] + non_random_model_right_wrongOPEN[2]))
 
+print("mixed_model_right_wrongOPEN")
 print(mixed_model_right_wrongOPEN)
 print(mixed_model_right_wrongOPEN[1] / (mixed_model_right_wrongOPEN[1] + mixed_model_right_wrongOPEN[2]))
+print("total stats")
+print(sum(df8$WasMondayOpenHigherThanFridayClose) / nrow(df8))
 ```
 
 
@@ -826,11 +832,16 @@ for (i in 1:nrow(df8)) {
 }
 
 # Print the results
+print("non_random_model_right_wrongCLOSE")
 print(non_random_model_right_wrongCLOSE)
 print(non_random_model_right_wrongCLOSE[1] / (non_random_model_right_wrongCLOSE[1] + non_random_model_right_wrongCLOSE[2]))
 
+print("mixed_model_right_wrongCLOSE")
 print(mixed_model_right_wrongCLOSE)
 print(mixed_model_right_wrongCLOSE[1] / (mixed_model_right_wrongCLOSE[1] + mixed_model_right_wrongCLOSE[2]))
+
+print("total stats")
+print(sum(df8$WasMondayCloseHigherThanFridayClose) / nrow(df8))
 ```
 
 
