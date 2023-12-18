@@ -622,7 +622,7 @@ chi_sq_test_MonthCLOSE
 
 ## finding the model for Y = WasMondayOpenHigherThanFridayClose
 ```{r}
-df8 <- read.csv('data/addingUnemployment/SPY_ready_for_analysis_triple_witch_NFP_CSI_FOMC_with_month_withUnemployment_finished_electionMonthsAdded_FINAL_lastFridayAdded.csv', header = TRUE)
+df8 <- read.csv('data/DIA/DIA_ready_for_analysis_COMPLETE.csv', header = TRUE)
 #df8 <- rbind(df8[1:220, ], df8[264:nrow(df8), ])
 df8$NFPOutcomeIsShock <- ifelse(df8$NFPOutcome == "Shock", 1, 0)
 df8$CSIOutcomeIsShock <- ifelse(df8$CSIOutcome == "Shock", 1, 0)
@@ -668,8 +668,9 @@ summary(forward_modelOPEN)
 ## the two models for Y = WasMondayOpenHigherThanFridayClose
 ```{r}
 non_random_modelOPEN <- glm(formula = WasMondayOpenHigherThanFridayClose ~ isItLastFridayOfTheMonth + 
-    wasFridayCloseHigherThanThursdayHigh + CSIOutcomeIsShock + 
-    CSIActualMinusExpected + UnemploymentActualMinusPreviousInPercent, family = binomial, 
+    wasFridayOpenHigherThanThursdayClose + CSIDayOrNot + wasFridayHighLowerThanThursdayLow + 
+    didFridayCloseHigherThanThursdayClose + UnemploymentActualMinusPreviousInPercent + 
+    wasFridayLowLowerThanThursdayLow, family = binomial, 
     data = df8)
 
 
@@ -678,8 +679,9 @@ summary(non_random_modelOPEN)
 
 library(lme4)
 mixed_modelOPEN <- glmer(formula = WasMondayOpenHigherThanFridayClose ~ isItLastFridayOfTheMonth + 
-    wasFridayCloseHigherThanThursdayHigh + CSIOutcomeIsShock + 
-    CSIActualMinusExpected + UnemploymentActualMinusPreviousInPercent + (1 | Month), family = binomial, 
+    wasFridayOpenHigherThanThursdayClose + CSIDayOrNot + wasFridayHighLowerThanThursdayLow + 
+    didFridayCloseHigherThanThursdayClose + UnemploymentActualMinusPreviousInPercent + 
+    wasFridayLowLowerThanThursdayLow + (1 | Month), family = binomial, 
     data = df8)
 
 
@@ -722,9 +724,11 @@ summary(forward_modelCLOSE)
 
 ## the two models for Y = WasMondayCloseHigherThanFridayClose
 ```{r}
-non_random_modelCLOSE <- glm(formula = WasMondayCloseHigherThanFridayClose ~ NFPOutcomeIsShock + 
-    wasFridayHighLowerThanThursdayLow + fridayWasATripleWitchDay + 
-    CSIActualMinusExpected + CSIOutcome + wasFridayIntradayPositive, family = binomial, 
+non_random_modelCLOSE <- glm(formula = WasMondayCloseHigherThanFridayClose ~ FridayVolumeMinusThursdayVolume + 
+    wasFridayHighLowerThanThursdayLow + wasFridayOpenHigherThanThursdayClose + 
+    FridayIntradayChangeInPercent + fridayWasATripleWitchDay + 
+    NFPDayOrNot + UnemploymentActualMinusPreviousInPercent + 
+    wasItFOMCWeek + FOMCActionSpecial + wasItPresidentialElectionWeek, family = binomial, 
     data = df8)
 
 
@@ -733,9 +737,11 @@ summary(non_random_modelCLOSE)
 
 
 library(lme4)
-mixed_modelCLOSE <- glmer(WasMondayCloseHigherThanFridayClose ~ NFPOutcomeIsShock + 
-    wasFridayHighLowerThanThursdayLow + fridayWasATripleWitchDay + 
-    CSIActualMinusExpected + CSIOutcome + wasFridayIntradayPositive + 
+mixed_modelCLOSE <- glmer(WasMondayCloseHigherThanFridayClose ~ FridayVolumeMinusThursdayVolume + 
+    wasFridayHighLowerThanThursdayLow + wasFridayOpenHigherThanThursdayClose + 
+    FridayIntradayChangeInPercent + fridayWasATripleWitchDay + 
+    NFPDayOrNot + UnemploymentActualMinusPreviousInPercent + 
+    wasItFOMCWeek + FOMCActionSpecial + wasItPresidentialElectionWeek + 
                      (1 | Monthclose), 
                      family = binomial, data = df8)
 summary(mixed_modelCLOSE)
@@ -853,7 +859,7 @@ print(sum(df8$WasMondayCloseHigherThanFridayClose) / nrow(df8))
 ```{r}
 # save df to .csv
 # Save df8 to a CSV file
-write.csv(df8, file = "results/SPY_non_mixed_and_mixed_modelOPENandCLOSEpredicts20231218_0424pm_b.csv", row.names = FALSE)
+write.csv(df8, file = "results/DIA_non_mixed_and_mixed_modelOPENandCLOSEpredicts20231218_0523pm_b.csv", row.names = FALSE)
 
 ```
 
