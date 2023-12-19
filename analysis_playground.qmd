@@ -160,7 +160,7 @@ breakdown_table <- data.frame(
 
 library(knitr)
 # Print the table
-kable(breakdown_table, caption = "Proportions of Monday Open and Close vs. Friday Close", format = "html")
+kable(breakdown_table, caption = "Proportion Breakdown of Monday Open and Close vs. Friday Close", format = "html")
 
 ```
 

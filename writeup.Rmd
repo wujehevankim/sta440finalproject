@@ -1,10 +1,10 @@
 ---
 header-includes:
   - \usepackage{titling}
-  - \pretitle{\vspace{-1.83cm}\begin{center}\Large}
+  - \pretitle{\vspace{-1.95cm}\begin{center}\Large}
   - \posttitle{\end{center}}
 title: "Beyond Friday: Measuring the Ripple Effects into the Monday Mystique"
-author: "Evan Kim"
+author: "Evan Kim (STA 440 with Dr. Jiang)"
 geometry: "left=1.75cm,right=1.75cm,top=1.75cm,bottom=1.75cm"
 fontsize: 11pt
 date: "2023-12-18"
@@ -13,6 +13,7 @@ output: pdf_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = TRUE)
+
 ```
 
 ## I. Introduction
@@ -22,35 +23,197 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = TRUE)
 \text{ }\text{ }\text{ }\text{ } The participation of retail investors in the US equities market has seen a remarkable upsurge in recent times. This growth can be attributed to a confluence of factors that have reshaped the investing landscape. Key among these is the advent of mobile app trading platforms such as Robinhood, which have streamlined the process of account opening and investing, even for modest sums; 76% of "Nascent Investors", as defined by BNY Mellon in its 2022 Retail Investor Survey, execute transactions where the average trade size is less than 500.$^1$ Simultaneously, the rise of social media has played a pivotal role in fueling the engagement of younger demographics in stock market investing. Influencer-driven content has not only heightened awareness but has also created a sense of urgency, often rooted in the "fear of missing out", propelling these new investors into the fray.\newline
 \text{ }\text{ }\text{ }\text{ } This wave of market entry is not confined to new participants alone. The economic climate shaped by pandemic-era stimulus measures and historically low US benchmark interest rates (near-zero from April 2020 to February 2022) has seen a broad cross-section of the population invest in the stock market. Per the Federal Reserve, US households and nonprofits parked 41% of their total financial assets in "direct and indirect holdings of stocks" as of year-end 2021, nearly an all-time high since 1952.$^2$\newline
 \text{ }\text{ }\text{ }\text{ } Amidst this influx of market participants, there is a burgeoning obsession with "beating the market" - that is, achieving an annualized return that surpasses the performance of the S&P 500, often regarded as the most representative of all stock market indices. The quest to outperform the market persists despite evidence that even seasoned finance professionals struggle to do so, with studies showing that 95% cannot "beat the market."$^3$ This was famously highlighted by legendary investor Warren Buffett's 2007 bet, which posited that the S&P 500 index would outperform the curated selections of hedge fund managers, a claim that ultimately held true.$^4$\newline
-\text{ }\text{ }\text{ }\text{ } One theory that has captivated the attention of both professional and retail investors alike is the "Monday Effect." This theory suggests that the stock market's performance on Monday will typically follow the preceding Friday's trend. If the market closed up on Friday, the expectation is that the momentum would carry over to Monday, and conversely, if it closed down.$^5$ However, the simplicity of this theory belies its effectiveness. Blindly buying at Friday's close and selling at Monday's close has not demonstrated a reliable way to beat the market in backtested results.$^6$ Moreover, investors, especially inexperienced retail investors, often find it challenging to adhere to such a systematic approach with the necessary discipline, as the psychological barrier of enduring a loss and then persisting with the same strategy the following week, relying solely on the belief in the "Monday Effect" without solid reasoning or informed market insights, is substantial.\newline
-
-
-
-to-do: one paragraph on previous research effort ( https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2515097 ) - have NOT added to sources
-
+\text{ }\text{ }\text{ }\text{ } One theory that has captivated the attention of both professional and retail investors alike is the "Monday Effect." This theory suggests that the stock market's performance on Monday will typically follow the preceding Friday's trend. If the market closed up on Friday, the expectation is that the momentum would carry over to Monday, and conversely, if it closed down.$^5$ However, the simplicity of this theory belies its effectiveness. Blindly buying at Friday's close and selling at Monday's close has not demonstrated a reliable way to beat the market in backtested results.$^6$ Moreover, investors, especially inexperienced retail investors, often find it challenging to adhere to such a systematic approach with the necessary discipline, as the psychological barrier of enduring a loss and then persisting with the same strategy the following week, relying solely on the belief in the "Monday Effect" without solid reasoning or informed market insights, is substantial. In previous research, it was established that the "Monday Effect" does not provide a consistent advantage for systematic profits, especially when considering transaction costs. These findings align with the efficient market hypothesis, suggesting that stock prices move randomly and cannot be reliably predicted for profit-making. The periodic nature of stock returns, while interesting, is not a dependable factor for strategic investment decisions, particularly for retail investors who might lack the discipline or market insight to effectively capitalize on such trends.$^7$\newline
 
 
 **Objective** \newline
-\text{ }\text{ }\text{ }\text{ } The primary aim of this report is to evaluate whether a more sophisticated approach to the "Monday Effect" can be devised, transcending the rudimentary method of purchasing the S&P 500 index at Friday's close and liquidating at Monday's close. By integrating a selection of variables that are defensible from qualitative, quantitative, and financial-economic standpoints into a model underpinned by statistical rigor, we seek to investigate the potential of deriving tangible benefits from this phenomenon. The objective is to construct a strategy that is informed by a refined understanding of the "Monday Effect," thereby providing a nuanced perspective on market behaviors and trends.\newline
-\text{ }\text{ }\text{ }\text{ } The secondary objective of this analysis is to determine whether the refined model and chosen variables can be applied to the Volatility Index (VIX), which serves as a measure of the market's volatility expectations. By examining the feasibility of this application, we intend to assess whether it is possible to achieve steady, low-standard-deviation returns that surpass market averages, not by direct investment in the S&P 500 but through strategic positions in market volatility. This exploration aims to offer an alternative investment strategy that leverages the "Monday Effect," focusing on the volatility of the market rather than the directional movement of the S&P 500 index alone.\newline
-\text{ }\text{ }\text{ }\text{ } The culmination of this report's objectives - both the refined approach to the "Monday Effect" in relation to the S&P 500 and its potential application to the VIX - offers the prospect of invaluable insights for retail investors. These insights are poised to empower investors with sophisticated strategies for navigating and potentially profiting from market patterns. Ultimately, this study aims to provide retail investors with actionable insights, enhancing their ability to navigate the complexities of financial markets with confidence.\newline
+\text{ }\text{ }\text{ }\text{ } The primary aim of this report is to evaluate whether a more sophisticated approach to the "Monday Effect" can be devised, transcending the rudimentary method of "blindly" purchasing the S&P 500 index at Friday's close and liquidating at Monday's close. By integrating a selection of variables that are defensible from qualitative, quantitative, and financial-economic standpoints into a model underpinned by statistical rigor, we seek to investigate the potential of deriving tangible benefits from this phenomenon. The objective is to construct a strategy that is informed by a refined understanding of the "Monday Effect," thereby providing a nuanced perspective on market behaviors and trends.\newline
+\text{ }\text{ }\text{ }\text{ } The secondary objective of this analysis is to further dive into whether selling at Monday's open or close, after purchasing at Friday's close, offers any benefits. We compare these two strategies in terms of various input variables and back-tested return; Additionally, we explore whether "shorting" could be advantageous for retail investors when implementing the model.\newline
+\text{ }\text{ }\text{ }\text{ } The culmination of this report's objectives offers the prospect of invaluable insights for retail investors. These insights are poised to empower investors with sophisticated strategies for navigating and potentially profiting from market patterns. Ultimately, this study aims to provide retail investors with actionable insights, enhancing their ability to navigate the complexities of financial markets with confidence.\newline
 
 
 ## II. Methodology
 \vspace{-1mm}
 
 **Timeframe Selection** \newline
-\text{ }\text{ }\text{ }\text{ } Our study strategically targets the period from 2003 to present, a decision underpinned by key considerations. Spanning two decades, this extensive timeframe ensures our analysis is not overly biased towards any specific market phase, encompassing diverse economic conditions including both pre- and post-2008 financial crisis eras. We consciously exclude the dot-com era, a time largely before the widespread entry of retail investors into the market, to focus on more structurally consistent and representative market dynamics. Following the dot-com bubble period, the trading landscape experienced significant technological advancements and regulatory changes, especially after the 2008 crisis, aligning this period closely with current market mechanisms. Additionally, this era captures the evolution of investor behavior and market sentiment, shaped by new financial instruments and global economic shifts. The availability and consistency of data from 2003 onward bolster the robustness and comprehensiveness of our analysis. Including the recent pandemic-induced market fluctuations further adds contemporary relevance to our study. Thus, the selected timeline offers an ideal mix of historical breadth and modern applicability, essential for our investigation.\newline
+\text{ }\text{ }\text{ }\text{ } Our study strategically targets the period from 2003 to present, a decision underpinned by key considerations. Spanning two decades, this extensive timeframe ensures our analysis is not overly biased towards any specific market phase, encompassing diverse economic conditions including both pre- and post-2008 financial crisis eras. We consciously exclude the dot-com era, a time largely before the widespread entry of retail investors into the market, to focus on more structurally consistent and representative market dynamics. Following the dot-com bubble period, the trading landscape experienced significant technological advancements and regulatory changes, especially after the 2008 crisis, aligning this period closely with current market mechanisms. Additionally, this era captures the evolution of investor behavior and market sentiment, shaped by new financial instruments and global economic shifts. The availability and consistency of data from 2003 onward bolster the robustness and comprehensiveness of our analysis. Including the recent pandemic-induced market fluctuations further adds contemporary relevance to our study. Thus, the selected timeline offers an ideal mix of historical breadth and modern applicability, essential for our investigation. (Link to GitHub repo: [https://github.com/wujehevankim/sta440finalproject](https://github.com/wujehevankim/sta440finalproject))\newline
 
 
 **Dataset & Variables** \newline
-\text{ }\text{ }\text{ }\text{ } 
+\text{ }\text{ }\text{ }\text{ } The backbone of our study is the dataset of SPY (S&P 500 ETF) prices, intentionally chosen instead of the S&P 500 index itself. We opted for the SPY ETF as it represents a more practical and accessible option for retail investors, mirroring the performance of the S&P 500 index while being directly tradable.  This dataset, sourced from Yahoo Finance, encompasses essential metrics such as open, low, high, close, and volume, covering our defined timeframe. To ensure the integrity and relevance of our data, we concentrated on weeks where the market was active on Monday, Thursday, and Friday, deliberately excluding weeks affected by holidays or other anomalies. This approach to data filtration is critical for maintaining consistency in the dataset, a crucial aspect for the accuracy and reliability of our analysis.\newline
+\text{ }\text{ }\text{ }\text{ } Our response variables of interest were formulated to be binary: whether Monday's open is higher than Friday's close, and whether Monday's close is higher than Friday's close. This binary approach is strategically chosen for several reasons. Firstly, it aligns with the core objective of our analysis – to ascertain the presence and directionality of the "Monday Effect," rather than quantifying its magnitude. By focusing on the direction of price movement (up or down), we can more directly test the hypothesis that Friday's market sentiment carries over to Monday. Secondly, binary variables facilitate a clearer interpretation of results, especially beneficial for retail investors who might seek straightforward, actionable insights. This approach also mitigates the complexities and noise often associated with continuous data, such as percentage returns, which can be influenced by a myriad of external factors. By distilling our response variables to a binary format, we aim to isolate the effect of our predictors more effectively, providing a focused lens through which the "Monday Effect" can be examined.\newline
+\text{ }\text{ }\text{ }\text{ } For potential predictor variables, we first considered market events that typically occur on Fridays and influence the entire SPY index. One such variable is the performance of the US equities market on Friday, represented by the difference between Friday's and Thursday's closing levels. Another aspect is Friday's intraday movement, evaluated through the change between Friday's open and close, both as a unit change in price and as an indicator of directional movement (up or down).\newline
+\text{ }\text{ }\text{ }\text{ } A notable Friday event is the "triple witching day," which occurs quarterly. This phenomenon, known for its potential to heighten market volatility and liquidity, refers to the simultaneous expiration of stock index futures, stock index options, and stock options. This event can significantly impact market dynamics, as evidenced by the 1987 triple witching day crash, which is popularly referenced by investors till this day. To rigorously test whether triple witching days have statistically meaningful association with SPY's open or close level on Monday, we include it as one of the potential predictor variables.$^8$\newline
+\text{ }\text{ }\text{ }\text{ } Another regular Friday occurrence is the release of Nonfarm Payrolls data, typically on the first Friday of each month. This economic indicator can sway market expectations, reflecting on the health of the US job market. We categorized Nonfarm Payrolls data based on how the actual figures compared to the market consensus just before their release, thus creating a categorical variable for our analysis.\newline
+\text{ }\text{ }\text{ }\text{ } The University of Michigan Consumer Sentiment Index, released every other Friday, is a pivotal element in our analysis. This index, on a scale from 1 to 100, gauges consumer confidence, impacting the SPY index by reflecting economic outlooks and spending potential. In our study, we utilize the index in both continuous and binary formats. The continuous format employs the actual index values to examine correlations with SPY price movements. For the binary format, we compare the index's actual figures against market expectations, determining if consumer sentiment is above or below these projections.\newline
+\text{ }\text{ }\text{ }\text{ } Finally, while not a Friday-specific event, our analysis incorporates the Federal Open Market Committee (FOMC) meetings, a significant monetary policy event that impacts financial markets comprehensively. Typically held on Wednesdays, these meetings occur eight times a year and are instrumental in setting the U.S. monetary policy. The decisions and outlooks communicated during these meetings, specifically 'hawkish' or 'dovish' stances, exert a profound influence on investor sentiment and stock market dynamics. (A 'hawkish' stance, indicating potential interest rate increases or other tightening measures, can create expectations of a stronger economy but also lead to reduced liquidity in the markets.) The direct impact of FOMC decisions on the subsequent Monday's market performance is a point of analysis in our study, as we aim to assess its immediate effect on the SPY index and determine its statistical significance within our model.\newline
+
+**Exploratory Data Analysis** \newline
+\text{ }\text{ }\text{ }\text{ } Our initial phase of exploratory data analysis focuses on evaluating the SPY's Monday opening and closing prices in relation to the preceding Friday's closing price. This examination involves analyzing the ratios of Monday's opening and closing prices to Friday's closing price. Specifically, a ratio exceeding 1 would imply that the market opened or closed at a higher value compared to Friday's close. Our analysis, covering the period from 2003 to the present, reveals that these ratios are roughly symmetrical for both scenarios, suggesting a balanced distribution in the overall market trends. (See Appendix - Figure 1) Moreover, we delve into the binary variables of whether Monday's opening price is greater than Friday's closing price, and similarly for Monday's closing price. The proportion breakdown shows that in 54.3% of instances, Monday's opening price exceeded Friday's close, and in 54.2% of cases, Monday's closing price was higher than Friday's close. This near-equitable split indicates a lack of significant bias, which is crucial as we proceed with logistic regression analyses. The logistic regression, with binary response variables and a logit link, will be based on this observed balance in the data. This finding is instrumental in guiding our further statistical investigations, ensuring our approach is grounded in the empirical evidence of market behaviors\newline
+\text{ }\text{ }\text{ }\text{ } We next explore the relationship between "Nonfarm Payrolls Shocks" — defined as Nonfarm Payrolls economic data figures releasing more than 50% below market consensus directly preceding the release — and Monday's market prices. As seen in Table 1 below, we find that such shocks seems to be associated with a noticeable increase in the proportion of instances where Monday's closing price is lower than Friday's close. Interestingly enough, the pattern is neither noticeable or discernible for whether Monday's opening price came it higher or lower than Friday's closing price. (See Appendix - Figure 3) This trend suggests that significant macroeconomic indicators like Nonfarm Payrolls may stay "top of mind" of the market in the medium term, affecting prices up to Monday's close.\newline
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+df4 <- read.csv('data/addingFOMC/SPY_ready_for_analysis_triple_witch_NFP_CSI_FOMC_with_month.csv', header = TRUE)
+df4$NFPOutcomeIsShock <- ifelse(df4$NFPOutcome == "Shock", 1, 0)
+
+
+#1. breakdown table of WasMondayCloseHigherThanFridayClose (1 vs 0) and NFPOutcomeIsShock (1 vs 0)
+breakdown_table_monday_close_vs_nfp_shock <- table(df4$WasMondayCloseHigherThanFridayClose, df4$NFPOutcomeIsShock)
+rownames(breakdown_table_monday_close_vs_nfp_shock) <- c("Monday Close Lower Than Friday Close", "Monday Close Higher Than Friday Close")
+colnames(breakdown_table_monday_close_vs_nfp_shock) <- c("Nonfarm Payrolls Non-shock", "Nonfarm Payrolls Shock")
+breakdown_table_column_percentages2 <- prop.table(breakdown_table_monday_close_vs_nfp_shock, 2) * 100
+#print(breakdown_table_column_percentages)
+breakdown_table_column_percentages_df2 <- as.data.frame.matrix(breakdown_table_column_percentages2)
+
+# Format each value to one decimal place with a percentage sign
+breakdown_table_column_percentages_df_formatted2 <- data.frame(lapply(breakdown_table_column_percentages_df2, function(x) sprintf("%.1f%%", x)))
+
+# Print the formatted dataframe
+#print(breakdown_table_column_percentages_df_formatted)
+
+
+breakdown_table_WasMondayCloseHigherThanFridayClose_vs_NFPOutcomeIsShock <- data.frame(
+  . = c("Monday Close Lower Than Friday Close", "Monday Close Higher Than Friday Close"),
+  NFP_Nonshock = c(breakdown_table_column_percentages_df_formatted2[1][[1]][1], breakdown_table_column_percentages_df_formatted2[1][[1]][2]),
+  NFP_Shock = c(breakdown_table_column_percentages_df_formatted2[2][[1]][1], breakdown_table_column_percentages_df_formatted2[2][[1]][2])
+  
+)
+
+library(dplyr)
+library(kableExtra)
+library(knitr)
+# Print the table
+# caption = , 
+kable(breakdown_table_WasMondayCloseHigherThanFridayClose_vs_NFPOutcomeIsShock, format = "latex", caption = "Proportion Breakdown of Monday Close and Friday Close in relation to Nonfarm Payrolls Shocks")
+```
+
+\vspace{-3mm}
+
+\text{ }\text{ }\text{ }\text{ } Similarly, we explore the relationship between "University of Michigan Consumer Sentiment Index (CSI) Shocks" — defined as CSI economic data figures releasing more than 50% below market consensus directly preceding the release — and Monday's market prices. As seen in Table 1 below, we find that such shocks seems to be associated with a noticeable increase in the proportion of instances where Monday's closing price is lower than Friday's close. Interestingly enough, the pattern is neither noticeable or discernible for whether Monday's opening price came it higher or lower than Friday's closing price. (See Appendix - Figure 3) This trend suggests that significant macroeconomic indicators like Nonfarm Payrolls may stay "top of mind" of the market in the medium term, affecting prices up to Monday's close.\newline
+
+**how we used forward fff** \newline
+
+
+
+
+
+**model with intercepts (and model output r in appendix)** \newline
+
+
 
 ## III. Results
 
+**returns** \newline
+
 ## IV. Discussion
 
+
+\newpage
 ## V. Appendix
+_Figure 1: Density Plot of Monday-Open-to-Friday-Close Ratio and Monday-Close-Friday-Close Ratio_ \newline
+\text{ }\text{ }\text{ }\text{ } In the plots below, a ratio greater than 1 indicates that the Monday opening or closing price was higher than the previous Friday's closing price, while a ratio less than 1 signifies a decrease in price from Friday's close to Monday's open or close.
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE, fig.width=8, fig.height=4}
+library(ggplot2)
+library(patchwork)
+df4$MondayCloseToFridayCloseRatio <- df4$FollowingWeekMondayClose / df4$PrecedingWeekFridayClose
+
+p1 <- ggplot(df4, aes(x = MondayOpenToFridayCloseRatio)) + 
+    geom_density(fill = "blue", alpha = 0.5) +
+  scale_x_continuous(trans = 'log', limits = c(0.95, 1.05)) +
+    labs(title = "Density of Monday Open to Friday Close Ratio",
+         x = "Monday Open to Friday Close Ratio",
+         y = "Density")
+
+p2 <- ggplot(df4, aes(x = MondayCloseToFridayCloseRatio)) + 
+    geom_density(fill = "pink", alpha = 0.5) +
+    scale_x_continuous(trans = 'log', limits = c(0.95, 1.05)) +
+    labs(title = "Density of Monday Close to Friday Close Ratio",
+         x = "Monday Close to Friday Close Ratio",
+         y = "Density")
+
+
+p1/p2
+```
+
+\vspace{5mm}
+
+_Figure 2: Proportion Breakdown of Monday Open and Close Relative to Friday Close_ \newline
+\text{ }\text{ }\text{ }\text{ }  For both Monday's opening and closing prices relative to the previous Friday's close, the occurrences are nearly evenly split, indicating a roughly half-and-half distribution between cases where prices were higher and those where they were lower.
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+#1 vs 0 proportion break down table with percentages for df4$WasMondayOpenHigherThanFridayClose and df4$WasMondayCloseHigherThanFridayClose
+
+# Count occurrences for WasMondayOpenHigherThanFridayClose
+table_open <- table(df4$WasMondayOpenHigherThanFridayClose)
+
+# Convert counts to proportions and then to percentages for WasMondayOpenHigherThanFridayClose
+percentage_open <- prop.table(table_open) * 100
+
+# Count occurrences for WasMondayCloseHigherThanFridayClose
+table_close <- table(df4$WasMondayCloseHigherThanFridayClose)
+
+# Convert counts to proportions and then to percentages for WasMondayCloseHigherThanFridayClose
+percentage_close <- prop.table(table_close) * 100
+
+
+
+formatted_yes_open <- sprintf("%.1f%%", percentage_open[2])
+formatted_no_open <- sprintf("%.1f%%", percentage_open[1])
+formatted_yes_close <- sprintf("%.1f%%", percentage_close[2])
+formatted_no_close <- sprintf("%.1f%%", percentage_close[1])
+
+
+
+breakdown_table <- data.frame(
+  Category = c('Monday Open Price > Friday Close Price', 'Monday Close Price > Friday Close Price'),
+  Yes = c(formatted_yes_open, formatted_yes_close),
+  No = c(formatted_no_open, formatted_no_close)
+  
+)
+library(dplyr)
+library(knitr)
+# Print the table
+kable(breakdown_table, format = "latex")
+
+```
+
+\vspace{10mm}
+
+_Figure 3: Proportion Breakdown of Monday Open and Friday Close in relation to Nonfarm Payrolls Shocks _ \newline
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+df4$NFPOutcomeIsShock <- ifelse(df4$NFPOutcome == "Shock", 1, 0)
+
+
+#1. breakdown table of WasMondayOpenHigherThanFridayClose (1 vs 0) and NFPOutcomeIsShock (1 vs 0)
+breakdown_table_monday_open_vs_nfp_shock <- table(df4$WasMondayOpenHigherThanFridayClose, df4$NFPOutcomeIsShock)
+rownames(breakdown_table_monday_open_vs_nfp_shock) <- c("Monday Open Lower Than Friday Close", "Monday Open Higher Than Friday Close")
+colnames(breakdown_table_monday_open_vs_nfp_shock) <- c("Nonfarm Payrolls Non-shock", "Nonfarm Payrolls Shock")
+breakdown_table_column_percentages <- prop.table(breakdown_table_monday_open_vs_nfp_shock, 2) * 100
+#print(breakdown_table_column_percentages)
+breakdown_table_column_percentages_df <- as.data.frame.matrix(breakdown_table_column_percentages)
+
+# Format each value to one decimal place with a percentage sign
+breakdown_table_column_percentages_df_formatted <- data.frame(lapply(breakdown_table_column_percentages_df, function(x) sprintf("%.1f%%", x)))
+
+# Print the formatted dataframe
+#print(breakdown_table_column_percentages_df_formatted)
+
+
+breakdown_table_WasMondayOpenHigherThanFridayClose_vs_NFPOutcomeIsShock <- data.frame(
+  . = c("Monday Open Lower Than Friday Close", "Monday Open Higher Than Friday Close"),
+  NFP_Nonshock = c(breakdown_table_column_percentages_df_formatted[1][[1]][1], breakdown_table_column_percentages_df_formatted[1][[1]][2]),
+  NFP_Shock = c(breakdown_table_column_percentages_df_formatted[2][[1]][1], breakdown_table_column_percentages_df_formatted[2][[1]][2])
+  
+)
+
+library(dplyr)
+library(knitr)
+# Print the table
+kable(breakdown_table_WasMondayOpenHigherThanFridayClose_vs_NFPOutcomeIsShock, format = "latex")
+
+
+
+```
+
 
 \newpage
 ## VI. Sources
@@ -60,3 +223,5 @@ to-do: one paragraph on previous research effort ( https://papers.ssrn.com/sol3/
 4. "Warren Buffett's Famous Bet". Model Investing. 2018. [https://modelinvesting.com/articles/warren-buffetts-famous-bet/](https://modelinvesting.com/articles/warren-buffetts-famous-bet/)
 5. "What Is the Monday Effect on Stock Market Prices?". Investopedia. 2022. [https://www.investopedia.com/terms/m/mondayeffect.asp](https://www.investopedia.com/terms/m/mondayeffect.asp)
 6. "What Is The Weekend Effect In Stocks?". Quantified Strategies. 2023. [https://www.quantifiedstrategies.com/what-is-the-weekend-effect-in-stocks/#:~:text=Backtests%20reveal%20that%20there%20is,stocks%2C%20neither%20negative%20nor%20positive.](https://www.quantifiedstrategies.com/what-is-the-weekend-effect-in-stocks/#:~:text=Backtests%20reveal%20that%20there%20is,stocks%2C%20neither%20negative%20nor%20positive.)
+7. "Seasonalities in Stock Markets: The Day of the Week Effect". Drogalas, G., et al. 2014. [https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2515097](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2515097)
+8. "Stock Market Crash of 1987". Federal Reserve History. 2013. [https://www.federalreservehistory.org/essays/stock-market-crash-of-1987#:~:text=On%20October%2016%2C%20the%20rolling,DJIA%20had%20lost%204.6%20percent.](https://www.federalreservehistory.org/essays/stock-market-crash-of-1987#:~:text=On%20October%2016%2C%20the%20rolling,DJIA%20had%20lost%204.6%20percent.)
