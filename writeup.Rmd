@@ -5,7 +5,7 @@ header-includes:
   - \posttitle{\end{center}}
 title: "Beyond Friday: Measuring the Ripple Effects into the Monday Mystique"
 author: "Evan Kim (STA 440 with Dr. Jiang)"
-geometry: "left=1.75cm,right=1.75cm,top=1.75cm,bottom=1.75cm"
+geometry: "left=1.55cm,right=1.55cm,top=1.55cm,bottom=1.55cm"
 fontsize: 11pt
 date: "2023-12-18"
 output: pdf_document
@@ -51,7 +51,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = TRUE)
 **Exploratory Data Analysis** \newline
 \text{ }\text{ }\text{ }\text{ } Our initial phase of exploratory data analysis focuses on evaluating the SPY's Monday opening and closing prices in relation to the preceding Friday's closing price. This examination involves analyzing the ratios of Monday's opening and closing prices to Friday's closing price. Specifically, a ratio exceeding 1 would imply that the market opened or closed at a higher value compared to Friday's close. Our analysis, covering the period from 2003 to the present, reveals that these ratios are roughly symmetrical for both scenarios, suggesting a balanced distribution in the overall market trends. (Figure 1 below) Moreover, we delve into the binary variables of whether Monday's opening price is greater than Friday's closing price, and similarly for Monday's closing price. The proportion breakdown shows that in 54.3% of instances, Monday's opening price exceeded Friday's close, and in 54.2% of cases, Monday's closing price was higher than Friday's close. (See Appendix - Figure 2) This near-equitable split indicates a lack of significant bias, which is crucial as we proceed with logistic regression analyses. The logistic regression, with binary response variables and a logit link, will be based on this observed balance in the data. This finding is instrumental in guiding our further statistical investigations, ensuring our approach is grounded in the empirical evidence of market behaviors\newline
 
-```{r, echo=FALSE, warning=FALSE, message=FALSE, fig.width=7.9, fig.height=3.8}
+```{r, echo=FALSE, warning=FALSE, message=FALSE, fig.width=7.9, fig.height=3}
 library(ggplot2)
 library(patchwork)
 df4 <- read.csv('data/addingFOMC/SPY_ready_for_analysis_triple_witch_NFP_CSI_FOMC_with_month.csv', header = TRUE)
@@ -167,7 +167,7 @@ p1/p2
 \text{ }\text{ }\text{ }\text{ } With two models established for each binary response variable — `MondayOpenHigherThanFridayClose` and `MondayCloseHigherThanFridayClose` — we proceed to compare the simulated returns of the "blind strategy" against those of the fixed and mixed effects models. The "blind strategy" refers to the traditional approach of buying at Friday's close and selling at Monday's close each week. Our comparison extends over a twenty-year period from 2003 to 2023, where we analyze annualized simulated returns to extract meaningful insights and discern the potential efficacy of each strategy. This analysis aims to determine whether the sophisticated models outperform the simple heuristic of the "Monday Effect" across different time frames.\newline
 
 **Monday Open & Friday Close** \newline
-\text{ }\text{ }\text{ }\text{ } The table below ranks the performance of three investment strategies—blind, fixed-effect, and mixed-effects—annually, with 1 indicating the best and 3 the worst, noting that ties are possible. Upon aggregating average ranks across our period of interest, the fixed-effects model boasts the superior average rank, securing the first place 13 times, outperforming the mixed-effects model's 10 top placements, and the blind strategy's 6. \newline
+\text{ }\text{ }\text{ }\text{ } The table below ranks the performance of three investment strategies — blind, fixed-effect, and mixed-effects — annually, with 1 indicating the best and 3 the worst, noting that ties are possible. The simulated results for the fixed-effect and mixed-effect models are based on buying Friday close and selling Monday open when the model predicts `MondayOpenHigherThanFridayClose = 1`, and otherwise selling Friday close and buying Monday open, effecting shorting. Upon aggregating average ranks across our period of interest, the fixed-effects model boasts the superior average rank, securing the first place 13 times, outperforming the mixed-effects model's 10 top placements, and the blind strategy's 6. \newline
 \begin{table}[H]
 \centering
 \begin{tabular}{cccc}
@@ -202,9 +202,48 @@ p1/p2
 
 
 
+
 **Monday Close & Friday Close** \newline
-\text{ }\text{ }\text{ }\text{ } below is a table outlining for each year from our timeframe of interest, among the three strategies (blind, fixed-effect, and mixed-effects), which performed better (1 being best out hte three, 3 is worst, and note that there are ties) also, aggregating the simple average "rank", it seems that fixed effects had the best average rank. \newline
+\text{ }\text{ }\text{ }\text{ } The table below ranks the performance of three investment strategies — blind, fixed-effect, and mixed-effects — annually, with 1 indicating the best and 3 the worst, noting that ties are possible. The simulated results for the fixed-effect and mixed-effect models are based on buying Friday close and selling Monday close when the model predicts `MondayCloseHigherThanFridayClose = 1`, and otherwise selling Friday close and buying Monday close, effecting shorting. Upon aggregating average ranks across our period of interest, the fixed-effects model boasts the superior average rank, securing the first place 10 times, outperforming the mixed-effects model's 7 top placements, and the blind strategy's 5. \newline
+\begin{table}[H]
+\centering
+\begin{tabular}{cccc}
+\hline
+\textbf{Year} & \textbf{Blind Strategy} & \textbf{Fixed-effects Model} & \textbf{Mixed-effects Model} \\ \hline
+2003 & 3 & 2 & 1 \\
+2004 & 3 & 2 & 1 \\
+2005 & 3 & 2 & 1 \\
+2006 & 3 & 1 & 2 \\
+2007 & 1 & 3 & 2 \\
+2008 & 3 & 1 & 1 \\
+2009 & 1 & 2 & 3 \\
+2010 & 2 & 1 & 3 \\
+2011 & 3 & 2 & 1 \\
+2012 & 3 & 1 & 2 \\
+2013 & 3 & 1 & 2 \\
+2014 & 3 & 1 & 2 \\
+2015 & 1 & 2 & 3 \\
+2016 & 1 & 3 & 2 \\
+2017 & 2 & 3 & 1 \\
+2018 & 3 & 1 & 2 \\
+2019 & 1 & 2 & 3 \\
+2020 & 3 & 1 & 2 \\
+2021 & 2 & 1 & 3 \\
+2022 & 3 & 2 & 1 \\
+2023 & 2 & 1 & 3 \\ \hline
+\textit{Avg. Rank} & \textit{2.33} & \textit{1.67} & \textit{1.95} \\ \hline
+\end{tabular}
+\caption{Annual Ranking of Strategies by Simulated Returns}
+\label{table:strategy_rank}
+\end{table}
+
+
+\text{ }\text{ }\text{ }\text{ } Throughout our analysis, it's evident that both the fixed and mixed-effects models have consistently outperformed the baseline strategy that operates on the principle of the "Monday Effect," which advocates for buying on Friday close and selling on Monday. Notably, during the tumultuous period surrounding the Great Financial Crisis, particularly in the years 2007 through 2009, the models' performance faltered, highlighting a potential limitation in their ability to navigate extreme market conditions. Moreover, during significantly bullish years like 2018 and 2023, the models again fell short, suggesting that in years marked by strong upward trends, the predictive power of the models may be less effective, possibly due to overfitting or a failure to capture the momentum-driven market behavior. Detailed time-series plots charting the returns from 2003 to 2023 will be available in the appendix, offering a visual representation of the models' annual performance relative to the baseline strategy.\newline
+
+
 ## V. Discussion
+\text{ }\text{ }\text{ }\text{ } Our findings indicate that while both fixed and mixed-effects models show promise in outperforming the blind strategy, they are not without limitations. For instance, during periods of high market turbulence, such as the financial crisis of 2007-2009, the models' predictive power diminishes, suggesting that they may not fully account for the complexities of extreme market behaviors. Moreover, the underperformance of the models during bullish years like 2018 and 2023 raises questions about their ability to adapt to persistent market trends, highlighting a potential need for dynamic modeling that can accommodate momentum-driven market changes.\newline
+\text{ }\text{ }\text{ }\text{ } The practical implications of these findings suggest that while the adoption of sophisticated models may offer a more informed investment strategy over the blind application of the "Monday Effect," investors should remain cautious. Retail investors, in particular, must recognize the importance of understanding the underlying market conditions and the limitations of any model. Our study underscores the potential for statistical models to enhance investment strategies, but it also emphasizes the necessity for investors to maintain a critical perspective, especially during atypical market conditions. As we move forward, the continuous refinement of these models, perhaps through the incorporation of machine learning algorithms or real-time data analysis, could provide further advancements in this field.\newline
 
 
 \newpage
@@ -614,6 +653,55 @@ mixed_modelCLOSE <- glmer(WasMondayCloseHigherThanFridayClose ~ NFPOutcomeIsShoc
 summary(mixed_modelCLOSE)
 
 ```
+
+_Figure 18: Comparing Simulated Returns amongst Blind, Fixed-effects, and Mixed-effects Strategies_\newline
+
+![](images/cumulative_returns_open_2003.png)
+![](images/cumulative_returns_open_2004.png)
+![](images/cumulative_returns_open_2005.png)
+![](images/cumulative_returns_open_2006.png)
+![](images/cumulative_returns_open_2007.png)
+![](images/cumulative_returns_open_2008.png)
+![](images/cumulative_returns_open_2009.png)
+![](images/cumulative_returns_open_2010.png)
+![](images/cumulative_returns_open_2011.png)
+![](images/cumulative_returns_open_2012.png)
+![](images/cumulative_returns_open_2013.png)
+![](images/cumulative_returns_open_2014.png)
+![](images/cumulative_returns_open_2015.png)
+![](images/cumulative_returns_open_2016.png)
+![](images/cumulative_returns_open_2017.png)
+![](images/cumulative_returns_open_2018.png)
+![](images/cumulative_returns_open_2019.png)
+![](images/cumulative_returns_open_2020.png)
+![](images/cumulative_returns_open_2021.png)
+![](images/cumulative_returns_open_2022.png)
+![](images/cumulative_returns_open_2023.png)
+
+
+
+![](images/cumulative_returns_close_2003.png)
+![](images/cumulative_returns_close_2004.png)
+![](images/cumulative_returns_close_2005.png)
+![](images/cumulative_returns_close_2006.png)
+![](images/cumulative_returns_close_2007.png)
+![](images/cumulative_returns_close_2008.png)
+![](images/cumulative_returns_close_2009.png)
+![](images/cumulative_returns_close_2010.png)
+![](images/cumulative_returns_close_2011.png)
+![](images/cumulative_returns_close_2012.png)
+![](images/cumulative_returns_close_2013.png)
+![](images/cumulative_returns_close_2014.png)
+![](images/cumulative_returns_close_2015.png)
+![](images/cumulative_returns_close_2016.png)
+![](images/cumulative_returns_close_2017.png)
+![](images/cumulative_returns_close_2018.png)
+![](images/cumulative_returns_close_2019.png)
+![](images/cumulative_returns_close_2020.png)
+![](images/cumulative_returns_close_2021.png)
+![](images/cumulative_returns_close_2022.png)
+![](images/cumulative_returns_close_2023.png)
+
 
 
 
