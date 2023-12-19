@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.8)  18 DEC 2023 23:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.8)  18 DEC 2023 23:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -572,15 +572,15 @@ e
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
-* h-part:(L,W,R)=(44.10185pt, 526.0913pt, 44.10185pt)
-* v-part:(T,H,B)=(44.10185pt, 706.76628pt, 44.10185pt)
+* h-part:(L,W,R)=(41.25641pt, 531.78218pt, 41.25641pt)
+* v-part:(T,H,B)=(41.25641pt, 712.45717pt, 41.25641pt)
 * \paperwidth=614.295pt
 * \paperheight=794.96999pt
-* \textwidth=526.0913pt
-* \textheight=706.76628pt
-* \oddsidemargin=-28.16814pt
-* \evensidemargin=-28.16814pt
-* \topmargin=-65.16814pt
+* \textwidth=531.78218pt
+* \textheight=712.45717pt
+* \oddsidemargin=-31.01358pt
+* \evensidemargin=-31.01358pt
+* \topmargin=-68.01358pt
 * \headheight=12.0pt
 * \headsep=25.0pt
 * \topskip=11.0pt
@@ -670,19 +670,24 @@ Underfull \hbox (badness 10000) in paragraph at lines 289--311
 
  []
 
-<writeup_files/figure-latex/unnamed-chunk-1-1.pdf, id=23, 570.13pt x 274.02374p
-t>
+<writeup_files/figure-latex/unnamed-chunk-1-1.pdf, id=23, 570.13pt x 180.675pt>
+
 File: writeup_files/figure-latex/unnamed-chunk-1-1.pdf Graphic file (type pdf)
 <use writeup_files/figure-latex/unnamed-chunk-1-1.pdf>
 Package pdftex.def Info: writeup_files/figure-latex/unnamed-chunk-1-1.pdf  used
  on input line 312.
-(pdftex.def)             Requested size: 526.09187pt x 252.85753pt.
+(pdftex.def)             Requested size: 531.78134pt x 168.52223pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 312--325
+[][]
+ []
+
 
 Underfull \hbox (badness 10000) in paragraph at lines 312--325
 
  []
 
-[3]
+[3 <./writeup_files/figure-latex/unnamed-chunk-1-1.pdf>]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
 45.
 (/usr/local/texlive/2023/texmf-dist/tex/latex/lm/t1lmtt.fd
@@ -692,26 +697,26 @@ Underfull \hbox (badness 10000) in paragraph at lines 328--375
 
  []
 
-[4 <./writeup_files/figure-latex/unnamed-chunk-1-1.pdf>]
+
 Underfull \hbox (badness 10000) in paragraph at lines 376--426
 
  []
 
-
-Underfull \hbox (badness 1721) in paragraph at lines 430--457
+[4]
+Underfull \hbox (badness 2334) in paragraph at lines 430--457
 [][][][] \T1/lmr/m/n/10.95 (+20) For the bi-nary re-sponse vari-able \T1/lmtt/m
 /n/10.95 MondayOpenHigherThanFridayClose\T1/lmr/m/n/10.95 (+20) , our anal-y-si
 s led to the
  []
 
 
-Underfull \hbox (badness 1292) in paragraph at lines 430--457
+Underfull \hbox (badness 1728) in paragraph at lines 430--457
 \T1/lmr/m/n/10.95 (+20) for-mu-la-tion of both fixed-effects and random-effects
  lo-gis-tic re-gres-sion mod-els. The mod-els iden-
  []
 
 
-Underfull \hbox (badness 1132) in paragraph at lines 430--457
+Underfull \hbox (badness 1622) in paragraph at lines 430--457
 \T1/lmr/m/n/10.95 (+20) ti-fied sev-eral sig-nif-i-cant pre-dic-tor vari-ables.
  The bi-nary pre-dic-tors --- \T1/lmtt/m/n/10.95 isItLastFridayOfTheMonth\T1/lm
 r/m/n/10.95 (+20) ,
@@ -722,8 +727,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 430--457
 
  []
 
-[5]
-Overfull \hbox (16.05115pt too wide) in paragraph at lines 481--507
+[5{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/lo
+cal/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texliv
+e/2023/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
+Overfull \hbox (10.36026pt too wide) in paragraph at lines 481--507
 [][][][] \T1/lmr/m/n/10.95 (-20) In the fixed-effects model, neg-a-tive co-ef-f
 i-cients for \T1/lmtt/m/n/10.95 NFPOutcomeIsShock\T1/lmr/m/n/10.95 (-20) , \T1/
 lmtt/m/n/10.95 wasFridayHighLowerThanThursdayLow\T1/lmr/m/n/10.95 (-20) ,
@@ -734,9 +741,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 481--507
 
  []
 
-[6{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/lo
-cal/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texliv
-e/2023/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
+[6]
 Underfull \hbox (badness 10000) in paragraph at lines 537--547
 
  []
@@ -761,594 +766,589 @@ Underfull \hbox (badness 10000) in paragraph at lines 656--671
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 675--698
-
- []
-
-[9] [10]
-Underfull \hbox (badness 10000) in paragraph at lines 726--727
+[9]
+Underfull \hbox (badness 10000) in paragraph at lines 725--726
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 741--742
+Underfull \hbox (badness 10000) in paragraph at lines 740--741
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 756--757
+Underfull \hbox (badness 10000) in paragraph at lines 755--756
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 772--773
+Underfull \hbox (badness 10000) in paragraph at lines 771--772
 
  []
 
 LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-780.
+779.
 (/usr/local/texlive/2023/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-<writeup_files/figure-latex/unnamed-chunk-7-1.pdf, id=83, 650.43pt x 289.08pt>
+<writeup_files/figure-latex/unnamed-chunk-7-1.pdf, id=79, 650.43pt x 289.08pt>
 File: writeup_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (type pdf)
 <use writeup_files/figure-latex/unnamed-chunk-7-1.pdf>
 Package pdftex.def Info: writeup_files/figure-latex/unnamed-chunk-7-1.pdf  used
- on input line 787.
-(pdftex.def)             Requested size: 526.13083pt x 233.83592pt.
-[11{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
-Underfull \hbox (badness 10000) in paragraph at lines 792--793
+ on input line 786.
+(pdftex.def)             Requested size: 531.81772pt x 236.36342pt.
+[10{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
+Underfull \hbox (badness 10000) in paragraph at lines 791--792
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 808--809
+Underfull \hbox (badness 10000) in paragraph at lines 807--808
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 821--822
+Underfull \hbox (badness 10000) in paragraph at lines 820--821
 
  []
 
-[12 <./writeup_files/figure-latex/unnamed-chunk-7-1.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 837--838
+[11 <./writeup_files/figure-latex/unnamed-chunk-7-1.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 836--837
 
  []
 
-<writeup_files/figure-latex/unnamed-chunk-12-1.pdf, id=103, 650.43pt x 289.08pt
->
+<writeup_files/figure-latex/unnamed-chunk-12-1.pdf, id=99, 650.43pt x 289.08pt>
+
 File: writeup_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type pdf)
 
 <use writeup_files/figure-latex/unnamed-chunk-12-1.pdf>
 Package pdftex.def Info: writeup_files/figure-latex/unnamed-chunk-12-1.pdf  use
-d on input line 851.
-(pdftex.def)             Requested size: 526.13083pt x 233.83592pt.
-<writeup_files/figure-latex/unnamed-chunk-14-1.pdf, id=104, 650.43pt x 289.08pt
+d on input line 850.
+(pdftex.def)             Requested size: 531.81772pt x 236.36342pt.
+<writeup_files/figure-latex/unnamed-chunk-14-1.pdf, id=100, 650.43pt x 289.08pt
 >
 File: writeup_files/figure-latex/unnamed-chunk-14-1.pdf Graphic file (type pdf)
 
 <use writeup_files/figure-latex/unnamed-chunk-14-1.pdf>
 Package pdftex.def Info: writeup_files/figure-latex/unnamed-chunk-14-1.pdf  use
-d on input line 865.
-(pdftex.def)             Requested size: 526.13083pt x 233.83592pt.
-[13 <./writeup_files/figure-latex/unnamed-chunk-12-1.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 878--879
+d on input line 864.
+(pdftex.def)             Requested size: 531.81772pt x 236.36342pt.
+[12 <./writeup_files/figure-latex/unnamed-chunk-12-1.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 877--878
 
  []
 
-[14 <./writeup_files/figure-latex/unnamed-chunk-14-1.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 918--919
+[13 <./writeup_files/figure-latex/unnamed-chunk-14-1.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 917--918
+
+ []
+
+[14]
+Underfull \hbox (badness 10000) in paragraph at lines 971--972
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1007--1008
 
  []
 
 [15]
-Underfull \hbox (badness 10000) in paragraph at lines 972--973
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1008--1009
-
- []
-
-[16]
-Overfull \hbox (25.78712pt too wide) in paragraph at lines 1056--1056
+Overfull \hbox (20.09624pt too wide) in paragraph at lines 1055--1055
 []\T1/lmtt/m/n/10.95 ## WasMondayCloseHigherThanFridayClose ~ NFPOutcomeIsShock
  + wasFridayHighLowerThanThursdayLow +[] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1059--1060
+Underfull \hbox (badness 10000) in paragraph at lines 1058--1059
 
  []
 
-<images/cumulative_returns_open_2003.png, id=133, 722.7pt x 433.62pt>
+<images/cumulative_returns_open_2003.png, id=129, 722.7pt x 433.62pt>
 File: images/cumulative_returns_open_2003.png Graphic file (type png)
 <use images/cumulative_returns_open_2003.png>
 Package pdftex.def Info: images/cumulative_returns_open_2003.png  used on input
- line 1061.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_open_2004.png, id=135, 722.7pt x 433.62pt>
+ line 1060.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_open_2004.png, id=131, 722.7pt x 433.62pt>
 File: images/cumulative_returns_open_2004.png Graphic file (type png)
 <use images/cumulative_returns_open_2004.png>
 Package pdftex.def Info: images/cumulative_returns_open_2004.png  used on input
- line 1062.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_open_2005.png, id=136, 722.7pt x 433.62pt>
+ line 1061.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_open_2005.png, id=132, 722.7pt x 433.62pt>
 File: images/cumulative_returns_open_2005.png Graphic file (type png)
 <use images/cumulative_returns_open_2005.png>
 Package pdftex.def Info: images/cumulative_returns_open_2005.png  used on input
- line 1063.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_open_2006.png, id=137, 722.7pt x 433.62pt>
+ line 1062.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_open_2006.png, id=133, 722.7pt x 433.62pt>
 File: images/cumulative_returns_open_2006.png Graphic file (type png)
 <use images/cumulative_returns_open_2006.png>
 Package pdftex.def Info: images/cumulative_returns_open_2006.png  used on input
- line 1064.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_open_2007.png, id=138, 722.7pt x 433.62pt>
+ line 1063.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_open_2007.png, id=134, 722.7pt x 433.62pt>
 File: images/cumulative_returns_open_2007.png Graphic file (type png)
 <use images/cumulative_returns_open_2007.png>
 Package pdftex.def Info: images/cumulative_returns_open_2007.png  used on input
- line 1065.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_open_2008.png, id=139, 722.7pt x 433.62pt>
+ line 1064.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_open_2008.png, id=135, 722.7pt x 433.62pt>
 File: images/cumulative_returns_open_2008.png Graphic file (type png)
 <use images/cumulative_returns_open_2008.png>
 Package pdftex.def Info: images/cumulative_returns_open_2008.png  used on input
- line 1066.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_open_2009.png, id=140, 722.7pt x 433.62pt>
+ line 1065.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_open_2009.png, id=136, 722.7pt x 433.62pt>
 File: images/cumulative_returns_open_2009.png Graphic file (type png)
 <use images/cumulative_returns_open_2009.png>
 Package pdftex.def Info: images/cumulative_returns_open_2009.png  used on input
- line 1067.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_open_2010.png, id=141, 722.7pt x 433.62pt>
+ line 1066.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_open_2010.png, id=137, 722.7pt x 433.62pt>
 File: images/cumulative_returns_open_2010.png Graphic file (type png)
 <use images/cumulative_returns_open_2010.png>
 Package pdftex.def Info: images/cumulative_returns_open_2010.png  used on input
- line 1068.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_open_2011.png, id=142, 722.7pt x 433.62pt>
+ line 1067.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_open_2011.png, id=138, 722.7pt x 433.62pt>
 File: images/cumulative_returns_open_2011.png Graphic file (type png)
 <use images/cumulative_returns_open_2011.png>
 Package pdftex.def Info: images/cumulative_returns_open_2011.png  used on input
- line 1069.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_open_2012.png, id=143, 722.7pt x 433.62pt>
+ line 1068.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_open_2012.png, id=139, 722.7pt x 433.62pt>
 File: images/cumulative_returns_open_2012.png Graphic file (type png)
 <use images/cumulative_returns_open_2012.png>
 Package pdftex.def Info: images/cumulative_returns_open_2012.png  used on input
- line 1070.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_open_2013.png, id=144, 722.7pt x 433.62pt>
+ line 1069.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_open_2013.png, id=140, 722.7pt x 433.62pt>
 File: images/cumulative_returns_open_2013.png Graphic file (type png)
 <use images/cumulative_returns_open_2013.png>
 Package pdftex.def Info: images/cumulative_returns_open_2013.png  used on input
- line 1071.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_open_2014.png, id=145, 722.7pt x 433.62pt>
+ line 1070.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_open_2014.png, id=141, 722.7pt x 433.62pt>
 File: images/cumulative_returns_open_2014.png Graphic file (type png)
 <use images/cumulative_returns_open_2014.png>
 Package pdftex.def Info: images/cumulative_returns_open_2014.png  used on input
- line 1072.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_open_2015.png, id=146, 722.7pt x 433.62pt>
+ line 1071.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_open_2015.png, id=142, 722.7pt x 433.62pt>
 File: images/cumulative_returns_open_2015.png Graphic file (type png)
 <use images/cumulative_returns_open_2015.png>
 Package pdftex.def Info: images/cumulative_returns_open_2015.png  used on input
- line 1073.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_open_2016.png, id=147, 722.7pt x 433.62pt>
+ line 1072.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_open_2016.png, id=143, 722.7pt x 433.62pt>
 File: images/cumulative_returns_open_2016.png Graphic file (type png)
 <use images/cumulative_returns_open_2016.png>
 Package pdftex.def Info: images/cumulative_returns_open_2016.png  used on input
- line 1074.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_open_2017.png, id=148, 722.7pt x 433.62pt>
+ line 1073.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_open_2017.png, id=144, 722.7pt x 433.62pt>
 File: images/cumulative_returns_open_2017.png Graphic file (type png)
 <use images/cumulative_returns_open_2017.png>
 Package pdftex.def Info: images/cumulative_returns_open_2017.png  used on input
- line 1075.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_open_2018.png, id=149, 722.7pt x 433.62pt>
+ line 1074.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_open_2018.png, id=145, 722.7pt x 433.62pt>
 File: images/cumulative_returns_open_2018.png Graphic file (type png)
 <use images/cumulative_returns_open_2018.png>
 Package pdftex.def Info: images/cumulative_returns_open_2018.png  used on input
- line 1076.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_open_2019.png, id=150, 722.7pt x 433.62pt>
+ line 1075.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_open_2019.png, id=146, 722.7pt x 433.62pt>
 File: images/cumulative_returns_open_2019.png Graphic file (type png)
 <use images/cumulative_returns_open_2019.png>
 Package pdftex.def Info: images/cumulative_returns_open_2019.png  used on input
- line 1077.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_open_2020.png, id=151, 722.7pt x 433.62pt>
+ line 1076.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_open_2020.png, id=147, 722.7pt x 433.62pt>
 File: images/cumulative_returns_open_2020.png Graphic file (type png)
 <use images/cumulative_returns_open_2020.png>
 Package pdftex.def Info: images/cumulative_returns_open_2020.png  used on input
- line 1078.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_open_2021.png, id=152, 722.7pt x 433.62pt>
+ line 1077.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_open_2021.png, id=148, 722.7pt x 433.62pt>
 File: images/cumulative_returns_open_2021.png Graphic file (type png)
 <use images/cumulative_returns_open_2021.png>
 Package pdftex.def Info: images/cumulative_returns_open_2021.png  used on input
- line 1079.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_open_2022.png, id=153, 722.7pt x 433.62pt>
+ line 1078.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_open_2022.png, id=149, 722.7pt x 433.62pt>
 File: images/cumulative_returns_open_2022.png Graphic file (type png)
 <use images/cumulative_returns_open_2022.png>
 Package pdftex.def Info: images/cumulative_returns_open_2022.png  used on input
- line 1080.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_open_2023.png, id=154, 722.7pt x 433.62pt>
+ line 1079.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_open_2023.png, id=150, 722.7pt x 433.62pt>
 File: images/cumulative_returns_open_2023.png Graphic file (type png)
 <use images/cumulative_returns_open_2023.png>
 Package pdftex.def Info: images/cumulative_returns_open_2023.png  used on input
- line 1081.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
+ line 1080.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1061--1082
+Underfull \hbox (badness 10000) in paragraph at lines 1060--1081
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1061--1082
+Underfull \hbox (badness 10000) in paragraph at lines 1060--1081
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1061--1082
+Underfull \hbox (badness 10000) in paragraph at lines 1060--1081
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1061--1082
+Underfull \hbox (badness 10000) in paragraph at lines 1060--1081
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1061--1082
+Underfull \hbox (badness 10000) in paragraph at lines 1060--1081
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1061--1082
+Underfull \hbox (badness 10000) in paragraph at lines 1060--1081
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1061--1082
+Underfull \hbox (badness 10000) in paragraph at lines 1060--1081
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1061--1082
+Underfull \hbox (badness 10000) in paragraph at lines 1060--1081
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1061--1082
+Underfull \hbox (badness 10000) in paragraph at lines 1060--1081
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1061--1082
+Underfull \hbox (badness 10000) in paragraph at lines 1060--1081
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1061--1082
+Underfull \hbox (badness 10000) in paragraph at lines 1060--1081
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1061--1082
+Underfull \hbox (badness 10000) in paragraph at lines 1060--1081
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1061--1082
+Underfull \hbox (badness 10000) in paragraph at lines 1060--1081
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1061--1082
+Underfull \hbox (badness 10000) in paragraph at lines 1060--1081
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1061--1082
+Underfull \hbox (badness 10000) in paragraph at lines 1060--1081
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1061--1082
+Underfull \hbox (badness 10000) in paragraph at lines 1060--1081
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1061--1082
+Underfull \hbox (badness 10000) in paragraph at lines 1060--1081
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1061--1082
+Underfull \hbox (badness 10000) in paragraph at lines 1060--1081
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1061--1082
+Underfull \hbox (badness 10000) in paragraph at lines 1060--1081
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1061--1082
+Underfull \hbox (badness 10000) in paragraph at lines 1060--1081
 []
  []
 
-[17] [18 <./images/cumulative_returns_open_2003.png> <./images/cumulative_retur
-ns_open_2004.png>] [19 <./images/cumulative_returns_open_2005.png> <./images/cu
-mulative_returns_open_2006.png>] [20 <./images/cumulative_returns_open_2007.png
-> <./images/cumulative_returns_open_2008.png>] [21 <./images/cumulative_returns
-_open_2009.png> <./images/cumulative_returns_open_2010.png>] [22 <./images/cumu
-lative_returns_open_2011.png> <./images/cumulative_returns_open_2012.png>] [23 
+[16] [17 <./images/cumulative_returns_open_2003.png> <./images/cumulative_retur
+ns_open_2004.png>] [18 <./images/cumulative_returns_open_2005.png> <./images/cu
+mulative_returns_open_2006.png>] [19 <./images/cumulative_returns_open_2007.png
+> <./images/cumulative_returns_open_2008.png>] [20 <./images/cumulative_returns
+_open_2009.png> <./images/cumulative_returns_open_2010.png>] [21 <./images/cumu
+lative_returns_open_2011.png> <./images/cumulative_returns_open_2012.png>] [22 
 <./images/cumulative_returns_open_2013.png> <./images/cumulative_returns_open_2
-014.png>] [24 <./images/cumulative_returns_open_2015.png> <./images/cumulative_
-returns_open_2016.png>] [25 <./images/cumulative_returns_open_2017.png> <./imag
-es/cumulative_returns_open_2018.png>] [26 <./images/cumulative_returns_open_201
-9.png> <./images/cumulative_returns_open_2020.png>] [27 <./images/cumulative_re
+014.png>] [23 <./images/cumulative_returns_open_2015.png> <./images/cumulative_
+returns_open_2016.png>] [24 <./images/cumulative_returns_open_2017.png> <./imag
+es/cumulative_returns_open_2018.png>] [25 <./images/cumulative_returns_open_201
+9.png> <./images/cumulative_returns_open_2020.png>] [26 <./images/cumulative_re
 turns_open_2021.png> <./images/cumulative_returns_open_2022.png>]
-<images/cumulative_returns_close_2003.png, id=222, 722.7pt x 433.62pt>
+<images/cumulative_returns_close_2003.png, id=218, 722.7pt x 433.62pt>
 File: images/cumulative_returns_close_2003.png Graphic file (type png)
 <use images/cumulative_returns_close_2003.png>
 Package pdftex.def Info: images/cumulative_returns_close_2003.png  used on inpu
-t line 1083.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_close_2004.png, id=223, 722.7pt x 433.62pt>
+t line 1082.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_close_2004.png, id=219, 722.7pt x 433.62pt>
 File: images/cumulative_returns_close_2004.png Graphic file (type png)
 <use images/cumulative_returns_close_2004.png>
 Package pdftex.def Info: images/cumulative_returns_close_2004.png  used on inpu
-t line 1084.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_close_2005.png, id=224, 722.7pt x 433.62pt>
+t line 1083.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_close_2005.png, id=220, 722.7pt x 433.62pt>
 File: images/cumulative_returns_close_2005.png Graphic file (type png)
 <use images/cumulative_returns_close_2005.png>
 Package pdftex.def Info: images/cumulative_returns_close_2005.png  used on inpu
-t line 1085.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_close_2006.png, id=225, 722.7pt x 433.62pt>
+t line 1084.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_close_2006.png, id=221, 722.7pt x 433.62pt>
 File: images/cumulative_returns_close_2006.png Graphic file (type png)
 <use images/cumulative_returns_close_2006.png>
 Package pdftex.def Info: images/cumulative_returns_close_2006.png  used on inpu
-t line 1086.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_close_2007.png, id=226, 722.7pt x 433.62pt>
+t line 1085.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_close_2007.png, id=222, 722.7pt x 433.62pt>
 File: images/cumulative_returns_close_2007.png Graphic file (type png)
 <use images/cumulative_returns_close_2007.png>
 Package pdftex.def Info: images/cumulative_returns_close_2007.png  used on inpu
-t line 1087.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_close_2008.png, id=227, 722.7pt x 433.62pt>
+t line 1086.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_close_2008.png, id=223, 722.7pt x 433.62pt>
 File: images/cumulative_returns_close_2008.png Graphic file (type png)
 <use images/cumulative_returns_close_2008.png>
 Package pdftex.def Info: images/cumulative_returns_close_2008.png  used on inpu
-t line 1088.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_close_2009.png, id=228, 722.7pt x 433.62pt>
+t line 1087.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_close_2009.png, id=224, 722.7pt x 433.62pt>
 File: images/cumulative_returns_close_2009.png Graphic file (type png)
 <use images/cumulative_returns_close_2009.png>
 Package pdftex.def Info: images/cumulative_returns_close_2009.png  used on inpu
-t line 1089.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_close_2010.png, id=229, 722.7pt x 433.62pt>
+t line 1088.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_close_2010.png, id=225, 722.7pt x 433.62pt>
 File: images/cumulative_returns_close_2010.png Graphic file (type png)
 <use images/cumulative_returns_close_2010.png>
 Package pdftex.def Info: images/cumulative_returns_close_2010.png  used on inpu
-t line 1090.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_close_2011.png, id=230, 722.7pt x 433.62pt>
+t line 1089.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_close_2011.png, id=226, 722.7pt x 433.62pt>
 File: images/cumulative_returns_close_2011.png Graphic file (type png)
 <use images/cumulative_returns_close_2011.png>
 Package pdftex.def Info: images/cumulative_returns_close_2011.png  used on inpu
-t line 1091.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_close_2012.png, id=231, 722.7pt x 433.62pt>
+t line 1090.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_close_2012.png, id=227, 722.7pt x 433.62pt>
 File: images/cumulative_returns_close_2012.png Graphic file (type png)
 <use images/cumulative_returns_close_2012.png>
 Package pdftex.def Info: images/cumulative_returns_close_2012.png  used on inpu
-t line 1092.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_close_2013.png, id=232, 722.7pt x 433.62pt>
+t line 1091.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_close_2013.png, id=228, 722.7pt x 433.62pt>
 File: images/cumulative_returns_close_2013.png Graphic file (type png)
 <use images/cumulative_returns_close_2013.png>
 Package pdftex.def Info: images/cumulative_returns_close_2013.png  used on inpu
-t line 1093.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_close_2014.png, id=233, 722.7pt x 433.62pt>
+t line 1092.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_close_2014.png, id=229, 722.7pt x 433.62pt>
 File: images/cumulative_returns_close_2014.png Graphic file (type png)
 <use images/cumulative_returns_close_2014.png>
 Package pdftex.def Info: images/cumulative_returns_close_2014.png  used on inpu
-t line 1094.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_close_2015.png, id=234, 722.7pt x 433.62pt>
+t line 1093.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_close_2015.png, id=230, 722.7pt x 433.62pt>
 File: images/cumulative_returns_close_2015.png Graphic file (type png)
 <use images/cumulative_returns_close_2015.png>
 Package pdftex.def Info: images/cumulative_returns_close_2015.png  used on inpu
-t line 1095.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_close_2016.png, id=235, 722.7pt x 433.62pt>
+t line 1094.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_close_2016.png, id=231, 722.7pt x 433.62pt>
 File: images/cumulative_returns_close_2016.png Graphic file (type png)
 <use images/cumulative_returns_close_2016.png>
 Package pdftex.def Info: images/cumulative_returns_close_2016.png  used on inpu
-t line 1096.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_close_2017.png, id=236, 722.7pt x 433.62pt>
+t line 1095.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_close_2017.png, id=232, 722.7pt x 433.62pt>
 File: images/cumulative_returns_close_2017.png Graphic file (type png)
 <use images/cumulative_returns_close_2017.png>
 Package pdftex.def Info: images/cumulative_returns_close_2017.png  used on inpu
-t line 1097.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_close_2018.png, id=237, 722.7pt x 433.62pt>
+t line 1096.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_close_2018.png, id=233, 722.7pt x 433.62pt>
 File: images/cumulative_returns_close_2018.png Graphic file (type png)
 <use images/cumulative_returns_close_2018.png>
 Package pdftex.def Info: images/cumulative_returns_close_2018.png  used on inpu
-t line 1098.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_close_2019.png, id=238, 722.7pt x 433.62pt>
+t line 1097.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_close_2019.png, id=234, 722.7pt x 433.62pt>
 File: images/cumulative_returns_close_2019.png Graphic file (type png)
 <use images/cumulative_returns_close_2019.png>
 Package pdftex.def Info: images/cumulative_returns_close_2019.png  used on inpu
-t line 1099.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_close_2020.png, id=239, 722.7pt x 433.62pt>
+t line 1098.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_close_2020.png, id=235, 722.7pt x 433.62pt>
 File: images/cumulative_returns_close_2020.png Graphic file (type png)
 <use images/cumulative_returns_close_2020.png>
 Package pdftex.def Info: images/cumulative_returns_close_2020.png  used on inpu
-t line 1100.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_close_2021.png, id=240, 722.7pt x 433.62pt>
+t line 1099.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_close_2021.png, id=236, 722.7pt x 433.62pt>
 File: images/cumulative_returns_close_2021.png Graphic file (type png)
 <use images/cumulative_returns_close_2021.png>
 Package pdftex.def Info: images/cumulative_returns_close_2021.png  used on inpu
-t line 1101.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_close_2022.png, id=241, 722.7pt x 433.62pt>
+t line 1100.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_close_2022.png, id=237, 722.7pt x 433.62pt>
 File: images/cumulative_returns_close_2022.png Graphic file (type png)
 <use images/cumulative_returns_close_2022.png>
 Package pdftex.def Info: images/cumulative_returns_close_2022.png  used on inpu
-t line 1102.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
-<images/cumulative_returns_close_2023.png, id=242, 722.7pt x 433.62pt>
+t line 1101.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
+<images/cumulative_returns_close_2023.png, id=238, 722.7pt x 433.62pt>
 File: images/cumulative_returns_close_2023.png Graphic file (type png)
 <use images/cumulative_returns_close_2023.png>
 Package pdftex.def Info: images/cumulative_returns_close_2023.png  used on inpu
-t line 1103.
-(pdftex.def)             Requested size: 526.08893pt x 315.65335pt.
+t line 1102.
+(pdftex.def)             Requested size: 531.77911pt x 319.06747pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 1083--1104
+Underfull \hbox (badness 10000) in paragraph at lines 1082--1103
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1083--1104
+Underfull \hbox (badness 10000) in paragraph at lines 1082--1103
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1083--1104
+Underfull \hbox (badness 10000) in paragraph at lines 1082--1103
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1083--1104
+Underfull \hbox (badness 10000) in paragraph at lines 1082--1103
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1083--1104
+Underfull \hbox (badness 10000) in paragraph at lines 1082--1103
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1083--1104
+Underfull \hbox (badness 10000) in paragraph at lines 1082--1103
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1083--1104
+Underfull \hbox (badness 10000) in paragraph at lines 1082--1103
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1083--1104
+Underfull \hbox (badness 10000) in paragraph at lines 1082--1103
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1083--1104
+Underfull \hbox (badness 10000) in paragraph at lines 1082--1103
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1083--1104
+Underfull \hbox (badness 10000) in paragraph at lines 1082--1103
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1083--1104
+Underfull \hbox (badness 10000) in paragraph at lines 1082--1103
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1083--1104
+Underfull \hbox (badness 10000) in paragraph at lines 1082--1103
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1083--1104
+Underfull \hbox (badness 10000) in paragraph at lines 1082--1103
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1083--1104
+Underfull \hbox (badness 10000) in paragraph at lines 1082--1103
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1083--1104
+Underfull \hbox (badness 10000) in paragraph at lines 1082--1103
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1083--1104
+Underfull \hbox (badness 10000) in paragraph at lines 1082--1103
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1083--1104
+Underfull \hbox (badness 10000) in paragraph at lines 1082--1103
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1083--1104
+Underfull \hbox (badness 10000) in paragraph at lines 1082--1103
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1083--1104
+Underfull \hbox (badness 10000) in paragraph at lines 1082--1103
 []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1083--1104
+Underfull \hbox (badness 10000) in paragraph at lines 1082--1103
 []
  []
 
-[28 <./images/cumulative_returns_open_2023.png> <./images/cumulative_returns_cl
-ose_2003.png>] [29 <./images/cumulative_returns_close_2004.png> <./images/cumul
-ative_returns_close_2005.png>] [30 <./images/cumulative_returns_close_2006.png>
- <./images/cumulative_returns_close_2007.png>] [31 <./images/cumulative_returns
-_close_2008.png> <./images/cumulative_returns_close_2009.png>] [32 <./images/cu
+[27 <./images/cumulative_returns_open_2023.png> <./images/cumulative_returns_cl
+ose_2003.png>] [28 <./images/cumulative_returns_close_2004.png> <./images/cumul
+ative_returns_close_2005.png>] [29 <./images/cumulative_returns_close_2006.png>
+ <./images/cumulative_returns_close_2007.png>] [30 <./images/cumulative_returns
+_close_2008.png> <./images/cumulative_returns_close_2009.png>] [31 <./images/cu
 mulative_returns_close_2010.png> <./images/cumulative_returns_close_2011.png>] 
-[33 <./images/cumulative_returns_close_2012.png> <./images/cumulative_returns_c
-lose_2013.png>] [34 <./images/cumulative_returns_close_2014.png> <./images/cumu
-lative_returns_close_2015.png>] [35 <./images/cumulative_returns_close_2016.png
-> <./images/cumulative_returns_close_2017.png>] [36 <./images/cumulative_return
-s_close_2018.png> <./images/cumulative_returns_close_2019.png>] [37 <./images/c
+[32 <./images/cumulative_returns_close_2012.png> <./images/cumulative_returns_c
+lose_2013.png>] [33 <./images/cumulative_returns_close_2014.png> <./images/cumu
+lative_returns_close_2015.png>] [34 <./images/cumulative_returns_close_2016.png
+> <./images/cumulative_returns_close_2017.png>] [35 <./images/cumulative_return
+s_close_2018.png> <./images/cumulative_returns_close_2019.png>] [36 <./images/c
 umulative_returns_close_2020.png> <./images/cumulative_returns_close_2021.png>]
-[38 <./images/cumulative_returns_close_2022.png> <./images/cumulative_returns_c
+[37 <./images/cumulative_returns_close_2022.png> <./images/cumulative_returns_c
 lose_2023.png>]
-Overfull \hbox (0.21283pt too wide) in paragraph at lines 1133--1137
-\T1/lmr/m/n/10.95 (+7) c o m / w h at -[] is -[] t h e -[] w e e k e n d -[] e 
-f f e ct -[] in -[] s t o c k s /# : ~ : t e x t = B a c k t e s t s % 2 0 r e 
-v e a l % 2 0 t h a t % 2 0 t h e r e % 2 0 i s ,[] s t o c k s
+Overfull \hbox (0.13016pt too wide) in paragraph at lines 1140--1142
+\T1/lmr/m/n/10.95 (+10) y s / s t o ck -[] m a r k et -[] c r a s h -[] of -[] 
+1 9 8 7 # : ~ : t e x t = O n % 2 0 O c t o b e r % 2 0 1 6 % 2 C % 2 0 t h e %
+ 2 0 r o l l i n g ,[] D J I A % 2 0 h a d % 2 0 l
  []
 
-[39] (./writeup.aux)
+[38] (./writeup.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
@@ -1358,13 +1358,13 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 15549 strings out of 474934
- 252602 string characters out of 5759818
+ 15546 strings out of 474934
+ 252577 string characters out of 5759818
  1940807 words of memory out of 5000000
  36617 multiletter control sequences out of 15000+600000
- 620546 words of font info for 143 fonts, out of 8000000 for 9000
+ 620463 words of font info for 142 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 77i,11n,81p,1004b,682s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 77i,11n,81p,1004b,684s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/lo
 cal/texlive/2023/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/local/texliv
 e/2023/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2023/tex
@@ -1377,10 +1377,10 @@ live/2023/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2023/
 texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2023/texmf-dist
 /fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2023/texmf-dist/fonts/typ
 e1/public/lm/lmtti10.pfb>
-Output written on writeup.pdf (39 pages, 2513198 bytes).
+Output written on writeup.pdf (38 pages, 2513353 bytes).
 PDF statistics:
- 451 PDF objects out of 1000 (max. 8388607)
- 285 compressed objects within 3 object streams
- 64 named destinations out of 1000 (max. 500000)
+ 447 PDF objects out of 1000 (max. 8388607)
+ 282 compressed objects within 3 object streams
+ 63 named destinations out of 1000 (max. 500000)
  31007 words of extra memory for PDF output out of 35830 (max. 10000000)
 
