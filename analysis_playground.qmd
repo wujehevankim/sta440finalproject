@@ -479,7 +479,7 @@ breakdown_table_column_percentages_df_formatted_FOMCCLOSE <- data.frame(lapply(b
 
 
 breakdown_table_WasMondayCloseHigherThanFridayClose_vs_FOMCAction <- data.frame(
-  . = c("Monday Open Lower Than Friday Close", "Monday Open Higher Than Friday Close"),
+  . = c("Monday Close Lower Than Friday Close", "Monday Close Higher Than Friday Close"),
   SuperCut = c(breakdown_table_column_percentages_df_formatted_FOMCCLOSE[5][[1]][1], breakdown_table_column_percentages_df_formatted_FOMCCLOSE[5][[1]][2]),
   Cut = c(breakdown_table_column_percentages_df_formatted_FOMCCLOSE[2][[1]][1], breakdown_table_column_percentages_df_formatted_FOMCCLOSE[2][[1]][2]),
   Pause = c(breakdown_table_column_percentages_df_formatted_FOMCCLOSE[4][[1]][1], breakdown_table_column_percentages_df_formatted_FOMCCLOSE[4][[1]][2]),
@@ -540,8 +540,8 @@ print(chi_square_test_WasMondayCloseHigherThanFridayClose_vs_FOMCaction)
 ```{r}
 df4$PrecedingWeekFridayMonth <- factor(df4$PrecedingWeekFridayMonth, levels = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"))
 
-table(df4$PrecedingWeekFridayMonth)
-aggregate(WasMondayOpenHigherThanFridayClose ~ PrecedingWeekFridayMonth, data = df4, mean)
+#table(df4$PrecedingWeekFridayMonth)
+#aggregate(WasMondayOpenHigherThanFridayClose ~ PrecedingWeekFridayMonth, data = df4, mean)
 library(ggplot2)
 ggplot(df4, aes(x = PrecedingWeekFridayMonth, fill = factor(WasMondayOpenHigherThanFridayClose))) +
   geom_bar(position = "fill") +
@@ -581,8 +581,8 @@ chi_sq_test_MonthOPEN
 ```{r}
 #df4$PrecedingWeekFridayMonth <- factor(df4$PrecedingWeekFridayMonth, levels = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"))
 
-table(df4$PrecedingWeekFridayMonth)
-aggregate(WasMondayCloseHigherThanFridayClose ~ PrecedingWeekFridayMonth, data = df4, mean)
+#table(df4$PrecedingWeekFridayMonth)
+#aggregate(WasMondayCloseHigherThanFridayClose ~ PrecedingWeekFridayMonth, data = df4, mean)
 library(ggplot2)
 ggplot(df4, aes(x = PrecedingWeekFridayMonth, fill = factor(WasMondayCloseHigherThanFridayClose))) +
   geom_bar(position = "fill") +
