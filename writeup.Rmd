@@ -81,31 +81,134 @@ p1/p2
 
 \text{ }\text{ }\text{ }\text{ } Similarly, we explore the relationship between "University of Michigan Consumer Sentiment Index (CSI) Shocks" — defined as CSI economic data figures releasing more than 5 below market consensus directly preceding the release — and Monday's market prices. The University of Michigan Consumer Sentiment Index (CSI) operates on a scale from 1 to 100, with higher values indicating more favorable consumer perceptions of the economy and lower values reflecting more pessimistic outlooks. Based on the pre-defined threshold for a "CSI Shock", we discovered a notable disparity in the proportions of instances where the Monday opening price was lower versus higher than Friday's close, particularly when comparing scenarios of CSI being classified as non-shock versus shock. Intriguingly, a chi-square test revealed this difference to be statistically significant, with a p-value of 0.013, underscoring the potential impact of CSI shocks on market behavior at the start of the week. (See Appendix - Figures 5, 6) In addition, in terms of the relationship between Monday's closing price relative to Friday's close, when considering `CSIActualMinusExpected` (the difference between the released CSI print and market consensus) as the continuous variable of interest, a distinct variation in the distribution's mode or peak becomes evident. This variation is particularly noticeable when comparing instances where the Monday closing price was higher versus those where it was lower. (See Appendix - Figure 7)\newline
 \text{ }\text{ }\text{ }\text{ } Furthermore, we categorize the Federal Reserve's interest rate decisions into five distinct groups: "SuperCut" for reductions of 50 basis points (bps) or more, "Cut" for a 25bps reduction, "Pause" for no change, "Hike" for a 25bps increase, and "SuperHike" for increases of 50bps or more. When examining the impact of these FOMC actions on the stock market, specifically in relation to Monday's opening and closing prices, we find no statistically significant differences in the proportion breakdown across these five categories. This contrasts with the notable disparities observed in relation to Nonfarm Payrolls (NFP) and Consumer Sentiment Index (CSI) impacts, as previously discussed. (See Appendix - Figures 8~11)
-\text{ }\text{ }\text{ }\text{ } Considering the influence of months on stock market fluctuations (often attributed to cyclical trends and seasonal investor activities) we explored the impact of random effects associated with different months. Notably, we observed non-negligible differences in these proportions, with chi-square tests indicating borderline statistical significance: a p-value of 0.062 for Monday's open price being higher than Friday's close and 0.086 for Monday's close price being higher than Friday's close. Consequently, in our final modeling, we included both fixed-effects and random-effects models for Monday's open and close prices, resulting in a total of four models. This approach allows for a comprehensive comparison of simulated return results, accommodating the potential variability introduced by monthly market dynamics. (See Appendix - Figures 12, 13)\newline
+\text{ }\text{ }\text{ }\text{ } Considering the influence of months on stock market fluctuations (often attributed to cyclical trends and seasonal investor activities) we explored the impact of random effects associated with different months. Notably, we observed non-negligible differences in these proportions, with chi-square tests indicating borderline statistical significance: a p-value of 0.062 for Monday's open price being higher than Friday's close and 0.086 for Monday's close price being higher than Friday's close. Consequently, in our final modeling, we included both fixed-effects and mixed-effects models for Monday's open and close prices, resulting in a total of four models. This approach allows for a comprehensive comparison of simulated return results, accommodating the potential variability introduced by monthly market dynamics. (See Appendix - Figures 12, 13)\newline
 
 
 
 **Model Selection Using Forward Selection** \newline
 \text{ }\text{ }\text{ }\text{ } Logistic regression serves as a fundamental statistical tool, particularly apt for scenarios involving binary outcomes, such as the "Monday Effect" in our study. It offers a way to model the probability of a binary response based on one or more predictor variables. This approach is particularly fitting for our analysis, as it allows for the exploration of how various market indicators and economic events influence the likelihood of Monday's opening or closing prices being higher than Friday's close. Logistic regression's capacity to handle binary outcomes, coupled with its ability to incorporate a range of continuous and categorical variables, makes it an ideal choice for dissecting the complex interplay of factors that drive market movements. By using this method, we can quantify the strength and direction of the relationships between our predictors and the market's opening and closing behaviors, providing a robust framework for understanding and forecasting market dynamics.\newline
 \text{ }\text{ }\text{ }\text{ } In our pursuit to identify the most appropriate models for analyzing the "Monday Effect," we employed a forward selection approach for both our response variables: whether Monday's open price is higher than Friday's close and whether Monday's close price is higher than Friday's close. This method started with a null model, progressively adding predictors based on their statistical significance and contribution to model fit, guided by the principle of minimizing the Akaike Information Criterion (AIC). By minimizing the AIC, we aimed to find a model that best explains the data with a minimal number of parameters, striking a balance between model simplicity and explanatory power. Our dataset, enriched with diverse market indicators and event flags, served as a robust foundation for this process.\newline
-\text{ }\text{ }\text{ }\text{ } For the response variable `WasMondayOpenHigherThanFridayClose`, we initially considered an extensive set of potential predictors, including market movements on Fridays, impact of economic indicators like Nonfarm Payrolls (NFP) and the Consumer Sentiment Index (CSI), and FOMC decisions. The forward selection method meticulously evaluated each predictor's influence, ultimately narrowing down to a model that included factors like the last Friday of the month, CSI shocks, and unemployment rate changes. This model was further refined into two distinct versions: a non-random model focusing on fixed effects and a mixed model incorporating random effects based on the month, acknowledging the seasonal variations in stock market behavior. Similarly, for `WasMondayCloseHigherThanFridayClose`, we applied the same rigorous forward selection process. The resulting models captured key predictors such as NFP shocks, triple witching days, and CSI impacts, again resulting in both non-random and mixed model variants. The mixed model, in particular, accounted for monthly variances, reflecting the nuanced interplay of temporal factors in market dynamics.\newline
+\text{ }\text{ }\text{ }\text{ } For the response variable `MondayOpenHigherThanFridayClose`, we initially considered an extensive set of potential predictors, including market movements on Fridays, impact of economic indicators like Nonfarm Payrolls (NFP) and the Consumer Sentiment Index (CSI), and FOMC decisions. The forward selection method meticulously evaluated each predictor's influence, ultimately narrowing down to a model that included factors like the last Friday of the month, CSI shocks, and unemployment rate changes. This model was further refined into two distinct versions: a non-random model focusing on fixed effects and a mixed model incorporating random effects based on the month, acknowledging the seasonal variations in stock market behavior. Similarly, for `MondayCloseHigherThanFridayClose`, we applied the same rigorous forward selection process. The resulting models captured key predictors such as NFP shocks, triple witching days, and CSI impacts, again resulting in both non-random and mixed model variants. The mixed model, in particular, accounted for monthly variances, reflecting the nuanced interplay of temporal factors in market dynamics.\newline
 \text{ }\text{ }\text{ }\text{ } Further details and the precise mathematical formulation of the four models will be meticulously outlined and interpreted in the following section, offering an in-depth perspective on their structure and implications.\newline
 
 
 
-**model with intercepts (and model output r in appendix)** \newline
+
+## III. Model Specifications
+**Monday Open Price > Friday Close Price** \newline
+\text{ }\text{ }\text{ }\text{ } For the binary response variable `MondayOpenHigherThanFridayClose`, our analysis led to the formulation of both fixed-effects and random-effects logistic regression models. The models identified several significant predictor variables. The binary predictors — `isItLastFridayOfTheMonth`, `wasFridayCloseHigherThanThursdayHigh`, and `CSIOutcomeIsShock` — denote categorical influences, while `CSIActualMinusExpected` and `UnemploymentActualMinusPreviousInPercent` are continuous, providing a measure of quantitative impact on the probability of Monday's opening price being higher than Friday's close.\newline
+\text{ }\text{ }\text{ }\text{ } In the fixed-effects model, the coefficient for `isItLastFridayOfTheMonth` is positive, indicating a higher likelihood of Monday's open being greater than Friday's close when the preceding Friday was the last Friday of the month. Conversely, `wasFridayCloseHigherThanThursdayHigh` and `CSIOutcomeIsShock` have negative coefficients, suggesting a reduced likelihood under these conditions. Notably, the magnitude of the coefficient for `CSIOutcomeIsShock` is the largest, signifying a strong association with the response variable. The mixed-effects model incorporates the same predictors with slightly different coefficients and includes a random effect for the variable Month, capturing the variability across different months. Here too, the `CSIOutcomeIsShock` variable stands out with the highest coefficient magnitude, reflecting its substantial association with Monday's opening price behavior.\newline
+
+\text{Fixed-Effects Model:}
+\vspace{-9mm}
+\begin{align*}
+\Pr(\mathit{MondayOpenHigherThanFridayClose}_i = 1) &= \pi_i \\
+\log\left(\frac{\pi_i}{1 - \pi_i}\right) &= 0.241 + 0.441 \cdot \mathit{isItLastFridayOfTheMonth}_i \\
+&\quad - 0.388 \cdot \mathit{wasFridayCloseHigherThanThursdayHigh}_i \\
+&\quad - 1.440 \cdot \mathit{CSIOutcomeIsShock}_i \\
+&\quad - 0.088 \cdot \mathit{CSIActualMinusExpected}_i \\
+&\quad - 0.709 \cdot \mathit{UnemploymentActualMinusPreviousInPercent}_i
+\end{align*}
+\vspace{5mm}
+\text{Mixed-Effects Model:}
+\vspace{-9mm}
+\begin{align*}
+\Pr(\mathit{MondayOpenHigherThanFridayClose}_i = 1) &= \pi_i \\
+\log\left(\frac{\pi_i}{1 - \pi_i}\right) &= 0.216 + 0.441 \cdot \mathit{isItLastFridayOfTheMonth}_i \\
+&\quad - 0.388 \cdot \mathit{wasFridayCloseHigherThanThursdayHigh}_i \\
+&\quad - 1.450 \cdot \mathit{CSIOutcomeIsShock}_i \\
+&\quad - 0.089 \cdot \mathit{CSIActualMinusExpected}_i \\
+&\quad - 0.705 \cdot \mathit{UnemploymentActualMinusPreviousInPercent}_i \\
+&\quad + u_{\text{Month}_i}
+\end{align*}
+
+\vspace{6mm}
+
+**Monday Close Price > Friday Close Price** \newline
+\text{ }\text{ }\text{ }\text{ } For the binary response variable `MondayCloseHigherThanFridayClose`, we similarly include both fixed-effects and random-effects specifications. The significant predictors for these models are a mix of binary variables — `NFPOutcomeIsShock`, `wasFridayHighLowerThanThursdayLow`, `fridayWasATripleWitchDay`, and `wasFridayIntradayPositive` — one continuous variable (`CSIActualMinusExpected`), and one categorical variable (`CSIOutcome`) that encompass various CSI outcomes.\newline
+\text{ }\text{ }\text{ }\text{ } In the fixed-effects model, negative coefficients for `NFPOutcomeIsShock`, `wasFridayHighLowerThanThursdayLow`, and `fridayWasATripleWitchDay` suggest these conditions are associated with a lower probability of Monday's close being higher than Friday's. Conversely, the positive coefficients for the `CSIOutcomeBaseline` and `CSIOutcomeUpbeat` indicate an association with an increased probability. The variable `CSIOutcomeUpbeat` carries the most significant weight in terms of coefficient magnitude. The mixed-effects model includes the same predictors and shows that the random variability attributed to `Month` can capture additional nuances in the data. The magnitude of the `CSIOutcomeUpbeat` coefficient is notably large here as well, suggesting a strong association with the probability of Monday's closing price being higher than Friday's close within the random-effects framework as well.\newline
+
+
+\text{Fixed-Effects Model:}
+\vspace{-9mm}
+\begin{align*}
+\Pr(\mathit{MondayCloseHigherThanFridayClose}_i = 1) &= \pi_i \\
+\log\left(\frac{\pi_i}{1 - \pi_i}\right) &= 0.300 -1.230 \cdot \mathit{NFPOutcomeIsShock}_i \\
+&\quad - 0.692 \cdot \mathit{wasFridayHighLowerThanThursdayLow}_i \\
+&\quad - 0.473 \cdot \mathit{fridayWasATripleWitchDay}_i \\
+&\quad - 0.240 \cdot \mathit{CSIActualMinusExpected}_i \\
+&\quad + 0.332 \cdot \mathit{CSIOutcomeBaseline}_i \\
+&\quad - 1.568 \cdot \mathit{CSIOutcomeShock}_i \\
+&\quad + 1.762 \cdot \mathit{CSIOutcomeUpbeat}_i \\
+&\quad - 0.228 \cdot \mathit{wasFridayIntradayPositive}_i
+\end{align*}
+\vspace{5mm}
+\text{Mixed-Effects Model:}
+\vspace{-9mm}
+\begin{align*}
+\Pr(\mathit{MondayCloseHigherThanFridayClose}_i = 1) &= \pi_i \\
+\log\left(\frac{\pi_i}{1 - \pi_i}\right) &= 0.283 -1.222 \cdot \mathit{NFPOutcomeIsShock}_i \\
+&\quad - 0.697 \cdot \mathit{wasFridayHighLowerThanThursdayLow}_i \\
+&\quad - 0.457 \cdot \mathit{fridayWasATripleWitchDay}_i \\
+&\quad - 0.245 \cdot \mathit{CSIActualMinusExpected}_i \\
+&\quad + 0.335 \cdot \mathit{CSIOutcomeBaseline}_i \\
+&\quad - 1.603 \cdot \mathit{CSIOutcomeShock}_i \\
+&\quad + 1.778 \cdot \mathit{CSIOutcomeUpbeat}_i \\
+&\quad - 0.229 \cdot \mathit{wasFridayIntradayPositive}i \\
+&\quad + u{\text{Monthclose}_i}
+\end{align*}
+
+
+\vspace{5mm}
+\text{ }\text{ }\text{ }\text{ } This structured overview provides a clear interpretation of how each variable is associated with the likelihood of Monday's closing price being higher than Friday's close. The coefficients reflect the strength of these associations, with their signs indicating the direction of the association, and their magnitude suggesting the strength of the relationship within the context of the model. Detailed R outputs for these models, including the p-values and statistical significance of each variable, as well as the final AIC metric for model comparison, are meticulously documented in Appendix - Figures 14 through 17. \newline
+
+
+## IV. Results
+\text{ }\text{ }\text{ }\text{ } With two models established for each binary response variable — `MondayOpenHigherThanFridayClose` and `MondayCloseHigherThanFridayClose` — we proceed to compare the simulated returns of the "blind strategy" against those of the fixed and mixed effects models. The "blind strategy" refers to the traditional approach of buying at Friday's close and selling at Monday's close each week. Our comparison extends over a twenty-year period from 2003 to 2023, where we analyze annualized simulated returns to extract meaningful insights and discern the potential efficacy of each strategy. This analysis aims to determine whether the sophisticated models outperform the simple heuristic of the "Monday Effect" across different time frames.\newline
+
+**Monday Open & Friday Close** \newline
+\text{ }\text{ }\text{ }\text{ } The table below ranks the performance of three investment strategies—blind, fixed-effect, and mixed-effects—annually, with 1 indicating the best and 3 the worst, noting that ties are possible. Upon aggregating average ranks across our period of interest, the fixed-effects model boasts the superior average rank, securing the first place 13 times, outperforming the mixed-effects model's 10 top placements, and the blind strategy's 6. \newline
+\begin{table}[H]
+\centering
+\begin{tabular}{cccc}
+\hline
+\textbf{Year} & \textbf{Blind Strategy} & \textbf{Fixed-effects Model} & \textbf{Mixed-effects Model} \\ \hline
+2003 & 3 & 1 & 1 \\
+2004 & 3 & 1 & 1 \\
+2005 & 3 & 1 & 1 \\
+2006 & 3 & 1 & 1 \\
+2007 & 1 & 2 & 2 \\
+2008 & 1 & 2 & 3 \\
+2009 & 3 & 1 & 2 \\
+2010 & 1 & 2 & 2 \\
+2011 & 3 & 2 & 1 \\
+2012 & 2 & 1 & 3 \\
+2013 & 3 & 1 & 2 \\
+2014 & 1 & 3 & 2 \\
+2015 & 2 & 1 & 1 \\
+2016 & 2 & 1 & 1 \\
+2017 & 2 & 1 & 1 \\
+2018 & 1 & 3 & 2 \\
+2019 & 3 & 1 & 2 \\
+2020 & 3 & 1 & 2 \\
+2021 & 3 & 2 & 1 \\
+2022 & 3 & 1 & 1 \\
+2023 & 1 & 2 & 2 \\ \hline
+\textit{Avg. Rank} & \textit{2.24} & \textit{1.48} & \textit{1.62} \\ \hline
+\end{tabular}
+\caption{Annual Ranking of Strategies by Simulated Returns}
+\label{table:strategy_rank}
+\end{table}
 
 
 
-## III. Results
-
-**returns** \newline
-
-## IV. Discussion
+**Monday Close & Friday Close** \newline
+\text{ }\text{ }\text{ }\text{ } below is a table outlining for each year from our timeframe of interest, among the three strategies (blind, fixed-effect, and mixed-effects), which performed better (1 being best out hte three, 3 is worst, and note that there are ties) also, aggregating the simple average "rank", it seems that fixed effects had the best average rank. \newline
+## V. Discussion
 
 
 \newpage
-## V. Appendix
+## VI. Appendix
 \vspace{5mm}
 
 _Figure 2: Proportion Breakdown of Monday Open and Close Relative to Friday Close_ \newline
@@ -433,12 +536,89 @@ chi_sq_test_MonthCLOSE
 
 
 
+\vspace{20mm}
+_Figure 14: Fixed-effects Model R Output for `MondayOpenHigherThanFridayClose`_\newline
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+df8 <- read.csv('data/addingUnemployment/SPY_ready_for_analysis_triple_witch_NFP_CSI_FOMC_with_month_withUnemployment_finished_electionMonthsAdded_FINAL_lastFridayAdded.csv', header = TRUE)
+#df8 <- rbind(df8[1:220, ], df8[264:nrow(df8), ])
+df8$NFPOutcomeIsShock <- ifelse(df8$NFPOutcome == "Shock", 1, 0)
+df8$CSIOutcomeIsShock <- ifelse(df8$CSIOutcome == "Shock", 1, 0)
+df8$PrecedingWeekFridayVolumePrecedingWeekThursdayVolumeRATIO <- (df8$PrecedingWeekFridayVolume) / (df8$PrecedingWeekThursdayVolume)
+df8$CSIActualMinusExpected[is.na(df8$CSIActualMinusExpected)] <- 0
+df8$Month <- with(df8, factor(
+  ifelse(PrecedingWeekFridayMonth %in% c("Mar", "Jan", "May", "Sept"), "Odd", "Even")))
+df8$Monthclose <- with(df8, factor(
+  ifelse(PrecedingWeekFridayMonth %in% c("Mar", "Jan", "Jun", "Jul", "Sept"), "Odd", "Even")))
+df8$FridayVolumeMinusThursdayVolume <- df8$PrecedingWeekFridayVolume - df8$PrecedingWeekThursdayVolume
+df8$wasFridayOpenHigherThanThursdayClose <- as.integer(df8$PrecedingWeekFridayOpen > df8$PrecedingWeekThursdayClose)
+df8$wasFridayHighHigherThanThursdayHigh <- as.integer(df8$PrecedingWeekFridayHigh > df8$PrecedingWeekThursdayHigh)
+df8$wasFridayLowLowerThanThursdayLow <- as.integer(df8$PrecedingWeekFridayLow > df8$PrecedingWeekThursdayLow)
+df8$wasFridayHighLowerThanThursdayLow <- as.integer(df8$PrecedingWeekFridayHigh < df8$PrecedingWeekThursdayLow)
+df8$wasFridayLowHigherThanThursdayHigh <- as.integer(df8$PrecedingWeekFridayLow > df8$PrecedingWeekThursdayHigh)
+df8$PrecedingWeekFridayHighMinusPrecedingWeekFridayOpen <- df8$PrecedingWeekFridayHigh - df8$PrecedingWeekFridayOpen
+df8$FridayCloseMinusThursdayHighInPercent <- ( (df8$PrecedingWeekFridayClose - df8$PrecedingWeekThursdayHigh) / (df8$PrecedingWeekThursdayHigh) )*100
+df8$wasFridayCloseHigherThanThursdayHigh <- as.integer(df8$PrecedingWeekFridayClose > df8$PrecedingWeekThursdayHigh)
 
+
+non_random_modelOPEN <- glm(formula = WasMondayOpenHigherThanFridayClose ~ isItLastFridayOfTheMonth + 
+    wasFridayCloseHigherThanThursdayHigh + CSIOutcomeIsShock + 
+    CSIActualMinusExpected + UnemploymentActualMinusPreviousInPercent, family = binomial, 
+    data = df8)
+
+
+summary(non_random_modelOPEN)
+
+```
+
+
+
+\vspace{20mm}
+_Figure 15: Random-effect Model R Output for `MondayOpenHigherThanFridayClose`_\newline
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(lme4)
+mixed_modelOPEN <- glmer(formula = WasMondayOpenHigherThanFridayClose ~ isItLastFridayOfTheMonth + 
+    wasFridayCloseHigherThanThursdayHigh + CSIOutcomeIsShock + 
+    CSIActualMinusExpected + UnemploymentActualMinusPreviousInPercent + (1 | Month), family = binomial, 
+    data = df8)
+
+
+summary(mixed_modelOPEN)
+
+```
+
+
+\vspace{20mm}
+_Figure 16: Fixed-effects Model R Output for `MondayCloseHigherThanFridayClose`_\newline
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+non_random_modelCLOSE <- glm(formula = WasMondayCloseHigherThanFridayClose ~ NFPOutcomeIsShock + 
+    wasFridayHighLowerThanThursdayLow + fridayWasATripleWitchDay + 
+    CSIActualMinusExpected + CSIOutcome + wasFridayIntradayPositive, family = binomial, 
+    data = df8)
+
+
+summary(non_random_modelCLOSE)
+
+```
+
+
+
+\vspace{20mm}
+_Figure 17: Random-effect Model R Output for `MondayCloseHigherThanFridayClose`_\newline
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(lme4)
+mixed_modelCLOSE <- glmer(WasMondayCloseHigherThanFridayClose ~ NFPOutcomeIsShock + 
+    wasFridayHighLowerThanThursdayLow + fridayWasATripleWitchDay + 
+    CSIActualMinusExpected + CSIOutcome + wasFridayIntradayPositive + 
+                     (1 | Monthclose), 
+                     family = binomial, data = df8)
+summary(mixed_modelCLOSE)
+
+```
 
 
 
 \newpage
-## VI. Sources
+## VII. Sources
 1. "The State of the U.S. Retail Investors: Insights & Implications". BNY Mellon. 2022. [https://www.bnymellon.com/content/dam/bnymellon/documents/pdf/insights/the-state-of-the-us-retail-investor.pdf](https://www.bnymellon.com/content/dam/bnymellon/documents/pdf/insights/the-state-of-the-us-retail-investor.pdf)
 2. "Balance Sheet of Households and Nonprofit Organizations". Federal Reserve Economic Data. 2023. [https://fred.stlouisfed.org/release/tables?rid=52&eid=809858#snid=809867](https://fred.stlouisfed.org/release/tables?rid=52&eid=809858#snid=809867)
 3. "More Evidence That It’s Really Hard to ‘beat the Market’ over Time, 95% of Finance Professionals Can’t Do It". American Enterprise Institute. 2018. [https://www.aei.org/carpe-diem/more-evidence-that-its-really-hard-to-beat-the-market-over-time-95-of-finance-professionals-cant-do-it/](https://www.aei.org/carpe-diem/more-evidence-that-its-really-hard-to-beat-the-market-over-time-95-of-finance-professionals-cant-do-it/)
